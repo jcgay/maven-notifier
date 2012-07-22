@@ -6,7 +6,7 @@
 
     <groupId>com.github.jcgay.maven</groupId>
     <artifactId>maven-growl-notifier</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
 
     <distributionManagement>
         <repository>
@@ -112,7 +112,7 @@
                             <artifactId>slf4j-nop</artifactId>
                             <groupId>org.slf4j</groupId>
                             <version>${slf4j-version}</version>
-                            <destination>${project.build.directory}/slf4j-nop-1.6.6.jar</destination>
+                            <destination>${project.build.directory}/slf4j-nop-${slf4j-version}.jar</destination>
                         </configuration>
                     </execution>
                 </executions>
@@ -145,6 +145,5 @@
             </extension>
         </extensions>
     </build>
-
 
 </project>
