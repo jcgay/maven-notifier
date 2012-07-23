@@ -24,7 +24,6 @@ public class GrowlEventSpy extends AbstractEventSpy {
         notification = Gntp.notificationInfo(application, "build-status-notification")
                            .displayName("Build result status")
                            .build();
-        application.addNotificationInfo(notification);
         client = Gntp.client(application)
                      .listener(new Slf4jGntpListener())
                      .onPort(23053)
