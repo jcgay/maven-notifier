@@ -11,6 +11,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
+
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
@@ -61,6 +63,7 @@ public class GrowlEventSpyExample {
 
     private MavenExecutionResult givenEventForProjectNamed(String projectName) {
         MavenExecutionResult result = mock(MavenExecutionResult.class);
+        given(result.getTopologicallySortedProjects()).willReturn(Arrays.asList(project));
         given(project.getName()).willReturn(projectName);
         given(result.getProject()).willReturn(project);
         return result;

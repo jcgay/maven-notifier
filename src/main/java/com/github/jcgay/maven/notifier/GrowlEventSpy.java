@@ -1,6 +1,7 @@
 package com.github.jcgay.maven.notifier;
 
 import com.google.code.jgntp.*;
+import com.google.common.io.Closeables;
 import org.apache.maven.eventspy.AbstractEventSpy;
 import org.apache.maven.execution.BuildFailure;
 import org.apache.maven.execution.BuildSuccess;
@@ -9,6 +10,10 @@ import org.apache.maven.execution.MavenExecutionResult;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.StringUtils;
 
+import javax.imageio.ImageIO;
+import java.awt.image.RenderedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -120,8 +125,26 @@ public class GrowlEventSpy extends AbstractEventSpy {
     }
 
     private void sendMessage(BuildSummary summary, String message) throws InterruptedException {
-        GntpNotification success = Gntp.notification(notification, summary.getProject().getName()).text(message).build();
+        GntpNotification success = Gntp.notification(notification, summary.getProject().getName()).text(message).icon(getIcon(summary)).build();
         client.notify(success, 5, TimeUnit.SECONDS);
+    }
+
+    private RenderedImage getIcon(BuildSummary summary) {
+        String icon;
+        if (isSuccess(summary)) {
+            icon = "/dialog-clean.png";
+        } else {
+            icon = "/dialog-error-5.png";
+        }
+
+        InputStream is = getClass().getResourceAsStream(icon);
+        try {
+            return ImageIO.read(is);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            Closeables.closeQuietly(is);
+        }
     }
 
     private boolean isFailure(BuildSummary summary) {
