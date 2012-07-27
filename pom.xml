@@ -6,7 +6,7 @@
 
     <groupId>com.github.jcgay.maven</groupId>
     <artifactId>maven-growl-notifier</artifactId>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.3</version>
 
     <distributionManagement>
         <repository>

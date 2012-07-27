@@ -4,7 +4,7 @@ Just a simple Growl notifier for Maven 3.x using GNTP.
 
 ##Installation
 
-Get [maven-growl-notifier](http://repository-jcgay.forge.cloudbees.com/release/com/github/jcgay/maven/maven-growl-notifier/0.2/maven-growl-notifier-0.2.zip) and extract it in your %M2_HOME%/lib/ext folder.
+Get [maven-growl-notifier](http://repository-jcgay.forge.cloudbees.com/release/com/github/jcgay/maven/maven-growl-notifier/0.3/maven-growl-notifier-0.3.zip) and extract it in your %M2_HOME%/lib/ext folder.
 
 ##Growl configuration
 
