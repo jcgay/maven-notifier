@@ -40,13 +40,7 @@ public class GrowlEventSpy extends AbstractEventSpy {
     }
 
     private Status determineBuildStatus(MavenExecutionResult result) {
-        for (MavenProject project : result.getTopologicallySortedProjects()) {
-            BuildSummary summary = result.getBuildSummary(project);
-            if (Status.of(summary) == Status.FAILURE) {
-                return Status.FAILURE;
-            }
-        }
-        return Status.SUCCESS;
+        return result.hasExceptions() ? Status.FAILURE : Status.SUCCESS;
     }
 
     private void initGrowlClient() {
