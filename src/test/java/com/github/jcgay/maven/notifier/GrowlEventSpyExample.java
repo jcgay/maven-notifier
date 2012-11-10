@@ -1,5 +1,6 @@
 package com.github.jcgay.maven.notifier;
 
+import com.github.jcgay.maven.notifier.growl.GrowlEventSpy;
 import org.apache.maven.eventspy.EventSpy;
 import org.apache.maven.execution.BuildFailure;
 import org.apache.maven.execution.BuildSuccess;

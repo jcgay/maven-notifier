@@ -4,8 +4,8 @@
         <component>
             <role>org.apache.maven.eventspy.EventSpy</role>
             <role-hint>default</role-hint>
-            <implementation>com.github.jcgay.maven.notifier.GrowlEventSpy</implementation>
-            <description>Notification to indicate build status with Growl.</description>
+            <implementation>com.github.jcgay.maven.notifier.EventSpyChooser</implementation>
+            <description>Notification to indicate build status.</description>
             <isolated-realm>false</isolated-realm>
         </component>
     </components>

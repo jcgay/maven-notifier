@@ -1,4 +1,4 @@
-package com.github.jcgay.maven.notifier;
+package com.github.jcgay.maven.notifier.growl;
 
 import com.google.code.jgntp.GntpErrorStatus;
 import com.google.code.jgntp.GntpListener;

@@ -1,14 +1,13 @@
-package com.github.jcgay.maven.notifier;
+package com.github.jcgay.maven.notifier.growl;
 
+import com.github.jcgay.maven.notifier.AbstractCustomEventSpy;
+import com.github.jcgay.maven.notifier.Status;
 import com.google.code.jgntp.*;
-import org.apache.maven.eventspy.AbstractEventSpy;
-import org.apache.maven.execution.BuildSummary;
 import org.apache.maven.execution.MavenExecutionResult;
-import org.apache.maven.project.MavenProject;
 
 import java.util.concurrent.TimeUnit;
 
-public class GrowlEventSpy extends AbstractEventSpy {
+public class GrowlEventSpy extends AbstractCustomEventSpy {
 
     private GntpApplicationInfo application;
     private GntpNotificationInfo notification;
@@ -16,31 +15,27 @@ public class GrowlEventSpy extends AbstractEventSpy {
 
     @Override
     public void init(Context context) throws Exception {
+        super.init(context);
         initGrowlApplication();
         initBuildStatusGrowlNotification();
         initGrowlClient();
-        super.init(context);
     }
 
     @Override
     public void onEvent(Object event) throws Exception {
+        super.onEvent(event);
         if (isExecutionResult(event) && isClientRegistered()) {
             sendNotificationFor((MavenExecutionResult) event);
         }
-        super.onEvent(event);
     }
 
     @Override
     public void close() throws Exception {
+        super.close();
         if (isClientRegistered()) {
             TimeUnit.SECONDS.sleep(1); // Seems that the client can be shutdown without having processed all the notifications...
             client.shutdown(5, TimeUnit.SECONDS);
         }
-        super.close();
-    }
-
-    private Status determineBuildStatus(MavenExecutionResult result) {
-        return result.hasExceptions() ? Status.FAILURE : Status.SUCCESS;
     }
 
     private void initGrowlClient() {
@@ -62,34 +57,12 @@ public class GrowlEventSpy extends AbstractEventSpy {
     }
 
     private void sendNotificationFor(MavenExecutionResult resultEvent) throws InterruptedException {
-        sendMessageWithIcon(determineBuildStatus(resultEvent), resultEvent.getProject().getName(), buildNotificationMessage(resultEvent));
-    }
-
-    private String buildNotificationMessage(MavenExecutionResult result) {
-        StringBuilder builder = new StringBuilder();
-        for (MavenProject project : result.getTopologicallySortedProjects()) {
-            BuildSummary buildSummary = result.getBuildSummary(project);
-            Status status = Status.of(buildSummary);
-            builder.append(project.getName());
-            builder.append(": ");
-            builder.append(status.message());
-            if (status != Status.SKIPPED) {
-                builder.append(" [");
-                builder.append(TimeUnit.MILLISECONDS.toSeconds(buildSummary.getTime()));
-                builder.append("s] ");
-            }
-            builder.append(System.getProperty("line.separator"));
-        }
-        return builder.toString();
+        sendMessageWithIcon(getBuildStatus(resultEvent), resultEvent.getProject().getName(), buildNotificationMessage(resultEvent));
     }
 
     private void sendMessageWithIcon(Status status, String title, String message) throws InterruptedException {
         GntpNotification success = Gntp.notification(notification, title).text(message).icon(status.icon()).build();
         client.notify(success, 5, TimeUnit.SECONDS);
-    }
-
-    private boolean isExecutionResult(Object event) {
-        return event instanceof MavenExecutionResult;
     }
 
     private boolean isClientRegistered() {
