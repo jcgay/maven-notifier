@@ -4,7 +4,7 @@
         <component>
             <role>org.apache.maven.eventspy.EventSpy</role>
             <role-hint>default</role-hint>
-            <implementation>com.github.jcgay.maven.notifier.EventSpyChooser</implementation>
+            <implementation>com.github.jcgay.maven.notifier.NotificationEventSpyChooser</implementation>
             <description>Notification to indicate build status.</description>
             <isolated-realm>false</isolated-realm>
         </component>

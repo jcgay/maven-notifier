@@ -2,13 +2,14 @@ package com.github.jcgay.maven.notifier;
 
 import com.github.jcgay.maven.notifier.growl.GrowlEventSpy;
 import com.github.jcgay.maven.notifier.notifysend.NotifySendEventSpy;
+import org.apache.maven.eventspy.AbstractEventSpy;
 import org.apache.maven.eventspy.EventSpy;
 
-public class EventSpyChooser implements EventSpy {
+public class NotificationEventSpyChooser extends AbstractEventSpy {
 
     private EventSpy spy;
 
-    public EventSpyChooser() {
+    public NotificationEventSpyChooser() {
         String os = System.getProperty("os.name").toLowerCase();
         if (isWindows(os) || isMacos(os)) {
             spy = new GrowlEventSpy();
