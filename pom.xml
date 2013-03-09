@@ -4,13 +4,13 @@
 
     <groupId>com.github.jcgay.maven</groupId>
     <artifactId>maven-growl-notifier</artifactId>
-    <version>0.4</version>
+    <version>0.5-SNAPSHOT</version>
 
     <scm>
         <url>https://github.com/jcgay/maven-notifier.git</url>
         <connection>scm:git:git://github.com/jcgay/maven-notifier.git</connection>
         <developerConnection>scm:git:git@github.com:jcgay/maven-notifier.git</developerConnection>
-      <tag>v0.4</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <distributionManagement>
