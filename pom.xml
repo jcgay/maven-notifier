@@ -11,7 +11,7 @@
     <scm>
         <url>https://github.com/jcgay/maven-notifier.git</url>
         <connection>scm:git:git://github.com/jcgay/maven-notifier.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:jcgay/maven-notifier.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:jcgay/maven-notifier.git</developerConnection>
     </scm>
 
     <distributionManagement>
