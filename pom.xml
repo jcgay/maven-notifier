@@ -8,6 +8,12 @@
     <artifactId>maven-growl-notifier</artifactId>
     <version>0.4-SNAPSHOT</version>
 
+    <scm>
+        <url>https://github.com/jcgay/maven-notifier.git</url>
+        <connection>scm:git:git://github.com/jcgay/maven-notifier.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:jcgay/maven-notifier.git</developerConnection>
+    </scm>
+
     <distributionManagement>
         <repository>
             <id>jcgay-cloudbees-release</id>
