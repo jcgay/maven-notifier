@@ -4,7 +4,9 @@ import com.github.jcgay.maven.notifier.growl.GrowlEventSpy;
 import com.github.jcgay.maven.notifier.notifysend.NotifySendEventSpy;
 import org.apache.maven.eventspy.AbstractEventSpy;
 import org.apache.maven.eventspy.EventSpy;
+import org.codehaus.plexus.component.annotations.Component;
 
+@Component(role = EventSpy.class, hint = "notification", description = "Send notification to indicate build status.")
 public class NotificationEventSpyChooser extends AbstractEventSpy {
 
     private EventSpy spy;
