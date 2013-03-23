@@ -2,7 +2,9 @@ package com.github.jcgay.maven.notifier.notifysend;
 
 import com.github.jcgay.maven.notifier.AbstractCustomEventSpy;
 import com.github.jcgay.maven.notifier.Status;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
+import com.google.common.base.Throwables;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,11 +22,21 @@ public class NotifySendEventSpy extends AbstractCustomEventSpy {
     private static final String CMD_TIMEOUT = "-t";
     private static final String CMD_ICON = "-i";
 
+    private final Executor executor;
+
+    public NotifySendEventSpy() {
+        this.executor = new OsExecutor();
+    }
+
+    @VisibleForTesting NotifySendEventSpy(Executor executor) {
+        this.executor = executor;
+    }
+
     @Override
     public void onEvent(Object event) throws Exception {
         super.onEvent(event);
         if (isExecutionResult(event)) {
-            Runtime.getRuntime().exec(buildCommand((MavenExecutionResult) event));
+            executor.exec(buildCommand((MavenExecutionResult) event));
         }
     }
 
@@ -57,5 +69,21 @@ public class NotifySendEventSpy extends AbstractCustomEventSpy {
             }
         }
         return icon.getPath();
+    }
+
+    interface Executor {
+        void exec(String[] command);
+    }
+
+    private static class OsExecutor implements Executor {
+
+        @Override
+        public void exec(String[] command) {
+            try {
+                Runtime.getRuntime().exec(command);
+            } catch (IOException e) {
+                Throwables.propagate(e);
+            }
+        }
     }
 }
