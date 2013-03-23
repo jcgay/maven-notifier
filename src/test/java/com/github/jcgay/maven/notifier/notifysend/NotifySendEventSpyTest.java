@@ -1,5 +1,6 @@
 package com.github.jcgay.maven.notifier.notifysend;
 
+import com.github.jcgay.maven.notifier.executor.Executor;
 import org.apache.maven.execution.DefaultMavenExecutionResult;
 import org.apache.maven.project.MavenProject;
 import org.testng.annotations.BeforeMethod;
@@ -45,7 +46,7 @@ public class NotifySendEventSpyTest {
         assertNull(result.getCommand());
     }
 
-    private static class ExecutorHolder implements NotifySendEventSpy.Executor {
+    private static class ExecutorHolder implements Executor {
 
         private String[] command;
 

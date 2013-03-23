@@ -2,9 +2,10 @@ package com.github.jcgay.maven.notifier.notifysend;
 
 import com.github.jcgay.maven.notifier.AbstractCustomEventSpy;
 import com.github.jcgay.maven.notifier.Status;
+import com.github.jcgay.maven.notifier.executor.Executor;
+import com.github.jcgay.maven.notifier.executor.RuntimeExecutor;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
-import com.google.common.base.Throwables;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ public class NotifySendEventSpy extends AbstractCustomEventSpy {
     private final Executor executor;
 
     public NotifySendEventSpy() {
-        this.executor = new OsExecutor();
+        this.executor = new RuntimeExecutor();
     }
 
     @VisibleForTesting NotifySendEventSpy(Executor executor) {
@@ -71,19 +72,4 @@ public class NotifySendEventSpy extends AbstractCustomEventSpy {
         return icon.getPath();
     }
 
-    interface Executor {
-        void exec(String[] command);
-    }
-
-    private static class OsExecutor implements Executor {
-
-        @Override
-        public void exec(String[] command) {
-            try {
-                Runtime.getRuntime().exec(command);
-            } catch (IOException e) {
-                Throwables.propagate(e);
-            }
-        }
-    }
 }
