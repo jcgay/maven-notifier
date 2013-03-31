@@ -5,16 +5,34 @@ A status will be send at the end of a Maven build.
 
 ##Installation
 
-Get [maven-growl-notifier](http://repository-jcgay.forge.cloudbees.com/release/com/github/jcgay/maven/maven-growl-notifier/0.4/maven-growl-notifier-0.4.zip) and extract it in your %M2_HOME%/lib/ext folder.
+Get [maven-notifier](http://repository-jcgay.forge.cloudbees.com/release/com/github/jcgay/maven/maven-notifier/0.5/maven-notifier-0.5.zip) and extract it in your `%M2_HOME%/lib/ext` folder.
 
-##Growl
+##Available notifier
 
-Used by default on Mac OS and Windows.
+###Growl
 
-Growl must listen for incoming notifications. The option is available in the network section (Mac OS) or the security section of Growl (Windows).
+Used by default on Mac OS X and Windows.
 
-You cannot setup anything for now, the GNTP client is connecting to Growl on localhost:23053 without password.
+Growl must listen for incoming notifications. The option is available in the network section (Mac OS X) or the security section of Growl (Windows).
 
-##notify-send
+###notify-send
 
 Used by default on linux.
+
+###Notification center
+
+Available only on Mac OS X (Moutain lion).  
+Need to have [terminal-notifier](https://github.com/alloy/terminal-notifier) installed.
+
+##Configuration
+
+If needed, configuration can be done by creating a `maven-notifier.properties` file in your `%M2_HOME%/lib/ext` folder.  
+
+- notifier.implementation : which implementation to use.
+    - Growl = com.github.jcgay.maven.notifier.growl.GrowlEventSpy
+    - Notification Center = com.github.jcgay.maven.notifier.notificationcenter.NotificationCenterEventSpy
+    - Notify-send = com.github.jcgay.maven.notifier.notifysend.NotifySendEventSpy
+- notifier.growl.port : growl listening port
+- notifier.notify-send.path = notify-send binary path
+- notifier.notify-send.timeout = the timeout in milliseconds at which to expire the notification
+- notifier.notification-center.path : terminal-notifier binary path.
