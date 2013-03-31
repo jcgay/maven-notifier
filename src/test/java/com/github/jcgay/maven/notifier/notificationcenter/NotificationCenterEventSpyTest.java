@@ -1,11 +1,15 @@
 package com.github.jcgay.maven.notifier.notificationcenter;
 
+import com.github.jcgay.maven.notifier.Configuration;
+import com.github.jcgay.maven.notifier.ConfigurationParser;
 import com.github.jcgay.maven.notifier.executor.ExecutorHolder;
 import org.apache.maven.execution.DefaultMavenExecutionResult;
 import org.apache.maven.model.Build;
 import org.apache.maven.project.MavenProject;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.util.Properties;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -17,7 +21,9 @@ public class NotificationCenterEventSpyTest {
     @BeforeMethod
     private void init() {
         result = new ExecutorHolder();
-        spy = new NotificationCenterEventSpy(result);
+        Configuration configuration = new Configuration();
+        configuration.setNotificationCenterPath("path");
+        spy = new NotificationCenterEventSpy(result, configuration);
     }
 
     @Test
@@ -33,7 +39,7 @@ public class NotificationCenterEventSpyTest {
 
         spy.onEvent(event);
 
-        assertEquals("/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier", result.getCommand()[0]);
+        assertEquals("path", result.getCommand()[0]);
         assertEquals("-title", result.getCommand()[1]);
         assertEquals(project.getName(), result.getCommand()[2]);
         assertEquals("-message", result.getCommand()[3]);

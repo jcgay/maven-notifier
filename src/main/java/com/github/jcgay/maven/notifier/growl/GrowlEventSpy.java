@@ -1,6 +1,7 @@
 package com.github.jcgay.maven.notifier.growl;
 
 import com.github.jcgay.maven.notifier.AbstractCustomEventSpy;
+import com.github.jcgay.maven.notifier.Configuration;
 import com.github.jcgay.maven.notifier.Status;
 import com.google.code.jgntp.*;
 import org.apache.maven.execution.MavenExecutionResult;
@@ -12,6 +13,11 @@ public class GrowlEventSpy extends AbstractCustomEventSpy {
     private GntpApplicationInfo application;
     private GntpNotificationInfo notification;
     private GntpClient client;
+    private Configuration configuration;
+
+    public GrowlEventSpy(Configuration configuration) {
+        this.configuration = configuration;
+    }
 
     @Override
     public void init(Context context) throws Exception {
@@ -41,7 +47,7 @@ public class GrowlEventSpy extends AbstractCustomEventSpy {
     private void initGrowlClient() {
         client = Gntp.client(application)
                      .listener(new Slf4jGntpListener())
-                     .onPort(23053)
+                     .onPort(configuration.getGrowlPort())
                      .build();
         client.register();
     }

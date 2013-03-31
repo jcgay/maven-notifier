@@ -1,6 +1,7 @@
 package com.github.jcgay.maven.notifier.notifysend;
 
 import com.github.jcgay.maven.notifier.AbstractCustomEventSpy;
+import com.github.jcgay.maven.notifier.Configuration;
 import com.github.jcgay.maven.notifier.Status;
 import com.github.jcgay.maven.notifier.executor.Executor;
 import com.github.jcgay.maven.notifier.executor.RuntimeExecutor;
@@ -19,18 +20,20 @@ public class NotifySendEventSpy extends AbstractCustomEventSpy {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NotifySendEventSpy.class);
 
-    private static final String NOTIFY_PATH = "/usr/bin/notify-send";
     private static final String CMD_TIMEOUT = "-t";
     private static final String CMD_ICON = "-i";
 
     private final Executor executor;
+    private Configuration configuration;
 
-    public NotifySendEventSpy() {
+    public NotifySendEventSpy(Configuration configuration) {
+        this.configuration = configuration;
         this.executor = new RuntimeExecutor();
     }
 
-    @VisibleForTesting NotifySendEventSpy(Executor executor) {
+    @VisibleForTesting NotifySendEventSpy(Executor executor, Configuration configuration) {
         this.executor = executor;
+        this.configuration = configuration;
     }
 
     @Override
@@ -43,11 +46,11 @@ public class NotifySendEventSpy extends AbstractCustomEventSpy {
 
     private String[] buildCommand(MavenExecutionResult result) {
         String[] commands = new String[7];
-        commands[0] = NOTIFY_PATH;
+        commands[0] = configuration.getNotifySendPath();
         commands[1] = result.getProject().getName();
         commands[2] = buildNotificationMessage(result);
         commands[3] = CMD_TIMEOUT;
-        commands[4] = String.valueOf(TimeUnit.SECONDS.toMillis(2));
+        commands[4] = String.valueOf(configuration.getNotifySendTimeout());
         commands[5] = CMD_ICON;
         commands[6] = toFilePath(getBuildStatus(result));
 

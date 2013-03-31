@@ -1,6 +1,7 @@
 package com.github.jcgay.maven.notifier.notificationcenter;
 
 import com.github.jcgay.maven.notifier.AbstractCustomEventSpy;
+import com.github.jcgay.maven.notifier.Configuration;
 import com.github.jcgay.maven.notifier.Status;
 import com.github.jcgay.maven.notifier.executor.Executor;
 import com.github.jcgay.maven.notifier.executor.RuntimeExecutor;
@@ -14,7 +15,6 @@ public class NotificationCenterEventSpy extends AbstractCustomEventSpy {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NotificationCenterEventSpy.class);
 
-    private static final String NOTIFICATION_CENTER_PATH = "/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier";
     private static final String CMD_MESSAGE = "-message";
     private static final String CMD_TITLE = "-title";
     private static final String CMD_GROUP = "-group";
@@ -22,13 +22,16 @@ public class NotificationCenterEventSpy extends AbstractCustomEventSpy {
     private static final String GROUP = "maven";
 
     private final Executor executor;
+    private Configuration configuration;
 
-    public NotificationCenterEventSpy() {
+    public NotificationCenterEventSpy(Configuration configuration) {
+        this.configuration = configuration;
         this.executor = new RuntimeExecutor();
     }
 
-    @VisibleForTesting NotificationCenterEventSpy(Executor executor) {
+    @VisibleForTesting NotificationCenterEventSpy(Executor executor, Configuration configuration) {
         this.executor = executor;
+        this.configuration = configuration;
     }
 
     @Override
@@ -51,7 +54,7 @@ public class NotificationCenterEventSpy extends AbstractCustomEventSpy {
 
     private String[] buildCommand(MavenExecutionResult result) {
         String[] commands = new String[9];
-        commands[0] = NOTIFICATION_CENTER_PATH;
+        commands[0] = configuration.getNotificationCenterPath();
         commands[1] = CMD_TITLE;
         commands[2] = result.getProject().getName();
         commands[3] = CMD_MESSAGE;
