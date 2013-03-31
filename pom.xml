@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.jcgay.maven</groupId>
-    <artifactId>maven-growl-notifier</artifactId>
+    <artifactId>maven-notifier</artifactId>
     <version>0.5-SNAPSHOT</version>
 
     <scm>
