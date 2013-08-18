@@ -4,8 +4,7 @@ import com.github.jcgay.maven.notifier.growl.GrowlEventSpy;
 import com.github.jcgay.maven.notifier.notifysend.NotifySendEventSpy;
 import com.google.common.annotations.VisibleForTesting;
 import org.codehaus.plexus.component.annotations.Component;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.codehaus.plexus.component.annotations.Requirement;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -13,7 +12,11 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+@Component(role = ConfigurationParser.class, hint = "maven-notifier-configuration")
 public class ConfigurationParser {
+
+    @Requirement
+    private org.codehaus.plexus.logging.Logger logger;
 
     public static enum Property {
         IMPLEMENTATION("notifier.implementation"),
@@ -43,41 +46,38 @@ public class ConfigurationParser {
         }
     }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationParser.class);
+    public Configuration get() {
+        URL url = getConfigurationUrl();
 
-    private Configuration configuration;
-
-    public ConfigurationParser() {
-
-        URL url = null;
-        try {
-            url = new URL(this.getClass().getProtectionDomain().getCodeSource().getLocation(), "maven-notifier.properties");
-        } catch (MalformedURLException e) {
-            LOGGER.debug("Cannot create URL for default configuration file.", e);
-            configuration = defaultConfiguration();
+        if (url == null) {
+            return defaultConfiguration();
         }
 
-        if (url != null) {
-            try {
-                Properties properties = new Properties();
-                properties.load(url.openStream());
-                properties.put("os.name", System.getProperty("os.name"));
-                configuration = parse(properties);
-            } catch (IOException e) {
-                LOGGER.debug("Cannot read default configuration file: {}.", url, e);
-                configuration = defaultConfiguration();
-            }
+        try {
+            Properties properties = new Properties();
+            properties.load(url.openStream());
+            return get(properties);
+        } catch (IOException e) {
+            logger.debug("Cannot read default configuration file: " + url, e);
+            return defaultConfiguration();
         }
     }
 
-    @VisibleForTesting ConfigurationParser(Properties properties) {
+    private URL getConfigurationUrl() {
+        try {
+            return new URL(this.getClass().getProtectionDomain().getCodeSource().getLocation(), "maven-notifier.properties");
+        } catch (MalformedURLException e) {
+            logger.debug("Cannot create URL for default configuration file.", e);
+            return null;
+        }
+    }
+
+    @VisibleForTesting Configuration get(Properties properties) {
         if (properties.getProperty("os.name") == null) {
             properties.put("os.name", System.getProperty("os.name"));
         }
-        configuration = parse(properties);
-    }
-
-    public Configuration get() {
+        Configuration configuration = parse(properties);
+        logger.debug("Notifier will use configuration: " + configuration);
         return configuration;
     }
 
@@ -92,7 +92,7 @@ public class ConfigurationParser {
     }
 
     private Configuration defaultConfiguration() {
-        return new Configuration();
+        return get(new Properties());
     }
 
     private String defaultImplementation(Properties properties) {

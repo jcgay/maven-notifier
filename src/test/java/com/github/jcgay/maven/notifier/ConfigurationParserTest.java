@@ -2,7 +2,11 @@ package com.github.jcgay.maven.notifier;
 
 import com.github.jcgay.maven.notifier.growl.GrowlEventSpy;
 import com.github.jcgay.maven.notifier.notifysend.NotifySendEventSpy;
-import org.testng.Assert;
+import org.codehaus.plexus.logging.Logger;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -14,6 +18,17 @@ import static org.testng.Assert.assertEquals;
 
 public class ConfigurationParserTest {
 
+    @InjectMocks
+    private ConfigurationParser parser = new ConfigurationParser();
+
+    @Mock
+    Logger logger;
+
+    @BeforeMethod
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+    }
+
     @Test(dataProvider = "os_and_notifier_implementation")
     public void should_return_default_implementation_configuration(String os, String expectedImplementation) throws Exception {
 
@@ -24,10 +39,8 @@ public class ConfigurationParserTest {
         }
         properties.setProperty("os.name", os);
 
-        ConfigurationParser parser = new ConfigurationParser(properties);
-
         // When
-        Configuration result = parser.get();
+        Configuration result = parser.get(properties);
 
         // Then
         assertEquals(result.getImplementation(), expectedImplementation);
@@ -46,8 +59,7 @@ public class ConfigurationParserTest {
     @Test
     public void should_return_default_configuration() throws Exception {
 
-        ConfigurationParser parser = new ConfigurationParser(new Properties());
-        Configuration result = parser.get();
+        Configuration result = parser.get(new Properties());
 
         assertEquals(result.getNotifySendPath(), Property.NOTIFY_SEND_PATH.defaultValue());
         assertEquals(Long.valueOf(result.getNotifySendTimeout()), Long.valueOf(Property.NOTIFY_SEND_TIMEOUT.defaultValue()));
@@ -65,9 +77,8 @@ public class ConfigurationParserTest {
         properties.put(Property.NOTIFICATION_CENTER_PATH.key(), "notification-center.path");
         properties.put(Property.GROWL_PORT.key(), "1");
 
-        ConfigurationParser parser = new ConfigurationParser(properties);
+        Configuration result = parser.get(properties);
 
-        Configuration result = parser.get();
         assertEquals(result.getImplementation(), "test");
         assertEquals(result.getNotifySendPath(), "notify-send.path");
         assertEquals(result.getNotifySendTimeout(), 1);

@@ -1,5 +1,7 @@
 package com.github.jcgay.maven.notifier;
 
+import com.google.common.base.Objects;
+
 public class Configuration {
 
     private String implementation;
@@ -46,5 +48,16 @@ public class Configuration {
 
     public void setGrowlPort(String growlPort) {
         this.growlPort = growlPort;
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+                .add("implementation", implementation)
+                .add("notifySendPath", notifySendPath)
+                .add("notifySendTimeout", notifySendTimeout)
+                .add("notificationCenterPath", notificationCenterPath)
+                .add("growlPort", growlPort)
+                .toString();
     }
 }
