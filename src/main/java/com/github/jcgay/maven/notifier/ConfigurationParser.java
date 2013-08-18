@@ -12,39 +12,13 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.*;
+
 @Component(role = ConfigurationParser.class, hint = "maven-notifier-configuration")
 public class ConfigurationParser {
 
     @Requirement
     private org.codehaus.plexus.logging.Logger logger;
-
-    public static enum Property {
-        IMPLEMENTATION("notifier.implementation"),
-        NOTIFY_SEND_PATH("notifier.notify-send.path", "/usr/bin/notify-send"),
-        NOTIFY_SEND_TIMEOUT("notifier.notify-send.timeout", String.valueOf(TimeUnit.SECONDS.toMillis(2))),
-        NOTIFICATION_CENTER_PATH("notifier.notification-center.path", "/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier"),
-        GROWL_PORT("notifier.growl.port", String.valueOf(23053));
-
-        private String key;
-        private String defaultValue;
-
-        private Property(String key) {
-            this.key = key;
-        }
-
-        private Property(String key, String defaultValue) {
-            this.key = key;
-            this.defaultValue = defaultValue;
-        }
-
-        public String key() {
-            return key;
-        }
-
-        public String defaultValue() {
-            return defaultValue;
-        }
-    }
 
     public Configuration get() {
         URL url = getConfigurationUrl();
@@ -73,21 +47,18 @@ public class ConfigurationParser {
     }
 
     @VisibleForTesting Configuration get(Properties properties) {
-        if (properties.getProperty("os.name") == null) {
-            properties.put("os.name", System.getProperty("os.name"));
-        }
-        Configuration configuration = parse(properties);
+        Configuration configuration = parse(new ConfigurationProperties(properties));
         logger.debug("Notifier will use configuration: " + configuration);
         return configuration;
     }
 
-    private Configuration parse(Properties properties) {
+    private Configuration parse(ConfigurationProperties properties) {
         Configuration configuration = new Configuration();
-        configuration.setImplementation(properties.getProperty(Property.IMPLEMENTATION.key(), defaultImplementation(properties)));
-        configuration.setNotifySendPath(properties.getProperty(Property.NOTIFY_SEND_PATH.key(), Property.NOTIFY_SEND_PATH.defaultValue()));
-        configuration.setNotifySendTimeout(properties.getProperty(Property.NOTIFY_SEND_TIMEOUT.key(), Property.NOTIFY_SEND_TIMEOUT.defaultValue()));
-        configuration.setNotificationCenterPath(properties.getProperty(Property.NOTIFICATION_CENTER_PATH.key(), Property.NOTIFICATION_CENTER_PATH.defaultValue()));
-        configuration.setGrowlPort(properties.getProperty(Property.GROWL_PORT.key(), Property.GROWL_PORT.defaultValue()));
+        configuration.setImplementation(properties.get(IMPLEMENTATION));
+        configuration.setNotifySendPath(properties.get(NOTIFY_SEND_PATH));
+        configuration.setNotifySendTimeout(properties.get(NOTIFY_SEND_TIMEOUT));
+        configuration.setNotificationCenterPath(properties.get(NOTIFICATION_CENTER_PATH));
+        configuration.setGrowlPort(properties.get(GROWL_PORT));
         return configuration;
     }
 
@@ -95,19 +66,74 @@ public class ConfigurationParser {
         return get(new Properties());
     }
 
-    private String defaultImplementation(Properties properties) {
-        String os = ((String) properties.get("os.name")).toLowerCase();
-        if (isMacos(os) || isWindows(os)) {
-            return GrowlEventSpy.class.getName();
+    public static class ConfigurationProperties {
+
+        private static final String OS_NAME = "os.name";
+
+        private Properties properties;
+
+        private ConfigurationProperties(Properties properties) {
+            this.properties = properties;
+            if (currentOs() == null) {
+                properties.put(OS_NAME, System.getProperty(OS_NAME));
+            }
         }
-        return NotifySendEventSpy.class.getName();
-    }
 
-    private boolean isMacos(String os) {
-        return os.indexOf("mac") != -1;
-    }
+        public String get(Property property) {
+            switch (property) {
+                case IMPLEMENTATION:
+                    return properties.getProperty(property.key(), defaultImplementation());
+                default:
+                    return properties.getProperty(property.key(), property.defaultValue());
+            }
+        }
 
-    private boolean isWindows(String os) {
-        return os.indexOf("win") != -1;
+        public String currentOs() {
+            return properties.getProperty(OS_NAME);
+        }
+
+        private String defaultImplementation() {
+            String os = currentOs().toLowerCase();
+            if (isMacos(os) || isWindows(os)) {
+                return GrowlEventSpy.class.getName();
+            }
+            return NotifySendEventSpy.class.getName();
+        }
+
+        private boolean isMacos(String os) {
+            return os.indexOf("mac") != -1;
+        }
+
+        private boolean isWindows(String os) {
+            return os.indexOf("win") != -1;
+        }
+
+        public static enum Property {
+            IMPLEMENTATION("notifier.implementation"),
+            NOTIFY_SEND_PATH("notifier.notify-send.path", "/usr/bin/notify-send"),
+            NOTIFY_SEND_TIMEOUT("notifier.notify-send.timeout", String.valueOf(TimeUnit.SECONDS.toMillis(2))),
+            NOTIFICATION_CENTER_PATH("notifier.notification-center.path", "/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier"),
+            GROWL_PORT("notifier.growl.port", String.valueOf(23053));
+
+            private String key;
+            private String defaultValue;
+
+            private Property(String key) {
+                this.key = key;
+            }
+
+            private Property(String key, String defaultValue) {
+                this.key = key;
+                this.defaultValue = defaultValue;
+            }
+
+            public String key() {
+                return key;
+            }
+
+            public String defaultValue() {
+                return defaultValue;
+            }
+        }
     }
 }

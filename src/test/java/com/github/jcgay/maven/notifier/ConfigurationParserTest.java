@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 import java.util.Map;
 import java.util.Properties;
 
-import static com.github.jcgay.maven.notifier.ConfigurationParser.Property;
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property;
 import static org.testng.Assert.assertEquals;
 
 public class ConfigurationParserTest {
