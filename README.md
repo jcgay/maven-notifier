@@ -28,11 +28,8 @@ Need to have [terminal-notifier](https://github.com/alloy/terminal-notifier) ins
 
 If needed, configuration can be done by creating a `maven-notifier.properties` file in your `%M2_HOME%/lib/ext` folder.  
 
-- notifier.implementation : which implementation to use.
-    - Growl = com.github.jcgay.maven.notifier.growl.GrowlEventSpy
-    - Notification Center = com.github.jcgay.maven.notifier.notificationcenter.NotificationCenterEventSpy
-    - Notify-send = com.github.jcgay.maven.notifier.notifysend.NotifySendEventSpy
-- notifier.growl.port : growl listening port
-- notifier.notify-send.path = notify-send binary path
-- notifier.notify-send.timeout = the timeout in milliseconds at which to expire the notification
-- notifier.notification-center.path : terminal-notifier binary path.
+- `notifier.implementation` : which implementation to use. (`growl`, `notificationcenter`, `notifysend`)
+- `notifier.growl.port` : growl listening port
+- `notifier.notify-send.path` = notify-send binary path
+- `notifier.notify-send.timeout` = the timeout in milliseconds at which to expire the notification
+- `notifier.notification-center.path` : terminal-notifier binary path.
