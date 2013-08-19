@@ -2,18 +2,21 @@ package com.github.jcgay.maven.notifier.notificationcenter;
 
 import com.github.jcgay.maven.notifier.AbstractCustomEventSpy;
 import com.github.jcgay.maven.notifier.Configuration;
+import com.github.jcgay.maven.notifier.Notifier;
 import com.github.jcgay.maven.notifier.Status;
 import com.github.jcgay.maven.notifier.executor.Executor;
 import com.github.jcgay.maven.notifier.executor.RuntimeExecutor;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
 import org.apache.maven.execution.MavenExecutionResult;
+import org.codehaus.plexus.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class NotificationCenterEventSpy extends AbstractCustomEventSpy {
+@Component(role = Notifier.class, hint = "notification-center")
+public class NotificationCenterNotifier extends AbstractCustomEventSpy {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(NotificationCenterEventSpy.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NotificationCenterNotifier.class);
 
     private static final String CMD_MESSAGE = "-message";
     private static final String CMD_TITLE = "-title";
@@ -22,17 +25,23 @@ public class NotificationCenterEventSpy extends AbstractCustomEventSpy {
     private static final String GROUP = "maven";
 
     private final Executor executor;
-    private Configuration configuration;
 
-    public NotificationCenterEventSpy(Configuration configuration) {
-        this.configuration = configuration;
+    public NotificationCenterNotifier() {
         this.executor = new RuntimeExecutor();
     }
 
     @VisibleForTesting
-    NotificationCenterEventSpy(Executor executor, Configuration configuration) {
+    NotificationCenterNotifier(Executor executor, Configuration configuration) {
         this.executor = executor;
         this.configuration = configuration;
+    }
+
+    @Override
+    public boolean shouldNotify() {
+        if (NotificationCenterNotifier.class.getName().contains(configuration.getImplementation())) {
+            return true;
+        }
+        return false;
     }
 
     @Override

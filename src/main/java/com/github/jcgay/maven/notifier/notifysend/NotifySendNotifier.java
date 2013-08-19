@@ -2,12 +2,14 @@ package com.github.jcgay.maven.notifier.notifysend;
 
 import com.github.jcgay.maven.notifier.AbstractCustomEventSpy;
 import com.github.jcgay.maven.notifier.Configuration;
+import com.github.jcgay.maven.notifier.Notifier;
 import com.github.jcgay.maven.notifier.Status;
 import com.github.jcgay.maven.notifier.executor.Executor;
 import com.github.jcgay.maven.notifier.executor.RuntimeExecutor;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
 import org.apache.maven.execution.MavenExecutionResult;
+import org.codehaus.plexus.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,25 +17,32 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
-public class NotifySendEventSpy extends AbstractCustomEventSpy {
+@Component(role = Notifier.class, hint = "notify-send")
+public class NotifySendNotifier extends AbstractCustomEventSpy {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(NotifySendEventSpy.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NotifySendNotifier.class);
 
     private static final String CMD_TIMEOUT = "-t";
     private static final String CMD_ICON = "-i";
 
     private final Executor executor;
-    private Configuration configuration;
 
-    public NotifySendEventSpy(Configuration configuration) {
-        this.configuration = configuration;
+    public NotifySendNotifier() {
         this.executor = new RuntimeExecutor();
     }
 
     @VisibleForTesting
-    NotifySendEventSpy(Executor executor, Configuration configuration) {
+    NotifySendNotifier(Executor executor, Configuration configuration) {
         this.executor = executor;
         this.configuration = configuration;
+    }
+
+    @Override
+    public boolean shouldNotify() {
+        if (this.getClass().getName().contains(configuration.getImplementation())) {
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -1,29 +1,30 @@
 package com.github.jcgay.maven.notifier.notificationcenter;
 
 import com.github.jcgay.maven.notifier.Configuration;
-import com.github.jcgay.maven.notifier.ConfigurationParser;
 import com.github.jcgay.maven.notifier.executor.ExecutorHolder;
+import com.github.jcgay.maven.notifier.growl.GrowlNotifier;
 import org.apache.maven.execution.DefaultMavenExecutionResult;
 import org.apache.maven.model.Build;
 import org.apache.maven.project.MavenProject;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Properties;
-
 import static junit.framework.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
-public class NotificationCenterEventSpyTest {
+public class NotificationCenterNotifierTest {
 
-    private NotificationCenterEventSpy spy;
+    private NotificationCenterNotifier notifier;
     private ExecutorHolder result;
+    private Configuration configuration;
 
     @BeforeMethod
     private void init() {
         result = new ExecutorHolder();
-        Configuration configuration = new Configuration();
+        configuration = new Configuration();
         configuration.setNotificationCenterPath("path");
-        spy = new NotificationCenterEventSpy(result, configuration);
+        notifier = new NotificationCenterNotifier(result, configuration);
     }
 
     @Test
@@ -37,7 +38,7 @@ public class NotificationCenterEventSpyTest {
         project.setBuild(build);
         event.setProject(project);
 
-        spy.onEvent(event);
+        notifier.onEvent(event);
 
         assertEquals("path", result.getCommand()[0]);
         assertEquals("-title", result.getCommand()[1]);
@@ -48,5 +49,25 @@ public class NotificationCenterEventSpyTest {
         assertEquals("maven", result.getCommand()[6]);
         assertEquals("-open", result.getCommand()[7]);
         assertEquals("/Applications", result.getCommand()[8]);
+    }
+
+    @Test
+    public void should_match_configuration() throws Exception {
+
+        configuration.setImplementation(NotificationCenterNotifier.class.getName());
+        assertTrue(notifier.shouldNotify());
+
+        configuration.setImplementation("notificationcenter");
+        assertTrue(notifier.shouldNotify());
+    }
+
+    @Test
+    public void should_not_match_configuration() throws Exception {
+
+        configuration.setImplementation(GrowlNotifier.class.getName());
+        assertFalse(notifier.shouldNotify());
+
+        configuration.setImplementation("notifysend");
+        assertFalse(notifier.shouldNotify());
     }
 }

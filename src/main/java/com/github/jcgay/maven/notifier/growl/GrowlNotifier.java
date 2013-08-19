@@ -1,23 +1,26 @@
 package com.github.jcgay.maven.notifier.growl;
 
-import com.github.jcgay.maven.notifier.AbstractCustomEventSpy;
-import com.github.jcgay.maven.notifier.Configuration;
-import com.github.jcgay.maven.notifier.Status;
+import com.github.jcgay.maven.notifier.*;
 import com.google.code.jgntp.*;
 import org.apache.maven.eventspy.EventSpy;
 import org.apache.maven.execution.MavenExecutionResult;
+import org.codehaus.plexus.component.annotations.Component;
 
 import java.util.concurrent.TimeUnit;
 
-public class GrowlEventSpy extends AbstractCustomEventSpy {
+@Component(role = Notifier.class, hint = "growl")
+public class GrowlNotifier extends AbstractCustomEventSpy {
 
     private GntpApplicationInfo application;
     private GntpNotificationInfo notification;
     private GntpClient client;
-    private Configuration configuration;
 
-    public GrowlEventSpy(Configuration configuration) {
-        this.configuration = configuration;
+    @Override
+    public boolean shouldNotify() {
+        if (this.getClass().getName().contains(configuration.getImplementation())) {
+            return true;
+        }
+        return false;
     }
 
     @Override

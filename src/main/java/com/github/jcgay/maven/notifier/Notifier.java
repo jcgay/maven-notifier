@@ -6,6 +6,13 @@ import org.apache.maven.execution.MavenExecutionResult;
 public interface Notifier {
 
     /**
+     * Indicate if the notifier is an implementation for the provided parameter.
+     *
+     * @return {@code true} if the notifier should be used to notify the build status.
+     */
+    boolean shouldNotify();
+
+    /**
      * Initializes the spy.
      *
      * @param context The event spy context, never {@code null}.

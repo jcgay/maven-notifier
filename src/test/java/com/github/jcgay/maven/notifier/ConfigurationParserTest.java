@@ -1,7 +1,7 @@
 package com.github.jcgay.maven.notifier;
 
-import com.github.jcgay.maven.notifier.growl.GrowlEventSpy;
-import com.github.jcgay.maven.notifier.notifysend.NotifySendEventSpy;
+import com.github.jcgay.maven.notifier.growl.GrowlNotifier;
+import com.github.jcgay.maven.notifier.notifysend.NotifySendNotifier;
 import org.codehaus.plexus.logging.Logger;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -50,9 +50,9 @@ public class ConfigurationParserTest {
     private Object[][] os_and_notifier_implementation() {
         // outdated os list: http://lopica.sourceforge.net/os.html
         return new Object[][] {
-                {"Mac OS X", GrowlEventSpy.class.getName()},
-                {"Windows XP", GrowlEventSpy.class.getName()},
-                {"Linux", NotifySendEventSpy.class.getName()}
+                {"Mac OS X", GrowlNotifier.class.getName()},
+                {"Windows XP", GrowlNotifier.class.getName()},
+                {"Linux", NotifySendNotifier.class.getName()}
         };
     }
 
