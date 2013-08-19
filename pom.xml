@@ -126,13 +126,20 @@
                         <id>get-logging-binding</id>
                         <phase>prepare-package</phase>
                         <goals>
-                            <goal>get</goal>
+                            <goal>copy</goal>
                         </goals>
                         <configuration>
-                            <artifactId>slf4j-nop</artifactId>
-                            <groupId>org.slf4j</groupId>
-                            <version>${slf4j-version}</version>
-                            <destination>${project.build.directory}/slf4j-nop-${slf4j-version}.jar</destination>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.slf4j</groupId>
+                                    <artifactId>slf4j-nop</artifactId>
+                                    <version>${slf4j-version}</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <destFileName>slf4j-nop-${slf4j-version}.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
                         </configuration>
                     </execution>
                 </executions>
