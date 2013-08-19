@@ -5,6 +5,7 @@ import com.github.jcgay.maven.notifier.notifysend.NotifySendNotifier;
 import com.google.common.annotations.VisibleForTesting;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
+import org.codehaus.plexus.logging.Logger;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -18,7 +19,7 @@ import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationP
 public class ConfigurationParser {
 
     @Requirement
-    private org.codehaus.plexus.logging.Logger logger;
+    private Logger logger;
 
     public Configuration get() {
         URL url = getConfigurationUrl();

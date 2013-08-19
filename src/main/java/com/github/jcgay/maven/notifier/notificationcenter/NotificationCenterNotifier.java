@@ -10,13 +10,9 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.codehaus.plexus.component.annotations.Component;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Component(role = Notifier.class, hint = "notification-center")
 public class NotificationCenterNotifier extends AbstractCustomEventSpy {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(NotificationCenterNotifier.class);
 
     private static final String CMD_MESSAGE = "-message";
     private static final String CMD_TITLE = "-title";
@@ -72,8 +68,8 @@ public class NotificationCenterNotifier extends AbstractCustomEventSpy {
         commands[7] = CMD_OPEN;
         commands[8] = result.getProject().getBuild().getDirectory();
 
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Will execute command line: {}", Joiner.on(" ").skipNulls().join(commands));
+        if (logger.isDebugEnabled()) {
+            logger.debug("Will execute command line: " + Joiner.on(" ").skipNulls().join(commands));
         }
 
         return commands;

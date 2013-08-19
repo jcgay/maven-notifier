@@ -5,10 +5,13 @@ import com.github.jcgay.maven.notifier.executor.ExecutorHolder;
 import com.github.jcgay.maven.notifier.growl.GrowlNotifier;
 import org.apache.maven.execution.DefaultMavenExecutionResult;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.logging.Logger;
+import org.mockito.Mockito;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static junit.framework.Assert.*;
+import static org.mockito.Mockito.mock;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
@@ -25,6 +28,7 @@ public class NotifySendNotifierTest {
         configuration.setNotifySendPath("path");
         configuration.setNotifySendTimeout("1");
         notifier = new NotifySendNotifier(result, configuration);
+        notifier.setLogger(mock(Logger.class));
     }
 
     @Test

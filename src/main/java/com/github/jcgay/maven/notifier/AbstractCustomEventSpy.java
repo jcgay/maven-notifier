@@ -1,16 +1,17 @@
 package com.github.jcgay.maven.notifier;
 
-import org.apache.maven.eventspy.AbstractEventSpy;
 import org.apache.maven.eventspy.EventSpy;
 import org.apache.maven.execution.BuildSummary;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.component.annotations.Requirement;
+import org.codehaus.plexus.logging.Logger;
 
 import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractCustomEventSpy implements Notifier {
 
+    protected Logger logger;
     protected Configuration configuration;
 
     @Override
@@ -31,6 +32,11 @@ public abstract class AbstractCustomEventSpy implements Notifier {
     @Requirement
     public void setConfiguration(ConfigurationParser configuration) {
         this.configuration = configuration.get();
+    }
+
+    @Requirement
+    public void setLogger(Logger logger) {
+        this.logger = logger;
     }
 
     protected Status getBuildStatus(MavenExecutionResult result) {

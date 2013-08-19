@@ -10,8 +10,6 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.codehaus.plexus.component.annotations.Component;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -19,8 +17,6 @@ import java.io.IOException;
 
 @Component(role = Notifier.class, hint = "notify-send")
 public class NotifySendNotifier extends AbstractCustomEventSpy {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(NotifySendNotifier.class);
 
     private static final String CMD_TIMEOUT = "-t";
     private static final String CMD_ICON = "-i";
@@ -61,8 +57,8 @@ public class NotifySendNotifier extends AbstractCustomEventSpy {
         commands[5] = CMD_ICON;
         commands[6] = toFilePath(getBuildStatus(result));
 
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Will execute command line: {}", Joiner.on(" ").join(commands));
+        if (logger.isDebugEnabled()) {
+            logger.debug("Will execute command line: " + Joiner.on(" ").join(commands));
         }
 
         return commands;
