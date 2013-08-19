@@ -1,13 +1,29 @@
 package com.github.jcgay.maven.notifier;
 
 import org.apache.maven.eventspy.AbstractEventSpy;
+import org.apache.maven.eventspy.EventSpy;
 import org.apache.maven.execution.BuildSummary;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.apache.maven.project.MavenProject;
 
 import java.util.concurrent.TimeUnit;
 
-public abstract class AbstractCustomEventSpy extends AbstractEventSpy {
+public abstract class AbstractCustomEventSpy implements Notifier {
+
+    @Override
+    public void init(EventSpy.Context context) {
+        // do nothing
+    }
+
+    @Override
+    public void onEvent(MavenExecutionResult event) {
+        // do nothing
+    }
+
+    @Override
+    public void close() {
+        // do nothing
+    }
 
     protected Status getBuildStatus(MavenExecutionResult result) {
         return result.hasExceptions() ? Status.FAILURE : Status.SUCCESS;
@@ -29,9 +45,5 @@ public abstract class AbstractCustomEventSpy extends AbstractEventSpy {
             builder.append(System.getProperty("line.separator"));
         }
         return builder.toString();
-    }
-
-    protected boolean isExecutionResult(Object event) {
-        return event instanceof MavenExecutionResult;
     }
 }

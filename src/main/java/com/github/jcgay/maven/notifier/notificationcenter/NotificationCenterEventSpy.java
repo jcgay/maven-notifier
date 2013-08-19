@@ -29,17 +29,16 @@ public class NotificationCenterEventSpy extends AbstractCustomEventSpy {
         this.executor = new RuntimeExecutor();
     }
 
-    @VisibleForTesting NotificationCenterEventSpy(Executor executor, Configuration configuration) {
+    @VisibleForTesting
+    NotificationCenterEventSpy(Executor executor, Configuration configuration) {
         this.executor = executor;
         this.configuration = configuration;
     }
 
     @Override
-    public void onEvent(Object event) throws Exception {
+    public void onEvent(MavenExecutionResult event) {
         super.onEvent(event);
-        if (isExecutionResult(event)) {
-            executor.exec(buildCommand((MavenExecutionResult) event));
-        }
+        executor.exec(buildCommand(event));
     }
 
     @Override

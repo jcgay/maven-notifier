@@ -41,13 +41,4 @@ public class NotifySendEventSpyTest {
         assertEquals("-i", result.getCommand()[5]);
         assertTrue(result.getCommand()[6].endsWith("SUCCESS.png"));
     }
-
-    @Test
-    public void should_not_notify_if_event_is_not_a_build_result() throws Exception {
-
-        spy.onEvent("this is not a build result");
-
-        assertNull(result.getCommand());
-    }
-
 }

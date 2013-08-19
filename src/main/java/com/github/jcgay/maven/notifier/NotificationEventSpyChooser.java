@@ -6,6 +6,7 @@ import com.github.jcgay.maven.notifier.notifysend.NotifySendEventSpy;
 import com.google.common.annotations.VisibleForTesting;
 import org.apache.maven.eventspy.AbstractEventSpy;
 import org.apache.maven.eventspy.EventSpy;
+import org.apache.maven.execution.MavenExecutionResult;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 
@@ -15,7 +16,7 @@ public class NotificationEventSpyChooser extends AbstractEventSpy {
     @Requirement
     private ConfigurationParser parser;
 
-    private EventSpy spy;
+    private Notifier spy;
 
     @Override
     public void init(Context context) throws Exception {
@@ -25,7 +26,9 @@ public class NotificationEventSpyChooser extends AbstractEventSpy {
 
     @Override
     public void onEvent(Object event) throws Exception {
-        spy.onEvent(event);
+        if (isExecutionResult(event)) {
+            spy.onEvent((MavenExecutionResult) event);
+        }
     }
 
     @Override
@@ -33,8 +36,12 @@ public class NotificationEventSpyChooser extends AbstractEventSpy {
         spy.close();
     }
 
-    @VisibleForTesting EventSpy getSpy() {
+    @VisibleForTesting Notifier getSpy() {
         return spy;
+    }
+
+    private boolean isExecutionResult(Object event) {
+        return event instanceof MavenExecutionResult;
     }
 
     private void chooseSpy() {

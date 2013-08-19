@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 import static org.testng.Assert.assertTrue;
 
@@ -19,7 +20,10 @@ public class NotificationEventSpyChooserTest {
     private NotificationEventSpyChooser chooser = new NotificationEventSpyChooser();
 
     @Mock
-    ConfigurationParser parser;
+    private ConfigurationParser parser;
+
+    @Mock
+    private Notifier notifier;
 
     @BeforeMethod
     public void setUp() throws Exception {
@@ -48,6 +52,14 @@ public class NotificationEventSpyChooserTest {
                 {"notifysend", NotifySendEventSpy.class},
                 {"growl", GrowlEventSpy.class}
         };
+    }
+
+    @Test
+    public void should_not_notify_if_event_is_not_a_build_result() throws Exception {
+
+        chooser.onEvent("this is not a build result");
+
+        verifyZeroInteractions(notifier);
     }
 
     private Configuration newConfiguration() {

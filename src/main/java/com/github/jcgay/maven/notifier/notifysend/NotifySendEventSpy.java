@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 public class NotifySendEventSpy extends AbstractCustomEventSpy {
 
@@ -31,17 +30,16 @@ public class NotifySendEventSpy extends AbstractCustomEventSpy {
         this.executor = new RuntimeExecutor();
     }
 
-    @VisibleForTesting NotifySendEventSpy(Executor executor, Configuration configuration) {
+    @VisibleForTesting
+    NotifySendEventSpy(Executor executor, Configuration configuration) {
         this.executor = executor;
         this.configuration = configuration;
     }
 
     @Override
-    public void onEvent(Object event) throws Exception {
+    public void onEvent(MavenExecutionResult event) {
         super.onEvent(event);
-        if (isExecutionResult(event)) {
-            executor.exec(buildCommand((MavenExecutionResult) event));
-        }
+        executor.exec(buildCommand(event));
     }
 
     private String[] buildCommand(MavenExecutionResult result) {

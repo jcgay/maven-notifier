@@ -4,6 +4,7 @@ import com.github.jcgay.maven.notifier.AbstractCustomEventSpy;
 import com.github.jcgay.maven.notifier.Configuration;
 import com.github.jcgay.maven.notifier.Status;
 import com.google.code.jgntp.*;
+import org.apache.maven.eventspy.EventSpy;
 import org.apache.maven.execution.MavenExecutionResult;
 
 import java.util.concurrent.TimeUnit;
@@ -20,7 +21,7 @@ public class GrowlEventSpy extends AbstractCustomEventSpy {
     }
 
     @Override
-    public void init(Context context) throws Exception {
+    public void init(EventSpy.Context context) {
         super.init(context);
         initGrowlApplication();
         initBuildStatusGrowlNotification();
@@ -28,47 +29,55 @@ public class GrowlEventSpy extends AbstractCustomEventSpy {
     }
 
     @Override
-    public void onEvent(Object event) throws Exception {
+    public void onEvent(MavenExecutionResult event) {
         super.onEvent(event);
-        if (isExecutionResult(event) && isClientRegistered()) {
-            sendNotificationFor((MavenExecutionResult) event);
+        if (isClientRegistered()) {
+            sendNotificationFor(event);
         }
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         super.close();
         if (isClientRegistered()) {
-            TimeUnit.SECONDS.sleep(1); // Seems that the client can be shutdown without having processed all the notifications...
-            client.shutdown(5, TimeUnit.SECONDS);
+            try {
+                TimeUnit.SECONDS.sleep(1); // Seems that the client can be shutdown without having processed all the notifications...
+                client.shutdown(5, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
     }
 
     private void initGrowlClient() {
         client = Gntp.client(application)
-                     .listener(new Slf4jGntpListener())
-                     .onPort(configuration.getGrowlPort())
-                     .build();
+                .listener(new Slf4jGntpListener())
+                .onPort(configuration.getGrowlPort())
+                .build();
         client.register();
     }
 
     private void initBuildStatusGrowlNotification() {
         notification = Gntp.notificationInfo(application, "build-status-notification")
-                           .displayName("Build result status")
-                           .build();
+                .displayName("Build result status")
+                .build();
     }
 
     private void initGrowlApplication() {
         application = Gntp.appInfo("Maven").build();
     }
 
-    private void sendNotificationFor(MavenExecutionResult resultEvent) throws InterruptedException {
+    private void sendNotificationFor(MavenExecutionResult resultEvent) {
         sendMessageWithIcon(getBuildStatus(resultEvent), resultEvent.getProject().getName(), buildNotificationMessage(resultEvent));
     }
 
-    private void sendMessageWithIcon(Status status, String title, String message) throws InterruptedException {
+    private void sendMessageWithIcon(Status status, String title, String message) {
         GntpNotification success = Gntp.notification(notification, title).text(message).icon(status.icon()).build();
-        client.notify(success, 5, TimeUnit.SECONDS);
+        try {
+            client.notify(success, 5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private boolean isClientRegistered() {
