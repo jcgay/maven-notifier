@@ -35,10 +35,6 @@ public class NotificationEventSpyChooser extends AbstractEventSpy {
         activeNotifier.close();
     }
 
-    @VisibleForTesting Notifier getActiveNotifier() {
-        return activeNotifier;
-    }
-
     private boolean isExecutionResult(Object event) {
         return event instanceof MavenExecutionResult;
     }
