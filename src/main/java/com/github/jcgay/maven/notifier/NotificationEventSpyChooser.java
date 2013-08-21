@@ -6,11 +6,15 @@ import org.apache.maven.eventspy.EventSpy;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
+import org.codehaus.plexus.logging.Logger;
 
 import java.util.List;
 
 @Component(role = EventSpy.class, hint = "notification", description = "Send notification to indicate build status.")
 public class NotificationEventSpyChooser extends AbstractEventSpy {
+
+    @Requirement
+    private Logger logger;
 
     @Requirement
     private List<Notifier> availableNotifiers;
@@ -43,6 +47,7 @@ public class NotificationEventSpyChooser extends AbstractEventSpy {
         for (Notifier notifier : availableNotifiers) {
             if (notifier.shouldNotify()) {
                 activeNotifier = notifier;
+                logger.debug("Will notify build success/failure with: " + activeNotifier);
                 return;
             }
         }

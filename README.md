@@ -24,11 +24,15 @@ Used by default on linux.
 Available only on Mac OS X (Moutain lion).  
 Need to have [terminal-notifier](https://github.com/alloy/terminal-notifier) installed.
 
+###Sound
+
+Play a success or failure sound when build ends.
+
 ##Configuration
 
 If needed, configuration can be done by creating a `maven-notifier.properties` file in your `%M2_HOME%/lib/ext` folder.  
 
-- `notifier.implementation` : which implementation to use. (`growl`, `notificationcenter`, `notifysend`)
+- `notifier.implementation` : which implementation to use. (`growl`, `notificationcenter`, `notifysend`, `sound`)
 - `notifier.growl.port` : growl listening port
 - `notifier.notify-send.path` = notify-send binary path
 - `notifier.notify-send.timeout` = the timeout in milliseconds at which to expire the notification
