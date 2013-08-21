@@ -33,14 +33,6 @@ public class NotificationCenterNotifier extends AbstractCustomEventSpy {
     }
 
     @Override
-    public boolean shouldNotify() {
-        if (NotificationCenterNotifier.class.getName().contains(configuration.getImplementation())) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public void onEvent(MavenExecutionResult event) {
         super.onEvent(event);
         executor.exec(buildCommand(event));

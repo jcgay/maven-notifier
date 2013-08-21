@@ -29,6 +29,14 @@ public abstract class AbstractCustomEventSpy implements Notifier {
         // do nothing
     }
 
+    @Override
+    public boolean shouldNotify() {
+        if (getClass().getName().contains(configuration.getImplementation())) {
+            return true;
+        }
+        return false;
+    }
+
     @Requirement
     public void setConfiguration(ConfigurationParser configuration) {
         this.configuration = configuration.get();

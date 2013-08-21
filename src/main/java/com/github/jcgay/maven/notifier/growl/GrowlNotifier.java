@@ -16,14 +16,6 @@ public class GrowlNotifier extends AbstractCustomEventSpy {
     private GntpClient client;
 
     @Override
-    public boolean shouldNotify() {
-        if (this.getClass().getName().contains(configuration.getImplementation())) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public void init(EventSpy.Context context) {
         super.init(context);
         initGrowlApplication();

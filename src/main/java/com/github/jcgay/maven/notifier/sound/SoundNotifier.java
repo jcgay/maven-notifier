@@ -5,8 +5,6 @@ import com.github.jcgay.maven.notifier.Notifier;
 import com.github.jcgay.maven.notifier.Status;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
-import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.util.IOUtil;
 
 import javax.sound.sampled.*;
@@ -17,22 +15,12 @@ import java.io.InputStream;
 public class SoundNotifier extends AbstractCustomEventSpy {
 
     @Override
-    public boolean shouldNotify() {
-        if (this.getClass().getName().contains(configuration.getImplementation())) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public void onEvent(MavenExecutionResult event) {
-
         AudioInputStream ais = getAudioStream(getBuildStatus(event));
         if (ais == null) {
             logger.warn("Cannot get a sound to play. Skipping notification...");
             return;
         }
-
         play(ais);
     }
 
