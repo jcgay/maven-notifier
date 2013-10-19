@@ -1,16 +1,19 @@
 package com.github.jcgay.maven.notifier;
 
-import com.google.common.io.Closeables;
-import org.apache.maven.execution.BuildFailure;
-import org.apache.maven.execution.BuildSuccess;
-import org.apache.maven.execution.BuildSummary;
+import static com.google.common.base.Preconditions.checkNotNull;
 
-import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import javax.imageio.ImageIO;
+
+import org.apache.maven.execution.BuildFailure;
+import org.apache.maven.execution.BuildSuccess;
+import org.apache.maven.execution.BuildSummary;
+
+import com.google.common.io.ByteStreams;
+import com.google.common.io.Closeables;
 
 public enum Status {
 
@@ -30,6 +33,17 @@ public enum Status {
         InputStream is = getClass().getResourceAsStream(icon);
         try {
             return ImageIO.read(is);
+        } catch (IOException e) {
+            throw new RuntimeException("Error while reading status icon.", e);
+        } finally {
+            Closeables.closeQuietly(is);
+        }
+    }
+
+    public byte[] toByteArray() {
+        InputStream is = getClass().getResourceAsStream(icon);
+        try {
+            return ByteStreams.toByteArray(is);
         } catch (IOException e) {
             throw new RuntimeException("Error while reading status icon.", e);
         } finally {

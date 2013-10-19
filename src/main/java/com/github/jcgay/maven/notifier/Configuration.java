@@ -10,6 +10,7 @@ public class Configuration {
     private String notificationCenterPath;
     private String growlPort;
     private String notificationCenterActivate;
+    private String systemTrayWaitBeforeEnd;
 
     public void setImplementation(String implementation) {
         this.implementation = implementation;
@@ -59,6 +60,14 @@ public class Configuration {
         return notificationCenterActivate;
     }
 
+    public long getSystemTrayWaitBeforeEnd() {
+        return Long.valueOf(systemTrayWaitBeforeEnd);
+    }
+
+    public void setSystemTrayWaitBeforeEnd(String systemTrayWaitBeforeEnd) {
+        this.systemTrayWaitBeforeEnd = systemTrayWaitBeforeEnd;
+    }
+
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
@@ -68,6 +77,7 @@ public class Configuration {
                 .add("notificationCenterPath", notificationCenterPath)
                 .add("notificationCenterActivate", notificationCenterActivate)
                 .add("growlPort", growlPort)
+                .add("systemTrayWaitBeforeEnd", systemTrayWaitBeforeEnd)
                 .toString();
     }
 }

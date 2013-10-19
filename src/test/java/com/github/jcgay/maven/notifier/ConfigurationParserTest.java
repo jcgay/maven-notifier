@@ -1,7 +1,11 @@
 package com.github.jcgay.maven.notifier;
 
-import com.github.jcgay.maven.notifier.growl.GrowlNotifier;
-import com.github.jcgay.maven.notifier.notifysend.NotifySendNotifier;
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property;
+import static org.testng.Assert.assertEquals;
+
+import java.util.Map;
+import java.util.Properties;
+
 import org.codehaus.plexus.logging.Logger;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -10,11 +14,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.Map;
-import java.util.Properties;
-
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property;
-import static org.testng.Assert.assertEquals;
+import com.github.jcgay.maven.notifier.growl.GrowlNotifier;
+import com.github.jcgay.maven.notifier.notifysend.NotifySendNotifier;
 
 public class ConfigurationParserTest {
 
@@ -66,6 +67,7 @@ public class ConfigurationParserTest {
         assertEquals(result.getNotificationCenterPath(), Property.NOTIFICATION_CENTER_PATH.defaultValue());
         assertEquals(result.getNotificationCenterActivate(), Property.NOTIFICATION_CENTER_ACTIVATE.defaultValue());
         assertEquals(Integer.valueOf(result.getGrowlPort()), Integer.valueOf(Property.GROWL_PORT.defaultValue()));
+        assertEquals(Long.valueOf(result.getSystemTrayWaitBeforeEnd()), Long.valueOf(Property.SYSTEM_TRAY_WAIT.defaultValue()));
     }
 
     @Test
@@ -78,6 +80,7 @@ public class ConfigurationParserTest {
         properties.put(Property.NOTIFICATION_CENTER_PATH.key(), "notification-center.path");
         properties.put(Property.NOTIFICATION_CENTER_ACTIVATE.key(), "notification-center.activate");
         properties.put(Property.GROWL_PORT.key(), "1");
+        properties.put(Property.SYSTEM_TRAY_WAIT.key(), "1");
 
         Configuration result = parser.get(properties);
 
@@ -87,5 +90,6 @@ public class ConfigurationParserTest {
         assertEquals(result.getNotificationCenterPath(), "notification-center.path");
         assertEquals(result.getNotificationCenterActivate(), "notification-center.activate");
         assertEquals(result.getGrowlPort(), 1);
+        assertEquals(result.getSystemTrayWaitBeforeEnd(), 1);
     }
 }
