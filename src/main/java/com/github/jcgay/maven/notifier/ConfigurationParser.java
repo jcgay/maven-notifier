@@ -111,9 +111,9 @@ public class ConfigurationParser {
 
         public static enum Property {
             IMPLEMENTATION("notifier.implementation"),
-            NOTIFY_SEND_PATH("notifier.notify-send.path", "/usr/bin/notify-send"),
+            NOTIFY_SEND_PATH("notifier.notify-send.path", "notify-send"),
             NOTIFY_SEND_TIMEOUT("notifier.notify-send.timeout", String.valueOf(TimeUnit.SECONDS.toMillis(2))),
-            NOTIFICATION_CENTER_PATH("notifier.notification-center.path", "/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier"),
+            NOTIFICATION_CENTER_PATH("notifier.notification-center.path", "terminal-notifier"),
             GROWL_PORT("notifier.growl.port", String.valueOf(23053));
 
             private String key;
