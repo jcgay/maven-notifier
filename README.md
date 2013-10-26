@@ -1,7 +1,7 @@
 #Maven Notifier
 
-Just notifiers for Maven 3.x.
-A status will be send at the end of a Maven build.
+Notifiers that can be used with Maven 3.x.
+A status notification will be send at the end of a Maven build.
 
 ##Installation
 
@@ -11,18 +11,26 @@ Get [maven-notifier](http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/ma
 
 ###Growl
 
-Used by default on Mac OS X and Windows.
+Used by default on OS X [(paid app)](http://growl.info/) and Windows [(free)](http://www.growlforwindows.com/gfw/).
 
-Growl must listen for incoming notifications. The option is available in the network section (Mac OS X) or the security section of Growl (Windows).
+Growl must listen for incoming notifications. The option is available in the network section (OS X) or the security section of Growl (Windows).  
+This implementation should also be compatible with [Snarl](http://snarl.fullphat.net/) for Windows.
+
+![Growl success](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.growl_.success.png) ![Growl fail](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.growl_.fail_.png)
 
 ###notify-send
 
-Used by default on linux.
+Used by default on linux. Installation if it's not done yet: `sudo apt-get install libnotify-bin`
+
+![notify-send success](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.notify-send.success.png)  
+![notify-send fail](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.notify-send.error_.fail_.png)
 
 ###Notification center
 
-Available only on Mac OS X (Moutain lion).  
-Need to have [terminal-notifier](https://github.com/alloy/terminal-notifier) installed.
+Available only on OS X (at least Moutain lion).  
+Need to have [terminal-notifier](https://github.com/alloy/terminal-notifier) installed: `brew install terminal-notifier` 
+
+![terminal-notifier](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.terminal-notifier.success.png) ![terminal-notifier fail](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.terminal-notifier.fail_.png)
 
 ###Sound
 
@@ -31,6 +39,9 @@ Play a success or failure sound when build ends.
 ###System tray
 
 Use Java `SystemTray` to display notification.
+
+During the build an icon ![Build Icon](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.system.tray_.building.png) is displayed in the System Tray. At the end the icon reflects the build status and a notification is sent.  
+![System Tray success](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.system.tray_.success.png) ![System Tray fail](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.system.tray_.fail_.png)
 
 ##Configuration
 
