@@ -60,7 +60,7 @@ public class NotificationCenterNotifier extends AbstractCustomEventSpy {
     }
 
     private String[] buildCommand(MavenExecutionResult result) {
-        String[] commands = new String[11];
+        String[] commands = new String[9];
         commands[0] = configuration.getNotificationCenterPath();
         commands[1] = CMD_TITLE;
         commands[2] = result.getProject().getName();
@@ -70,8 +70,6 @@ public class NotificationCenterNotifier extends AbstractCustomEventSpy {
         commands[6] = buildNotificationMessage(result);
         commands[7] = CMD_GROUP;
         commands[8] = GROUP;
-        commands[9] = CMD_OPEN;
-        commands[10] = result.getProject().getBuild().getDirectory();
 
         if (logger.isDebugEnabled()) {
             logger.debug("Will execute command line: " + Joiner.on(" ").skipNulls().join(commands));

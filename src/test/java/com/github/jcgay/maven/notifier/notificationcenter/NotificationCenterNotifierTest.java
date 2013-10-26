@@ -39,9 +39,6 @@ public class NotificationCenterNotifierTest {
         DefaultMavenExecutionResult event = new DefaultMavenExecutionResult();
         MavenProject project = new MavenProject();
         project.setName("project");
-        Build build = new Build();
-        build.setDirectory("/Applications");
-        project.setBuild(build);
         event.setProject(project);
         event.addBuildSummary(new BuildSuccess(project, 1000));
 
@@ -56,8 +53,6 @@ public class NotificationCenterNotifierTest {
         assertEquals("Built in: 1 second(s).", result.getCommand()[6]);
         assertEquals("-group", result.getCommand()[7]);
         assertEquals("maven", result.getCommand()[8]);
-        assertEquals("-open", result.getCommand()[9]);
-        assertEquals("/Applications", result.getCommand()[10]);
     }
 
     @Test
