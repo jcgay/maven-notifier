@@ -1,6 +1,7 @@
 package com.github.jcgay.maven.notifier;
 
-import com.google.common.annotations.VisibleForTesting;
+import java.util.List;
+
 import org.apache.maven.eventspy.AbstractEventSpy;
 import org.apache.maven.eventspy.EventSpy;
 import org.apache.maven.execution.MavenExecutionResult;
@@ -8,11 +9,10 @@ import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.logging.Logger;
 
-import java.util.List;
-
 @Component(role = EventSpy.class, hint = "notification", description = "Send notification to indicate build status.")
 public class NotificationEventSpyChooser extends AbstractEventSpy {
 
+    public static final String SKIP_NOTIFICATION = "skipNotification";
     @Requirement
     private Logger logger;
 
@@ -29,9 +29,13 @@ public class NotificationEventSpyChooser extends AbstractEventSpy {
 
     @Override
     public void onEvent(Object event) throws Exception {
-        if (isExecutionResult(event)) {
+        if (isExecutionResult(event) && shouldSendNotification()) {
             activeNotifier.onEvent((MavenExecutionResult) event);
         }
+    }
+
+    private boolean shouldSendNotification() {
+        return !"true".equalsIgnoreCase(System.getProperty(SKIP_NOTIFICATION));
     }
 
     @Override

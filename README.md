@@ -54,3 +54,5 @@ If needed, configuration can be done by creating a `maven-notifier.properties` f
 - `notifier.notification-center.path` = terminal-notifier binary path.
 - `notifier.notification-center.activate` = Indicate which application should be activated when clicking on terminal-notifier message. See `Info.plist` file inside the application bundle to find the bundle identifier.
 - `notifier.system-tray.wait` = Java SystemTray notification display time in second.
+
+Notification can be skip when using `-DskipNotification` when launching Maven. Ex: `mvn package -DskipNotification`
