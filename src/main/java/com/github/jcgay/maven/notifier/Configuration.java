@@ -9,6 +9,7 @@ public class Configuration {
     private String notifySendTimeout;
     private String notificationCenterPath;
     private String growlPort;
+    private String notificationCenterActivate;
 
     public void setImplementation(String implementation) {
         this.implementation = implementation;
@@ -50,6 +51,14 @@ public class Configuration {
         this.growlPort = growlPort;
     }
 
+    public void setNotificationCenterActivate(String notificationCenterActivate) {
+        this.notificationCenterActivate = notificationCenterActivate;
+    }
+
+    public String getNotificationCenterActivate() {
+        return notificationCenterActivate;
+    }
+
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
@@ -57,6 +66,7 @@ public class Configuration {
                 .add("notifySendPath", notifySendPath)
                 .add("notifySendTimeout", notifySendTimeout)
                 .add("notificationCenterPath", notificationCenterPath)
+                .add("notificationCenterActivate", notificationCenterActivate)
                 .add("growlPort", growlPort)
                 .toString();
     }

@@ -64,6 +64,7 @@ public class ConfigurationParserTest {
         assertEquals(result.getNotifySendPath(), Property.NOTIFY_SEND_PATH.defaultValue());
         assertEquals(Long.valueOf(result.getNotifySendTimeout()), Long.valueOf(Property.NOTIFY_SEND_TIMEOUT.defaultValue()));
         assertEquals(result.getNotificationCenterPath(), Property.NOTIFICATION_CENTER_PATH.defaultValue());
+        assertEquals(result.getNotificationCenterActivate(), Property.NOTIFICATION_CENTER_ACTIVATE.defaultValue());
         assertEquals(Integer.valueOf(result.getGrowlPort()), Integer.valueOf(Property.GROWL_PORT.defaultValue()));
     }
 
@@ -75,6 +76,7 @@ public class ConfigurationParserTest {
         properties.put(Property.NOTIFY_SEND_PATH.key(), "notify-send.path");
         properties.put(Property.NOTIFY_SEND_TIMEOUT.key(), "1");
         properties.put(Property.NOTIFICATION_CENTER_PATH.key(), "notification-center.path");
+        properties.put(Property.NOTIFICATION_CENTER_ACTIVATE.key(), "notification-center.activate");
         properties.put(Property.GROWL_PORT.key(), "1");
 
         Configuration result = parser.get(properties);
@@ -83,6 +85,7 @@ public class ConfigurationParserTest {
         assertEquals(result.getNotifySendPath(), "notify-send.path");
         assertEquals(result.getNotifySendTimeout(), 1);
         assertEquals(result.getNotificationCenterPath(), "notification-center.path");
+        assertEquals(result.getNotificationCenterActivate(), "notification-center.activate");
         assertEquals(result.getGrowlPort(), 1);
     }
 }

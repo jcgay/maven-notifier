@@ -5,7 +5,7 @@ A status will be send at the end of a Maven build.
 
 ##Installation
 
-Get [maven-notifier](http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/maven-notifier/0.6/maven-notifier-0.6.zip) and extract it in your `%M2_HOME%/lib/ext` folder.
+Get [maven-notifier](http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/maven-notifier/0.6/maven-notifier-0.6.zip) and extract it in your `$M2_HOME/lib/ext` folder.
 
 ##Available notifier
 
@@ -30,10 +30,11 @@ Play a success or failure sound when build ends.
 
 ##Configuration
 
-If needed, configuration can be done by creating a `maven-notifier.properties` file in your `%M2_HOME%/lib/ext` folder.  
+If needed, configuration can be done by creating a `maven-notifier.properties` file in your `$M2_HOME/lib/ext` folder.  
 
-- `notifier.implementation` : which implementation to use. (`growl`, `notificationcenter`, `notifysend`, `sound`)
-- `notifier.growl.port` : growl listening port
+- `notifier.implementation` = which implementation to use. (`growl`, `notificationcenter`, `notifysend`, `sound`)
+- `notifier.growl.port` = growl listening port
 - `notifier.notify-send.path` = notify-send binary path
 - `notifier.notify-send.timeout` = the timeout in milliseconds at which to expire the notification
-- `notifier.notification-center.path` : terminal-notifier binary path.
+- `notifier.notification-center.path` = terminal-notifier binary path.
+- `notifier.notification-center.activate` = Indicate which application should be activated when clicking on terminal-notifier message. See `Info.plist` file inside the application bundle to find the bundle identifier.

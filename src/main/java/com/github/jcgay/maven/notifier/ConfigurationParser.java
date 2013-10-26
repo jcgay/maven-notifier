@@ -59,6 +59,7 @@ public class ConfigurationParser {
         configuration.setNotifySendPath(properties.get(NOTIFY_SEND_PATH));
         configuration.setNotifySendTimeout(properties.get(NOTIFY_SEND_TIMEOUT));
         configuration.setNotificationCenterPath(properties.get(NOTIFICATION_CENTER_PATH));
+        configuration.setNotificationCenterActivate(properties.get(NOTIFICATION_CENTER_ACTIVATE));
         configuration.setGrowlPort(properties.get(GROWL_PORT));
         return configuration;
     }
@@ -114,6 +115,7 @@ public class ConfigurationParser {
             NOTIFY_SEND_PATH("notifier.notify-send.path", "notify-send"),
             NOTIFY_SEND_TIMEOUT("notifier.notify-send.timeout", String.valueOf(TimeUnit.SECONDS.toMillis(2))),
             NOTIFICATION_CENTER_PATH("notifier.notification-center.path", "terminal-notifier"),
+            NOTIFICATION_CENTER_ACTIVATE("notifier.notification-center.activate", "com.apple.Terminal"),
             GROWL_PORT("notifier.growl.port", String.valueOf(23053));
 
             private String key;

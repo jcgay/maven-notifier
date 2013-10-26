@@ -36,6 +36,7 @@ public class NotificationCenterNotifierTest {
     @Test
     public void should_notify_a_build_success() throws Exception {
 
+        configuration.setNotificationCenterActivate("com.apple.Terminal");
         DefaultMavenExecutionResult event = new DefaultMavenExecutionResult();
         MavenProject project = new MavenProject();
         project.setName("project");
@@ -53,6 +54,8 @@ public class NotificationCenterNotifierTest {
         assertEquals("Built in: 1 second(s).", result.getCommand()[6]);
         assertEquals("-group", result.getCommand()[7]);
         assertEquals("maven", result.getCommand()[8]);
+        assertEquals("-activate", result.getCommand()[9]);
+        assertEquals("com.apple.Terminal", result.getCommand()[10]);
     }
 
     @Test
