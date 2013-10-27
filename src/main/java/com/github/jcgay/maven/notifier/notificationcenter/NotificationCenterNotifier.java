@@ -44,7 +44,7 @@ public class NotificationCenterNotifier extends AbstractCustomEventSpy {
 
     @Override
     protected String buildNotificationMessage(MavenExecutionResult result) {
-        if (status(result) == Status.SUCCESS) {
+        if (getBuildStatus(result) == Status.SUCCESS) {
             long time = result.getBuildSummary(result.getProject()).getTime();
             StringBuilder builder = new StringBuilder("Built in: ");
             builder.append(TimeUnit.MILLISECONDS.toSeconds(time));
@@ -55,17 +55,13 @@ public class NotificationCenterNotifier extends AbstractCustomEventSpy {
         return "";
     }
 
-    private Status status(MavenExecutionResult result) {
-        return result.hasExceptions() ? Status.FAILURE : Status.SUCCESS;
-    }
-
     private String[] buildCommand(MavenExecutionResult result) {
         String[] commands = new String[11];
         commands[0] = configuration.getNotificationCenterPath();
         commands[1] = CMD_TITLE;
         commands[2] = result.getProject().getName();
         commands[3] = CMD_SUBTITLE;
-        commands[4] = status(result).message();
+        commands[4] = getBuildStatus(result).message();
         commands[5] = CMD_MESSAGE;
         commands[6] = buildNotificationMessage(result);
         commands[7] = CMD_GROUP;
