@@ -25,6 +25,7 @@ public class SystemTrayNotifier extends AbstractCustomEventSpy {
         if (!SystemTray.isSupported()) {
             skipNotifications = true;
             logger.warn("SystemTray is not supported, skipping notifications...");
+            return;
         }
 
         icon = new TrayIcon(createImage(readBuildIcon()), "Maven");
