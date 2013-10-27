@@ -29,6 +29,7 @@ public class SystemTrayNotifier extends AbstractCustomEventSpy {
         }
 
         icon = new TrayIcon(createImage(readBuildIcon()), "Maven");
+        icon.setImageAutoSize(true);
 
         try {
             SystemTray.getSystemTray().add(icon);
