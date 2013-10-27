@@ -13,8 +13,8 @@ Get [maven-notifier](http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/ma
 
 Used by default on OS X [(paid app)](http://growl.info/) and Windows [(free)](http://www.growlforwindows.com/gfw/).
 
-Growl must listen for incoming notifications. The option is available in the network section (OS X) or the security section of Growl (Windows).  
-This implementation should also be compatible with [Snarl](http://snarl.fullphat.net/) for Windows.
+Growl must listen for incoming notifications and do not require password. The options are available in the network section (OS X) or the security section of Growl (Windows).  
+This implementation is also be compatible with [Snarl](http://snarl.fullphat.net/) for Windows via its Growl compatibility.
 
 ![Growl success](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.growl_.success.png) ![Growl fail](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.growl_.fail_.png)
 
