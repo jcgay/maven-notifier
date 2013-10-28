@@ -1,18 +1,17 @@
 package com.github.jcgay.maven.notifier.systemtray;
 
-import java.awt.*;
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.maven.eventspy.EventSpy;
-import org.apache.maven.execution.MavenExecutionResult;
-import org.codehaus.plexus.component.annotations.Component;
-
 import com.github.jcgay.maven.notifier.AbstractCustomEventSpy;
 import com.github.jcgay.maven.notifier.Notifier;
 import com.github.jcgay.maven.notifier.Status;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Closeables;
+import org.apache.maven.eventspy.EventSpy;
+import org.apache.maven.execution.MavenExecutionResult;
+import org.codehaus.plexus.component.annotations.Component;
+
+import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Component(role = Notifier.class, hint = "system-tray")
 public class SystemTrayNotifier extends AbstractCustomEventSpy {
@@ -40,9 +39,11 @@ public class SystemTrayNotifier extends AbstractCustomEventSpy {
 
     @Override
     public void onEvent(MavenExecutionResult event) {
-        Status status = getBuildStatus(event);
-        icon.setImage(createImage(status.toByteArray()));
-        icon.displayMessage(event.getProject().getName(), buildNotificationMessage(event), toMessageType(status));
+        if (!skipNotifications) {
+            Status status = getBuildStatus(event);
+            icon.setImage(createImage(status.toByteArray()));
+            icon.displayMessage(event.getProject().getName(), buildNotificationMessage(event), toMessageType(status));
+        }
     }
 
     private TrayIcon.MessageType toMessageType(Status status) {
