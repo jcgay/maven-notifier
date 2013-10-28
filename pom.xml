@@ -4,13 +4,13 @@
 
     <groupId>com.github.jcgay.maven</groupId>
     <artifactId>maven-notifier</artifactId>
-    <version>0.7</version>
+    <version>0.8-SNAPSHOT</version>
 
     <scm>
         <url>https://github.com/jcgay/maven-notifier.git</url>
         <connection>scm:git:git://github.com/jcgay/maven-notifier.git</connection>
         <developerConnection>scm:git:git@github.com:jcgay/maven-notifier.git</developerConnection>
-        <tag>v0.7</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <prerequisites>
