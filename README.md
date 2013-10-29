@@ -14,7 +14,7 @@ Get [maven-notifier](http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/ma
 Used by default on OS X [(paid app)](http://growl.info/) and Windows [(free)](http://www.growlforwindows.com/gfw/).
 
 Growl must listen for incoming notifications and do not require password. The options are available in the network section (OS X) or the security section of Growl (Windows).  
-This implementation is also be compatible with [Snarl](http://snarl.fullphat.net/) for Windows via its Growl compatibility.
+This implementation is also compatible with [Snarl](http://snarl.fullphat.net/) for Windows via its Growl compatibility.
 
 ![Growl success](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.growl_.success.png)  ![Growl fail](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.growl_.fail_.png)
 
@@ -52,7 +52,7 @@ If needed, configuration can be done by creating a `maven-notifier.properties` f
 - `notifier.notify-send.path` = notify-send binary path
 - `notifier.notify-send.timeout` = the timeout in milliseconds at which to expire the notification
 - `notifier.notification-center.path` = terminal-notifier binary path.
-- `notifier.notification-center.activate` = Indicate which application should be activated when clicking on terminal-notifier message. See `Info.plist` file inside the application bundle to find the bundle identifier.
+- `notifier.notification-center.activate` = Indicate which application should be activated when clicking on terminal-notifier message. See `Info.plist` file inside the application bundle to find the bundle identifier (key: `CFBundleIdentifier`). For example to open [iTerm2](http://www.iterm2.com/#/section/home), use `com.googlecode.iterm2`.
 - `notifier.system-tray.wait` = Java SystemTray notification display time in second.
 
 Notification can be skip when using `-DskipNotification` when launching Maven. Ex: `mvn package -DskipNotification`
