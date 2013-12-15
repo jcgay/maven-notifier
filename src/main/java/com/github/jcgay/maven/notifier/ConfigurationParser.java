@@ -63,6 +63,8 @@ public class ConfigurationParser {
         configuration.setNotificationCenterActivate(properties.get(NOTIFICATION_CENTER_ACTIVATE));
         configuration.setGrowlPort(properties.get(GROWL_PORT));
         configuration.setSystemTrayWaitBeforeEnd(properties.get(SYSTEM_TRAY_WAIT));
+        configuration.setSnarlPort(properties.get(SNARL_PORT));
+        configuration.setSnarlHost(properties.get(SNARL_HOST));
         return configuration;
     }
 
@@ -119,7 +121,9 @@ public class ConfigurationParser {
             NOTIFICATION_CENTER_PATH("notifier.notification-center.path", "terminal-notifier"),
             NOTIFICATION_CENTER_ACTIVATE("notifier.notification-center.activate", "com.apple.Terminal"),
             GROWL_PORT("notifier.growl.port", String.valueOf(23053)),
-            SYSTEM_TRAY_WAIT("notifier.system-tray.wait", String.valueOf(TimeUnit.SECONDS.toMillis(2)));
+            SYSTEM_TRAY_WAIT("notifier.system-tray.wait", String.valueOf(TimeUnit.SECONDS.toMillis(2))),
+            SNARL_PORT("notifier.snarl.port", String.valueOf(9887)),
+            SNARL_HOST("notifier.snarl.host", "localhost");
 
             private String key;
             private String defaultValue;

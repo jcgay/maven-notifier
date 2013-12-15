@@ -11,6 +11,8 @@ public class Configuration {
     private String growlPort;
     private String notificationCenterActivate;
     private String systemTrayWaitBeforeEnd;
+    private String snarlPort;
+    private String snarlHost;
 
     public void setImplementation(String implementation) {
         this.implementation = implementation;
@@ -68,6 +70,22 @@ public class Configuration {
         this.systemTrayWaitBeforeEnd = systemTrayWaitBeforeEnd;
     }
 
+    public int getSnarlPort() {
+        return Integer.valueOf(snarlPort);
+    }
+
+    public void setSnarlPort(String snarlPort) {
+        this.snarlPort = snarlPort;
+    }
+
+    public String getSnarlHost() {
+        return snarlHost;
+    }
+
+    public void setSnarlHost(String snarlHost) {
+        this.snarlHost = snarlHost;
+    }
+
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
@@ -78,6 +96,8 @@ public class Configuration {
                 .add("notificationCenterActivate", notificationCenterActivate)
                 .add("growlPort", growlPort)
                 .add("systemTrayWaitBeforeEnd", systemTrayWaitBeforeEnd)
+                .add("snarlPort", snarlPort)
+                .add("snarlHost", snarlHost)
                 .toString();
     }
 }

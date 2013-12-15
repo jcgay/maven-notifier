@@ -67,6 +67,11 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>com.github.jcgay.snp4j</groupId>
+            <artifactId>snp4j</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>6.8.5</version>
