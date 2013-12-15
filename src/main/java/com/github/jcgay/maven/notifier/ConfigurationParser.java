@@ -17,6 +17,7 @@ import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationP
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.IMPLEMENTATION;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFICATION_CENTER_ACTIVATE;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFICATION_CENTER_PATH;
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFICATION_CENTER_SOUND;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFY_SEND_PATH;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFY_SEND_TIMEOUT;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SNARL_HOST;
@@ -68,6 +69,7 @@ public class ConfigurationParser {
         configuration.setNotifySendTimeout(properties.get(NOTIFY_SEND_TIMEOUT));
         configuration.setNotificationCenterPath(properties.get(NOTIFICATION_CENTER_PATH));
         configuration.setNotificationCenterActivate(properties.get(NOTIFICATION_CENTER_ACTIVATE));
+        configuration.setNotificationCenterSound(properties.get(NOTIFICATION_CENTER_SOUND));
         configuration.setGrowlPort(properties.get(GROWL_PORT));
         configuration.setSystemTrayWaitBeforeEnd(properties.get(SYSTEM_TRAY_WAIT));
         configuration.setSnarlPort(properties.get(SNARL_PORT));
@@ -130,7 +132,8 @@ public class ConfigurationParser {
             GROWL_PORT("notifier.growl.port", String.valueOf(23053)),
             SYSTEM_TRAY_WAIT("notifier.system-tray.wait", String.valueOf(TimeUnit.SECONDS.toMillis(2))),
             SNARL_PORT("notifier.snarl.port", String.valueOf(9887)),
-            SNARL_HOST("notifier.snarl.host", "localhost");
+            SNARL_HOST("notifier.snarl.host", "localhost"),
+            NOTIFICATION_CENTER_SOUND("notifier.notification-center.sound");
 
             private String key;
             private String defaultValue;

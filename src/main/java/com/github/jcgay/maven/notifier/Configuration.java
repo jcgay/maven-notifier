@@ -13,6 +13,7 @@ public class Configuration {
     private String systemTrayWaitBeforeEnd;
     private String snarlPort;
     private String snarlHost;
+    private String notificationCenterSound;
 
     public void setImplementation(String implementation) {
         this.implementation = implementation;
@@ -86,6 +87,14 @@ public class Configuration {
         this.snarlHost = snarlHost;
     }
 
+    public void setNotificationCenterSound(String notificationCenterSound) {
+        this.notificationCenterSound = notificationCenterSound;
+    }
+
+    public String getNotificationCenterSound() {
+        return notificationCenterSound;
+    }
+
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
@@ -94,6 +103,7 @@ public class Configuration {
                 .add("notifySendTimeout", notifySendTimeout)
                 .add("notificationCenterPath", notificationCenterPath)
                 .add("notificationCenterActivate", notificationCenterActivate)
+                .add("notificationCenterSound", notificationCenterSound)
                 .add("growlPort", growlPort)
                 .add("systemTrayWaitBeforeEnd", systemTrayWaitBeforeEnd)
                 .add("snarlPort", snarlPort)

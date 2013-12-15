@@ -21,6 +21,7 @@ public class NotificationCenterNotifier extends AbstractCustomEventSpy {
     private static final String CMD_SUBTITLE = "-subtitle";
     private static final String CMD_GROUP = "-group";
     private static final String CMD_ACTIVATE = "-activate";
+    private static final String CMD_SOUND = "-sound";
     private static final String GROUP = "maven";
 
     private final Executor executor;
@@ -54,7 +55,7 @@ public class NotificationCenterNotifier extends AbstractCustomEventSpy {
     }
 
     private String[] buildCommand(MavenExecutionResult result) {
-        String[] commands = new String[11];
+        String[] commands = new String[configuration.getNotificationCenterSound() == null ? 11 : 13];
         commands[0] = configuration.getNotificationCenterPath();
         commands[1] = CMD_TITLE;
         commands[2] = result.getProject().getName();
@@ -66,6 +67,10 @@ public class NotificationCenterNotifier extends AbstractCustomEventSpy {
         commands[8] = GROUP;
         commands[9] = CMD_ACTIVATE;
         commands[10] = configuration.getNotificationCenterActivate();
+        if (configuration.getNotificationCenterSound() != null) {
+            commands[11] = CMD_SOUND;
+            commands[12] = configuration.getNotificationCenterSound();
+        }
 
         if (logger.isDebugEnabled()) {
             logger.debug("Will execute command line: " + Joiner.on(" ").skipNulls().join(commands));
