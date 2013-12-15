@@ -1,5 +1,6 @@
 package com.github.jcgay.maven.notifier;
 
+import com.google.common.base.Stopwatch;
 import org.apache.maven.eventspy.EventSpy;
 import org.apache.maven.execution.BuildSummary;
 import org.apache.maven.execution.MavenExecutionResult;
@@ -13,15 +14,16 @@ public abstract class AbstractCustomEventSpy implements Notifier {
 
     protected Logger logger;
     protected Configuration configuration;
+    protected Stopwatch stopwatch = new Stopwatch();
 
     @Override
     public void init(EventSpy.Context context) {
-        // do nothing
+        stopwatch.start();
     }
 
     @Override
     public void onEvent(MavenExecutionResult event) {
-        // do nothing
+        stopwatch.stop();
     }
 
     @Override
@@ -47,6 +49,10 @@ public abstract class AbstractCustomEventSpy implements Notifier {
         this.logger = logger;
     }
 
+    public void setStopwatch(Stopwatch stopwatch) {
+        this.stopwatch = stopwatch;
+    }
+
     protected Status getBuildStatus(MavenExecutionResult result) {
         return result.hasExceptions() ? Status.FAILURE : Status.SUCCESS;
     }
@@ -67,5 +73,14 @@ public abstract class AbstractCustomEventSpy implements Notifier {
             builder.append(System.getProperty("line.separator"));
         }
         return builder.toString();
+    }
+
+    protected String buildTitle(MavenExecutionResult result) {
+        StringBuilder builder = new StringBuilder();
+        return builder.append(result.getProject().getName())
+                .append(" [")
+                .append(stopwatch.elapsedTime(TimeUnit.SECONDS))
+                .append("s]")
+                .toString();
     }
 }

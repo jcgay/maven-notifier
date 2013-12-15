@@ -1,7 +1,13 @@
 package com.github.jcgay.maven.notifier.growl;
 
-import com.github.jcgay.maven.notifier.*;
-import com.google.code.jgntp.*;
+import com.github.jcgay.maven.notifier.AbstractCustomEventSpy;
+import com.github.jcgay.maven.notifier.Notifier;
+import com.github.jcgay.maven.notifier.Status;
+import com.google.code.jgntp.Gntp;
+import com.google.code.jgntp.GntpApplicationInfo;
+import com.google.code.jgntp.GntpClient;
+import com.google.code.jgntp.GntpNotification;
+import com.google.code.jgntp.GntpNotificationInfo;
 import org.apache.maven.eventspy.EventSpy;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.codehaus.plexus.component.annotations.Component;
@@ -63,7 +69,7 @@ public class GrowlNotifier extends AbstractCustomEventSpy {
     }
 
     private void sendNotificationFor(MavenExecutionResult resultEvent) {
-        sendMessageWithIcon(getBuildStatus(resultEvent), resultEvent.getProject().getName(), buildNotificationMessage(resultEvent));
+        sendMessageWithIcon(getBuildStatus(resultEvent), buildTitle(resultEvent), buildNotificationMessage(resultEvent));
     }
 
     private void sendMessageWithIcon(Status status, String title, String message) {

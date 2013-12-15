@@ -31,7 +31,7 @@ public class SnarlNotifier extends AbstractCustomEventSpy {
         Notification notification = new Notification();
         notification.setIcon(Icon.base64(getBuildStatus(event).toByteArray()));
         notification.setText(buildNotificationMessage(event));
-        notification.setTitle(event.getProject().getName());
+        notification.setTitle(buildTitle(event));
 
         try {
             snarl.send(notification);

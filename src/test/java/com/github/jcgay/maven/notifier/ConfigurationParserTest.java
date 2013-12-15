@@ -1,11 +1,7 @@
 package com.github.jcgay.maven.notifier;
 
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property;
-import static org.testng.Assert.assertEquals;
-
-import java.util.Map;
-import java.util.Properties;
-
+import com.github.jcgay.maven.notifier.growl.GrowlNotifier;
+import com.github.jcgay.maven.notifier.notifysend.NotifySendNotifier;
 import org.codehaus.plexus.logging.Logger;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -14,8 +10,11 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.github.jcgay.maven.notifier.growl.GrowlNotifier;
-import com.github.jcgay.maven.notifier.notifysend.NotifySendNotifier;
+import java.util.Map;
+import java.util.Properties;
+
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property;
+import static org.testng.Assert.assertEquals;
 
 public class ConfigurationParserTest {
 

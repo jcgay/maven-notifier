@@ -42,7 +42,7 @@ public class NotifySendNotifier extends AbstractCustomEventSpy {
     private String[] buildCommand(MavenExecutionResult result) {
         String[] commands = new String[7];
         commands[0] = configuration.getNotifySendPath();
-        commands[1] = result.getProject().getName();
+        commands[1] = buildTitle(result);
         commands[2] = buildNotificationMessage(result);
         commands[3] = CMD_TIMEOUT;
         commands[4] = String.valueOf(configuration.getNotifySendTimeout());

@@ -1,22 +1,26 @@
 package com.github.jcgay.maven.notifier.notificationcenter;
 
-import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
-
-import org.apache.maven.execution.BuildSuccess;
+import com.github.jcgay.maven.notifier.Configuration;
+import com.github.jcgay.maven.notifier.KnownElapsedTimeTicker;
+import com.github.jcgay.maven.notifier.Status;
+import com.github.jcgay.maven.notifier.executor.ExecutorHolder;
+import com.github.jcgay.maven.notifier.growl.GrowlNotifier;
+import com.google.common.base.Stopwatch;
+import org.apache.maven.eventspy.EventSpy;
 import org.apache.maven.execution.DefaultMavenExecutionResult;
-import org.apache.maven.model.Build;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.logging.Logger;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.github.jcgay.maven.notifier.Configuration;
-import com.github.jcgay.maven.notifier.Status;
-import com.github.jcgay.maven.notifier.executor.ExecutorHolder;
-import com.github.jcgay.maven.notifier.growl.GrowlNotifier;
+import java.util.Collections;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import static junit.framework.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 public class NotificationCenterNotifierTest {
 
@@ -41,8 +45,14 @@ public class NotificationCenterNotifierTest {
         MavenProject project = new MavenProject();
         project.setName("project");
         event.setProject(project);
-        event.addBuildSummary(new BuildSuccess(project, 1000));
+        notifier.setStopwatch(new Stopwatch(new KnownElapsedTimeTicker(TimeUnit.SECONDS.toNanos(3L))));
 
+        notifier.init(new EventSpy.Context() {
+            @Override
+            public Map<String, Object> getData() {
+                return Collections.emptyMap();
+            }
+        });
         notifier.onEvent(event);
 
         assertEquals("path", result.getCommand()[0]);
@@ -51,7 +61,7 @@ public class NotificationCenterNotifierTest {
         assertEquals("-subtitle", result.getCommand()[3]);
         assertEquals(Status.SUCCESS.message(), result.getCommand()[4]);
         assertEquals("-message", result.getCommand()[5]);
-        assertEquals("Built in: 1 second(s).", result.getCommand()[6]);
+        assertEquals("Built in: 3 second(s).", result.getCommand()[6]);
         assertEquals("-group", result.getCommand()[7]);
         assertEquals("maven", result.getCommand()[8]);
         assertEquals("-activate", result.getCommand()[9]);

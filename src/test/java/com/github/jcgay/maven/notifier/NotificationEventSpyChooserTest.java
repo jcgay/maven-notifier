@@ -1,14 +1,16 @@
 package com.github.jcgay.maven.notifier;
 
-import static com.github.jcgay.maven.notifier.NotificationEventSpyChooser.SKIP_NOTIFICATION;
-import static org.mockito.Mockito.*;
-
 import org.apache.maven.execution.MavenExecutionResult;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import static com.github.jcgay.maven.notifier.NotificationEventSpyChooser.SKIP_NOTIFICATION;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
 
 public class NotificationEventSpyChooserTest {
 

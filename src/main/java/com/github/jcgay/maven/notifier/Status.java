@@ -1,19 +1,17 @@
 package com.github.jcgay.maven.notifier;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.awt.image.RenderedImage;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.imageio.ImageIO;
-
+import com.google.common.io.ByteStreams;
+import com.google.common.io.Closeables;
 import org.apache.maven.execution.BuildFailure;
 import org.apache.maven.execution.BuildSuccess;
 import org.apache.maven.execution.BuildSummary;
 
-import com.google.common.io.ByteStreams;
-import com.google.common.io.Closeables;
+import javax.imageio.ImageIO;
+import java.awt.image.RenderedImage;
+import java.io.IOException;
+import java.io.InputStream;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public enum Status {
 

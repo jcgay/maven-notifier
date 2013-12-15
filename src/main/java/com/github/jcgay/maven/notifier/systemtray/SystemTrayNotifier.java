@@ -21,6 +21,7 @@ public class SystemTrayNotifier extends AbstractCustomEventSpy {
 
     @Override
     public void init(EventSpy.Context context) {
+        super.init(context);
         if (!SystemTray.isSupported()) {
             skipNotifications = true;
             logger.warn("SystemTray is not supported, skipping notifications...");
@@ -39,10 +40,11 @@ public class SystemTrayNotifier extends AbstractCustomEventSpy {
 
     @Override
     public void onEvent(MavenExecutionResult event) {
+        super.onEvent(event);
         if (!skipNotifications) {
             Status status = getBuildStatus(event);
             icon.setImage(createImage(status.toByteArray()));
-            icon.displayMessage(event.getProject().getName(), buildNotificationMessage(event), toMessageType(status));
+            icon.displayMessage(buildTitle(event), buildNotificationMessage(event), toMessageType(status));
         }
     }
 

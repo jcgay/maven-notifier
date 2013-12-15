@@ -1,13 +1,13 @@
 package com.github.jcgay.maven.notifier;
 
-import java.util.List;
-
 import org.apache.maven.eventspy.AbstractEventSpy;
 import org.apache.maven.eventspy.EventSpy;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.logging.Logger;
+
+import java.util.List;
 
 @Component(role = EventSpy.class, hint = "notification", description = "Send notification to indicate build status.")
 public class NotificationEventSpyChooser extends AbstractEventSpy {
