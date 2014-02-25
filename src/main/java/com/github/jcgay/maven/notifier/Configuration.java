@@ -12,6 +12,7 @@ public class Configuration {
     private String notificationCenterActivate;
     private String systemTrayWaitBeforeEnd;
     private String growlHost;
+    private String growlPassword;
 
     public void setImplementation(String implementation) {
         this.implementation = implementation;
@@ -75,6 +76,14 @@ public class Configuration {
 
     public void setGrowlHost(String growlHost) {
         this.growlHost = growlHost;
+    }
+
+    public String getGrowlPassword() {
+        return growlPassword;
+    }
+
+    public void setGrowlPassword(String growlPassword) {
+        this.growlPassword = growlPassword;
     }
 
     @Override

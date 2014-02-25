@@ -14,6 +14,7 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.GROWL_HOST;
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.GROWL_PASSWORD;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.GROWL_PORT;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.IMPLEMENTATION;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFICATION_CENTER_ACTIVATE;
@@ -69,6 +70,7 @@ public class ConfigurationParser {
         configuration.setNotificationCenterActivate(properties.get(NOTIFICATION_CENTER_ACTIVATE));
         configuration.setGrowlHost(properties.get(GROWL_HOST));
         configuration.setGrowlPort(properties.get(GROWL_PORT));
+        configuration.setGrowlPassword(properties.get(GROWL_PASSWORD));
         configuration.setSystemTrayWaitBeforeEnd(properties.get(SYSTEM_TRAY_WAIT));
         return configuration;
     }
@@ -127,6 +129,7 @@ public class ConfigurationParser {
             NOTIFICATION_CENTER_ACTIVATE("notifier.notification-center.activate", "com.apple.Terminal"),
             GROWL_PORT("notifier.growl.port", String.valueOf(23053)),
             GROWL_HOST("notifier.growl.host"),
+            GROWL_PASSWORD("notifier.growl.password"),
             SYSTEM_TRAY_WAIT("notifier.system-tray.wait", String.valueOf(TimeUnit.SECONDS.toMillis(2)));
 
             private String key;

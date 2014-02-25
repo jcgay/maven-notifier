@@ -51,6 +51,9 @@ public class GrowlNotifier extends AbstractCustomEventSpy {
         if (configuration.getGrowlHost() != null) {
             clientBuilder.forHost(configuration.getGrowlHost());
         }
+        if (configuration.getGrowlPassword() != null) {
+            clientBuilder.withPassword(configuration.getGrowlPassword());
+        }
         client = clientBuilder.build();
         client.register();
     }

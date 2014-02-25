@@ -50,6 +50,7 @@ If needed, configuration can be done by creating a `maven-notifier.properties` f
 - `notifier.implementation` = which implementation to use. (`growl`, `notificationcenter`, `notifysend`, `sound`, `systemtray`)
 - `notifier.growl.port` = growl listening port
 - `notifier.growl.host` = growl listening host
+- `notifier.growl.password` = growl target password
 - `notifier.notify-send.path` = notify-send binary path
 - `notifier.notify-send.timeout` = the timeout in milliseconds at which to expire the notification
 - `notifier.notification-center.path` = terminal-notifier binary path.
