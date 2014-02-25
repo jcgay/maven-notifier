@@ -13,7 +13,7 @@ Get [maven-notifier](http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/ma
 
 Used by default on OS X [(paid app)](http://growl.info/) and Windows [(free)](http://www.growlforwindows.com/gfw/).
 
-Growl must listen for incoming notifications and do not require password. The options are available in the network section (OS X) or the security section of Growl (Windows).  
+Growl must listen for incoming notifications. This option is available in the network section (OS X) or in the security section of Growl (Windows).  
 This implementation is also compatible with [Snarl](http://snarl.fullphat.net/) for Windows via its Growl compatibility.
 
 ![Growl success](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.growl_.success.png)  ![Growl fail](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.growl_.fail_.png)
@@ -27,7 +27,7 @@ Used by default on linux. Installation if it's not done yet: `sudo apt-get insta
 
 ###Notification center
 
-Available only on OS X (at least Moutain lion).  
+Available only for OS X (at least Mountain lion).  
 Need to have [terminal-notifier](https://github.com/alloy/terminal-notifier) installed: `brew install terminal-notifier` 
 
 ![terminal-notifier](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.terminal-notifier.success.png)  ![terminal-notifier fail](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.terminal-notifier.fail_.png)
@@ -49,7 +49,7 @@ If needed, configuration can be done by creating a `maven-notifier.properties` f
 
 - `notifier.implementation` = which implementation to use. (`growl`, `notificationcenter`, `notifysend`, `sound`, `systemtray`)
 - `notifier.growl.port` = growl listening port
-- `notifier.growl.host` = growl listening host
+- `notifier.growl.host` = growl host
 - `notifier.growl.password` = growl target password
 - `notifier.notify-send.path` = notify-send binary path
 - `notifier.notify-send.timeout` = the timeout in milliseconds at which to expire the notification
@@ -58,4 +58,4 @@ If needed, configuration can be done by creating a `maven-notifier.properties` f
 - `notifier.notification-center.sound` = Sound to play when the notification is fired. Use `default` to select the default sound. The possible names are listed in Sound Preferences.
 - `notifier.system-tray.wait` = Java SystemTray notification display time in second.
 
-Notification can be skip when using `-DskipNotification` when launching Maven. Ex: `mvn package -DskipNotification`
+Notification can be skipped by using `-DskipNotification` when launching Maven. Ex: `mvn package -DskipNotification`
