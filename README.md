@@ -5,7 +5,7 @@ A status notification will be send at the end of a Maven build.
 
 ##Installation
 
-Get [maven-notifier](http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/maven-notifier/0.7/maven-notifier-0.7.zip) and extract it in your `$M2_HOME/lib/ext` folder.
+Get [maven-notifier](http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/maven-notifier/0.7.1/maven-notifier-0.7.1.zip) and extract it in your `$M2_HOME/lib/ext` folder.
 
 ##Available notifier
 
@@ -49,6 +49,8 @@ If needed, configuration can be done by creating a `maven-notifier.properties` f
 
 - `notifier.implementation` = which implementation to use. (`growl`, `notificationcenter`, `notifysend`, `sound`, `systemtray`)
 - `notifier.growl.port` = growl listening port
+- `notifier.growl.host` = growl listening host
+- `notifier.growl.password` = growl target password
 - `notifier.notify-send.path` = notify-send binary path
 - `notifier.notify-send.timeout` = the timeout in milliseconds at which to expire the notification
 - `notifier.notification-center.path` = terminal-notifier binary path.

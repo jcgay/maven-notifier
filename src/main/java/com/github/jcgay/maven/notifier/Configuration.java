@@ -11,6 +11,8 @@ public class Configuration {
     private String growlPort;
     private String notificationCenterActivate;
     private String systemTrayWaitBeforeEnd;
+    private String growlHost;
+    private String growlPassword;
     private String snarlPort;
     private String snarlHost;
     private String notificationCenterSound;
@@ -71,6 +73,22 @@ public class Configuration {
         this.systemTrayWaitBeforeEnd = systemTrayWaitBeforeEnd;
     }
 
+    public String getGrowlHost() {
+        return growlHost;
+    }
+
+    public void setGrowlHost(String growlHost) {
+        this.growlHost = growlHost;
+    }
+
+    public String getGrowlPassword() {
+        return growlPassword;
+    }
+
+    public void setGrowlPassword(String growlPassword) {
+        this.growlPassword = growlPassword;
+    }
+
     public int getSnarlPort() {
         return Integer.valueOf(snarlPort);
     }
@@ -105,6 +123,7 @@ public class Configuration {
                 .add("notificationCenterActivate", notificationCenterActivate)
                 .add("notificationCenterSound", notificationCenterSound)
                 .add("growlPort", growlPort)
+                .add("growlHost", growlHost)
                 .add("systemTrayWaitBeforeEnd", systemTrayWaitBeforeEnd)
                 .add("snarlPort", snarlPort)
                 .add("snarlHost", snarlHost)

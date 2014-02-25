@@ -82,6 +82,8 @@ public class ConfigurationParserTest {
         properties.put(Property.NOTIFICATION_CENTER_ACTIVATE.key(), "notification-center.activate");
         properties.put(Property.NOTIFICATION_CENTER_SOUND.key(), "notification-center.sound");
         properties.put(Property.GROWL_PORT.key(), "1");
+        properties.put(Property.GROWL_HOST.key(), "192.168.0.1");
+        properties.put(Property.GROWL_PASSWORD.key(), "a.password");
         properties.put(Property.SYSTEM_TRAY_WAIT.key(), "1");
         properties.put(Property.SNARL_PORT.key(), "1");
         properties.put(Property.SNARL_HOST.key(), "192.168.1.11");
@@ -95,6 +97,8 @@ public class ConfigurationParserTest {
         assertEquals(result.getNotificationCenterActivate(), "notification-center.activate");
         assertEquals(result.getNotificationCenterSound(), "notification-center.sound");
         assertEquals(result.getGrowlPort(), 1);
+        assertEquals(result.getGrowlHost(), "192.168.0.1");
+        assertEquals(result.getGrowlPassword(), "a.password");
         assertEquals(result.getSystemTrayWaitBeforeEnd(), 1);
         assertEquals(result.getSnarlPort(), 1);
         assertEquals(result.getSnarlHost(), "192.168.1.11");

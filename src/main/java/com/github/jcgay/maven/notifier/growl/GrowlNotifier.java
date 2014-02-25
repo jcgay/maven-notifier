@@ -51,10 +51,16 @@ public class GrowlNotifier extends AbstractCustomEventSpy {
     }
 
     private void initGrowlClient() {
-        client = Gntp.client(application)
+        Gntp clientBuilder = Gntp.client(application)
                 .listener(new Slf4jGntpListener())
-                .onPort(configuration.getGrowlPort())
-                .build();
+                .onPort(configuration.getGrowlPort());
+        if (configuration.getGrowlHost() != null) {
+            clientBuilder.forHost(configuration.getGrowlHost());
+        }
+        if (configuration.getGrowlPassword() != null) {
+            clientBuilder.withPassword(configuration.getGrowlPassword());
+        }
+        client = clientBuilder.build();
         client.register();
     }
 
