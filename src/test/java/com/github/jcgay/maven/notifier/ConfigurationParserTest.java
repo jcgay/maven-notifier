@@ -1,11 +1,7 @@
 package com.github.jcgay.maven.notifier;
 
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property;
-import static org.testng.Assert.assertEquals;
-
-import java.util.Map;
-import java.util.Properties;
-
+import com.github.jcgay.maven.notifier.growl.GrowlNotifier;
+import com.github.jcgay.maven.notifier.notifysend.NotifySendNotifier;
 import org.codehaus.plexus.logging.Logger;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -14,8 +10,11 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.github.jcgay.maven.notifier.growl.GrowlNotifier;
-import com.github.jcgay.maven.notifier.notifysend.NotifySendNotifier;
+import java.util.Map;
+import java.util.Properties;
+
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property;
+import static org.testng.Assert.assertEquals;
 
 public class ConfigurationParserTest {
 
@@ -80,6 +79,7 @@ public class ConfigurationParserTest {
         properties.put(Property.NOTIFICATION_CENTER_PATH.key(), "notification-center.path");
         properties.put(Property.NOTIFICATION_CENTER_ACTIVATE.key(), "notification-center.activate");
         properties.put(Property.GROWL_PORT.key(), "1");
+        properties.put(Property.GROWL_HOST.key(), "192.168.0.1");
         properties.put(Property.SYSTEM_TRAY_WAIT.key(), "1");
 
         Configuration result = parser.get(properties);
@@ -90,6 +90,7 @@ public class ConfigurationParserTest {
         assertEquals(result.getNotificationCenterPath(), "notification-center.path");
         assertEquals(result.getNotificationCenterActivate(), "notification-center.activate");
         assertEquals(result.getGrowlPort(), 1);
+        assertEquals(result.getGrowlHost(), "192.168.0.1");
         assertEquals(result.getSystemTrayWaitBeforeEnd(), 1);
     }
 }

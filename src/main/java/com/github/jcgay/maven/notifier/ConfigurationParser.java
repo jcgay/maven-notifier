@@ -1,6 +1,11 @@
 package com.github.jcgay.maven.notifier;
 
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.*;
+import com.github.jcgay.maven.notifier.growl.GrowlNotifier;
+import com.github.jcgay.maven.notifier.notifysend.NotifySendNotifier;
+import com.google.common.annotations.VisibleForTesting;
+import org.codehaus.plexus.component.annotations.Component;
+import org.codehaus.plexus.component.annotations.Requirement;
+import org.codehaus.plexus.logging.Logger;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -8,13 +13,14 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
-import org.codehaus.plexus.logging.Logger;
-
-import com.github.jcgay.maven.notifier.growl.GrowlNotifier;
-import com.github.jcgay.maven.notifier.notifysend.NotifySendNotifier;
-import com.google.common.annotations.VisibleForTesting;
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.GROWL_HOST;
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.GROWL_PORT;
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.IMPLEMENTATION;
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFICATION_CENTER_ACTIVATE;
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFICATION_CENTER_PATH;
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFY_SEND_PATH;
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFY_SEND_TIMEOUT;
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SYSTEM_TRAY_WAIT;
 
 @Component(role = ConfigurationParser.class, hint = "maven-notifier-configuration")
 public class ConfigurationParser {
@@ -61,6 +67,7 @@ public class ConfigurationParser {
         configuration.setNotifySendTimeout(properties.get(NOTIFY_SEND_TIMEOUT));
         configuration.setNotificationCenterPath(properties.get(NOTIFICATION_CENTER_PATH));
         configuration.setNotificationCenterActivate(properties.get(NOTIFICATION_CENTER_ACTIVATE));
+        configuration.setGrowlHost(properties.get(GROWL_HOST));
         configuration.setGrowlPort(properties.get(GROWL_PORT));
         configuration.setSystemTrayWaitBeforeEnd(properties.get(SYSTEM_TRAY_WAIT));
         return configuration;
@@ -119,6 +126,7 @@ public class ConfigurationParser {
             NOTIFICATION_CENTER_PATH("notifier.notification-center.path", "terminal-notifier"),
             NOTIFICATION_CENTER_ACTIVATE("notifier.notification-center.activate", "com.apple.Terminal"),
             GROWL_PORT("notifier.growl.port", String.valueOf(23053)),
+            GROWL_HOST("notifier.growl.host"),
             SYSTEM_TRAY_WAIT("notifier.system-tray.wait", String.valueOf(TimeUnit.SECONDS.toMillis(2)));
 
             private String key;
