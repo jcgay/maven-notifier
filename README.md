@@ -5,7 +5,7 @@ A status notification will be send at the end of a Maven build.
 
 ##Installation
 
-Get [maven-notifier](http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/maven-notifier/0.7/maven-notifier-0.7.zip) and extract it in your `$M2_HOME/lib/ext` folder.
+Get [maven-notifier](http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/maven-notifier/0.7.1/maven-notifier-0.7.1.zip) and extract it in your `$M2_HOME/lib/ext` folder.
 
 ##Available notifier
 
