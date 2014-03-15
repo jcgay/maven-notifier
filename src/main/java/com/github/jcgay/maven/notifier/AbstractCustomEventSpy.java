@@ -58,10 +58,18 @@ public abstract class AbstractCustomEventSpy implements Notifier {
     }
 
     protected String buildNotificationMessage(MavenExecutionResult result) {
-        if (configuration.isShortDescription()) {
+        if (shouldBuildShortDescription(result)) {
             return buildShortDescription(result);
         }
         return buildFullDescription(result);
+    }
+
+    private boolean shouldBuildShortDescription(MavenExecutionResult result) {
+        return configuration.isShortDescription() || hasOnlyOneModule(result);
+    }
+
+    private boolean hasOnlyOneModule(MavenExecutionResult result) {
+        return result.getTopologicallySortedProjects().size() == 1;
     }
 
     protected String buildShortDescription(MavenExecutionResult result) {
@@ -95,7 +103,7 @@ public abstract class AbstractCustomEventSpy implements Notifier {
 
     protected String buildTitle(MavenExecutionResult result) {
         StringBuilder builder = new StringBuilder().append(result.getProject().getName());
-        if (!configuration.isShortDescription()) {
+        if (!shouldBuildShortDescription(result)) {
             builder.append(" [")
                    .append(stopwatch.elapsedTime(TimeUnit.SECONDS))
                    .append("s]");
