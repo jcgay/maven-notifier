@@ -3,15 +3,12 @@ package com.github.jcgay.maven.notifier.notificationcenter;
 import com.github.jcgay.maven.notifier.AbstractCustomEventSpy;
 import com.github.jcgay.maven.notifier.Configuration;
 import com.github.jcgay.maven.notifier.Notifier;
-import com.github.jcgay.maven.notifier.Status;
 import com.github.jcgay.maven.notifier.executor.Executor;
 import com.github.jcgay.maven.notifier.executor.RuntimeExecutor;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.codehaus.plexus.component.annotations.Component;
-
-import java.util.concurrent.TimeUnit;
 
 @Component(role = Notifier.class, hint = "notification-center")
 public class NotificationCenterNotifier extends AbstractCustomEventSpy {
@@ -44,14 +41,7 @@ public class NotificationCenterNotifier extends AbstractCustomEventSpy {
 
     @Override
     protected String buildNotificationMessage(MavenExecutionResult result) {
-        if (getBuildStatus(result) == Status.SUCCESS) {
-            StringBuilder builder = new StringBuilder("Built in: ");
-            builder.append(stopwatch.elapsedTime(TimeUnit.SECONDS));
-            builder.append(" second(s).");
-            return builder.toString();
-        }
-
-        return "";
+        return buildShortDescription(result);
     }
 
     private String[] buildCommand(MavenExecutionResult result) {

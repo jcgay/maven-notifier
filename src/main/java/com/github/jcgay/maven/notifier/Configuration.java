@@ -16,6 +16,7 @@ public class Configuration {
     private String snarlPort;
     private String snarlHost;
     private String notificationCenterSound;
+    private boolean shortDescription;
 
     public void setImplementation(String implementation) {
         this.implementation = implementation;
@@ -113,6 +114,14 @@ public class Configuration {
         return notificationCenterSound;
     }
 
+    public boolean isShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(boolean shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
@@ -127,6 +136,7 @@ public class Configuration {
                 .add("systemTrayWaitBeforeEnd", systemTrayWaitBeforeEnd)
                 .add("snarlPort", snarlPort)
                 .add("snarlHost", snarlHost)
+                .add("shortDescription", shortDescription)
                 .toString();
     }
 }

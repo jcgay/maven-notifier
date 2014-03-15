@@ -58,6 +58,24 @@ public abstract class AbstractCustomEventSpy implements Notifier {
     }
 
     protected String buildNotificationMessage(MavenExecutionResult result) {
+        if (configuration.isShortDescription()) {
+            return buildShortDescription(result);
+        }
+        return buildFullDescription(result);
+    }
+
+    protected String buildShortDescription(MavenExecutionResult result) {
+        if (getBuildStatus(result) == Status.SUCCESS) {
+            StringBuilder builder = new StringBuilder("Built in: ");
+            builder.append(stopwatch.elapsedTime(TimeUnit.SECONDS));
+            builder.append(" second(s).");
+            return builder.toString();
+        }
+
+        return "";
+    }
+
+    private String buildFullDescription(MavenExecutionResult result) {
         StringBuilder builder = new StringBuilder();
         for (MavenProject project : result.getTopologicallySortedProjects()) {
             BuildSummary buildSummary = result.getBuildSummary(project);
@@ -76,11 +94,13 @@ public abstract class AbstractCustomEventSpy implements Notifier {
     }
 
     protected String buildTitle(MavenExecutionResult result) {
-        StringBuilder builder = new StringBuilder();
-        return builder.append(result.getProject().getName())
-                .append(" [")
-                .append(stopwatch.elapsedTime(TimeUnit.SECONDS))
-                .append("s]")
-                .toString();
+        StringBuilder builder = new StringBuilder().append(result.getProject().getName());
+        if (!configuration.isShortDescription()) {
+            builder.append(" [")
+                   .append(stopwatch.elapsedTime(TimeUnit.SECONDS))
+                   .append("s]");
+
+        }
+        return builder.toString();
     }
 }

@@ -22,9 +22,11 @@ import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationP
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFICATION_CENTER_SOUND;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFY_SEND_PATH;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFY_SEND_TIMEOUT;
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SHORT_DESCRIPTION;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SNARL_HOST;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SNARL_PORT;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SYSTEM_TRAY_WAIT;
+import static java.lang.Boolean.parseBoolean;
 
 @Component(role = ConfigurationParser.class, hint = "maven-notifier-configuration")
 public class ConfigurationParser {
@@ -78,6 +80,7 @@ public class ConfigurationParser {
         configuration.setSystemTrayWaitBeforeEnd(properties.get(SYSTEM_TRAY_WAIT));
         configuration.setSnarlPort(properties.get(SNARL_PORT));
         configuration.setSnarlHost(properties.get(SNARL_HOST));
+        configuration.setShortDescription(parseBoolean(properties.get(SHORT_DESCRIPTION)));
         return configuration;
     }
 
@@ -139,7 +142,8 @@ public class ConfigurationParser {
             SYSTEM_TRAY_WAIT("notifier.system-tray.wait", String.valueOf(TimeUnit.SECONDS.toMillis(2))),
             SNARL_PORT("notifier.snarl.port", String.valueOf(9887)),
             SNARL_HOST("notifier.snarl.host", "localhost"),
-            NOTIFICATION_CENTER_SOUND("notifier.notification-center.sound");
+            NOTIFICATION_CENTER_SOUND("notifier.notification-center.sound"),
+            SHORT_DESCRIPTION("notifier.message.short", "false");
 
             private String key;
             private String defaultValue;

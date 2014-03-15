@@ -15,6 +15,8 @@ import java.util.Properties;
 
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 public class ConfigurationParserTest {
 
@@ -69,6 +71,7 @@ public class ConfigurationParserTest {
         assertEquals(Long.valueOf(result.getSystemTrayWaitBeforeEnd()), Long.valueOf(Property.SYSTEM_TRAY_WAIT.defaultValue()));
         assertEquals(Integer.valueOf(result.getSnarlPort()), Integer.valueOf(Property.SNARL_PORT.defaultValue()));
         assertEquals(result.getSnarlHost(), Property.SNARL_HOST.defaultValue());
+        assertFalse(result.isShortDescription());
     }
 
     @Test
@@ -87,6 +90,7 @@ public class ConfigurationParserTest {
         properties.put(Property.SYSTEM_TRAY_WAIT.key(), "1");
         properties.put(Property.SNARL_PORT.key(), "1");
         properties.put(Property.SNARL_HOST.key(), "192.168.1.11");
+        properties.put(Property.SHORT_DESCRIPTION.key(), "true");
 
         Configuration result = parser.get(properties);
 
@@ -102,5 +106,6 @@ public class ConfigurationParserTest {
         assertEquals(result.getSystemTrayWaitBeforeEnd(), 1);
         assertEquals(result.getSnarlPort(), 1);
         assertEquals(result.getSnarlHost(), "192.168.1.11");
+        assertTrue(result.isShortDescription());
     }
 }
