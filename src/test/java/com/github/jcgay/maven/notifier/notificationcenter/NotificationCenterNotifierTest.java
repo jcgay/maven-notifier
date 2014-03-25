@@ -67,8 +67,10 @@ public class NotificationCenterNotifierTest {
         assertEquals("maven", result.getCommand()[8]);
         assertEquals("-activate", result.getCommand()[9]);
         assertEquals("com.apple.Terminal", result.getCommand()[10]);
-        assertEquals("-sound", result.getCommand()[11]);
-        assertEquals("default", result.getCommand()[12]);
+        assertEquals("-contentImage", result.getCommand()[11]);
+        assertEquals(Status.SUCCESS.asPath(), result.getCommand()[12]);
+        assertEquals("-sound", result.getCommand()[13]);
+        assertEquals("default", result.getCommand()[14]);
     }
 
     @Test

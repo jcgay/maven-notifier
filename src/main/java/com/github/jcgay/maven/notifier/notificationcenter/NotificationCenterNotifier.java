@@ -3,6 +3,7 @@ package com.github.jcgay.maven.notifier.notificationcenter;
 import com.github.jcgay.maven.notifier.AbstractCustomEventSpy;
 import com.github.jcgay.maven.notifier.Configuration;
 import com.github.jcgay.maven.notifier.Notifier;
+import com.github.jcgay.maven.notifier.Status;
 import com.github.jcgay.maven.notifier.executor.Executor;
 import com.github.jcgay.maven.notifier.executor.RuntimeExecutor;
 import com.google.common.annotations.VisibleForTesting;
@@ -19,6 +20,7 @@ public class NotificationCenterNotifier extends AbstractCustomEventSpy {
     private static final String CMD_GROUP = "-group";
     private static final String CMD_ACTIVATE = "-activate";
     private static final String CMD_SOUND = "-sound";
+    private static final String CMD_CONTENT_IMAGE = "-contentImage";
     private static final String GROUP = "maven";
 
     private final Executor executor;
@@ -45,21 +47,25 @@ public class NotificationCenterNotifier extends AbstractCustomEventSpy {
     }
 
     private String[] buildCommand(MavenExecutionResult result) {
-        String[] commands = new String[configuration.getNotificationCenterSound() == null ? 11 : 13];
+        Status status = getBuildStatus(result);
+
+        String[] commands = new String[configuration.getNotificationCenterSound() == null ? 12 : 15];
         commands[0] = configuration.getNotificationCenterPath();
         commands[1] = CMD_TITLE;
         commands[2] = result.getProject().getName();
         commands[3] = CMD_SUBTITLE;
-        commands[4] = getBuildStatus(result).message();
+        commands[4] = status.message();
         commands[5] = CMD_MESSAGE;
         commands[6] = buildNotificationMessage(result);
         commands[7] = CMD_GROUP;
         commands[8] = GROUP;
         commands[9] = CMD_ACTIVATE;
         commands[10] = configuration.getNotificationCenterActivate();
+        commands[11] = CMD_CONTENT_IMAGE;
+        commands[12] = status.asPath();
         if (configuration.getNotificationCenterSound() != null) {
-            commands[11] = CMD_SOUND;
-            commands[12] = configuration.getNotificationCenterSound();
+            commands[13] = CMD_SOUND;
+            commands[14] = configuration.getNotificationCenterSound();
         }
 
         if (logger.isDebugEnabled()) {
