@@ -3,17 +3,12 @@ package com.github.jcgay.maven.notifier.notifysend;
 import com.github.jcgay.maven.notifier.AbstractCustomEventSpy;
 import com.github.jcgay.maven.notifier.Configuration;
 import com.github.jcgay.maven.notifier.Notifier;
-import com.github.jcgay.maven.notifier.Status;
 import com.github.jcgay.maven.notifier.executor.Executor;
 import com.github.jcgay.maven.notifier.executor.RuntimeExecutor;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.codehaus.plexus.component.annotations.Component;
-
-import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
 
 @Component(role = Notifier.class, hint = "notify-send")
 public class NotifySendNotifier extends AbstractCustomEventSpy {
@@ -47,7 +42,7 @@ public class NotifySendNotifier extends AbstractCustomEventSpy {
         commands[3] = CMD_TIMEOUT;
         commands[4] = String.valueOf(configuration.getNotifySendTimeout());
         commands[5] = CMD_ICON;
-        commands[6] = toFilePath(getBuildStatus(result));
+        commands[6] = getBuildStatus(result).asPath();
 
         if (logger.isDebugEnabled()) {
             logger.debug("Will execute command line: " + Joiner.on(" ").join(commands));
@@ -55,19 +50,4 @@ public class NotifySendNotifier extends AbstractCustomEventSpy {
 
         return commands;
     }
-
-    private String toFilePath(Status status) {
-        String folder = System.getProperty("java.io.tmpdir") + "/maven-notifier-icons/";
-        File icon = new File(folder + status.name() + ".png");
-        if (!icon.exists()) {
-            new File(folder).mkdirs();
-            try {
-                ImageIO.write(status.icon(), "png", icon);
-            } catch (IOException e) {
-                throw new RuntimeException("Can't write notification icon icon: " + icon.getPath(), e);
-            }
-        }
-        return icon.getPath();
-    }
-
 }

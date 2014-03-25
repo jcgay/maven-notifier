@@ -8,6 +8,7 @@ import org.apache.maven.execution.BuildSummary;
 
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -62,5 +63,19 @@ public enum Status {
             return FAILURE;
         }
         throw new IllegalArgumentException(String.format("Summary status type [%s] is not handle.", summary.getClass().getName()));
+    }
+
+    public String asPath() {
+        String folder = System.getProperty("java.io.tmpdir") + "/maven-notifier-icons/";
+        File icon = new File(folder + name() + ".png");
+        if (!icon.exists()) {
+            new File(folder).mkdirs();
+            try {
+                ImageIO.write(icon(), "png", icon);
+            } catch (IOException e) {
+                throw new RuntimeException("Can't write notification icon icon: " + icon.getPath(), e);
+            }
+        }
+        return icon.getPath();
     }
 }
