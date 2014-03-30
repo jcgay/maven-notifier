@@ -35,6 +35,10 @@
             <id>jcgay-snapshots</id>
             <url>https://repository-jcgay.forge.cloudbees.com/snapshot/</url>
         </repository>
+        <repository>
+            <id>jcgay-releases</id>
+            <url>https://repository-jcgay.forge.cloudbees.com/release/</url>
+        </repository>
     </repositories>
 
     <properties>
@@ -77,7 +81,7 @@
         <dependency>
             <groupId>com.github.jcgay.snp4j</groupId>
             <artifactId>snp4j</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>0.1</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
