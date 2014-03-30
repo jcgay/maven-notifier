@@ -16,21 +16,21 @@ Used by default on OS X [(paid app)](http://growl.info/) and Windows [(free)](ht
 Growl must listen for incoming notifications. This option is available in the network section (OS X) or in the security section of Growl (Windows).  
 This implementation is also compatible with [Snarl](http://snarl.fullphat.net/) for Windows via its Growl compatibility.
 
-![Growl success](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.growl_.success.png)  ![Growl fail](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.growl_.fail_.png)
+![Growl success](http://jeanchristophegay.com/images/notifier.growl_.success.png)  ![Growl fail](http://jeanchristophegay.com/images/notifier.growl_.fail_.png)
 
 ###notify-send
 
 Used by default on linux. Installation if it's not done yet: `sudo apt-get install libnotify-bin`
 
-![notify-send success](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.notify-send.success.png)  
-![notify-send fail](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.notify-send.error_.fail_.png)
+![notify-send success](http://jeanchristophegay.com/images/notifier.notify-send.success.png)  
+![notify-send fail](http://jeanchristophegay.com/images/notifier.notify-send.error_.fail_.png)
 
 ###Notification center
 
 Available only for OS X (at least Mountain lion).  
 Need to have [terminal-notifier](https://github.com/alloy/terminal-notifier) installed: `brew install terminal-notifier` 
 
-![terminal-notifier](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.terminal-notifier.success.png)  ![terminal-notifier fail](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.terminal-notifier.fail_.png)
+![terminal-notifier](http://jeanchristophegay.com/images/notifier.terminal-notifier.success.png)  ![terminal-notifier fail](http://jeanchristophegay.com/images/notifier.terminal-notifier.fail_.png)
 
 ###Sound
 
@@ -40,8 +40,8 @@ Play a success or failure sound when build ends.
 
 Use Java `SystemTray` to display notification.
 
-During the build an icon ![Build Icon](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.system.tray_.building.png) is displayed in the System Tray. At the end the icon reflects the build status and a notification is sent.  
-![System Tray success](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.system.tray_.success.png)  ![System Tray fail](http://jeanchristophegay.com/wp-content/uploads/2013/10/notifier.system.tray_.fail_.png)
+During the build an icon ![Build Icon](http://jeanchristophegay.com/images/notifier.system.tray_.building.png) is displayed in the System Tray. At the end the icon reflects the build status and a notification is sent.  
+![System Tray success](http://jeanchristophegay.com/images/notifier.system.tray_.success.png)  ![System Tray fail](http://jeanchristophegay.com/images/notifier.system.tray_.fail_.png)
 
 ##Configuration
 
@@ -58,4 +58,6 @@ If needed, configuration can be done by creating a `maven-notifier.properties` f
 - `notifier.notification-center.sound` = Sound to play when the notification is fired. Use `default` to select the default sound. The possible names are listed in Sound Preferences.
 - `notifier.system-tray.wait` = Java SystemTray notification display time in second.
 
-Notification can be skipped by using `-DskipNotification` when launching Maven. Ex: `mvn package -DskipNotification`
+Notification can be skipped by using `-DskipNotification` when launching Maven.
+
+    mvn package -DskipNotification
