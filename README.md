@@ -30,7 +30,7 @@ Used by default on linux. Installation if it's not done yet: `sudo apt-get insta
 Available only for OS X (at least Mountain lion).  
 Need to have [terminal-notifier](https://github.com/alloy/terminal-notifier) installed: `brew install terminal-notifier` 
 
-![terminal-notifier](http://jeanchristophegay.com/images/notifier.notification-center.success.png =298x63)  ![terminal-notifier fail](http://jeanchristophegay.com/images/notifier.notification-center.failure.png =298x63)
+![terminal-notifier](http://jeanchristophegay.com/images/notifier.notification-center.success.png)  ![terminal-notifier fail](http://jeanchristophegay.com/images/notifier.notification-center.failure.png)
 
 ###Sound
 
