@@ -58,17 +58,19 @@ Snarl must listen for incoming notifications. This option is available in `Optio
 
 If needed, configuration can be done by creating a `maven-notifier.properties` file in your `$M2_HOME/lib/ext` folder.  
 
-- `notifier.implementation` = which implementation to use. (`growl`, `notificationcenter`, `notifysend`, `sound`, `systemtray`, `snarl`)
-- `notifier.growl.port` = growl listening port
-- `notifier.growl.host` = growl host
-- `notifier.growl.password` = growl target password
-- `notifier.notify-send.path` = notify-send binary path
-- `notifier.notify-send.timeout` = the timeout in milliseconds at which to expire the notification
-- `notifier.notification-center.path` = terminal-notifier binary path.
-- `notifier.notification-center.activate` = Indicate which application should be activated when clicking on terminal-notifier message. See `Info.plist` file inside the application bundle to find the bundle identifier (key: `CFBundleIdentifier`). For example to open [iTerm2](http://www.iterm2.com/#/section/home), use `com.googlecode.iterm2`.
+- `notifier.implementation` = which implementation to use. (`growl`, `notificationcenter`, `notifysend`, `sound`, `systemtray`, `snarl`).
+- `notifier.growl.port` = growl listening port (default: `23053`).
+- `notifier.growl.host` = growl host (default: `localhost`).
+- `notifier.growl.password` = growl target password.
+- `notifier.notify-send.path` = notify-send binary path (default: `notify-send`).
+- `notifier.notify-send.timeout` = the timeout in milliseconds at which to expire the notification (default: `2s`).
+- `notifier.notification-center.path` = terminal-notifier binary path (default: `terminal-notifier`).
+- `notifier.notification-center.activate` = Indicate which application should be activated when clicking on terminal-notifier message. See `Info.plist` file inside the application bundle to find the bundle identifier (key: `CFBundleIdentifier`). For example to open [iTerm2](http://www.iterm2.com/#/section/home), use `com.googlecode.iterm2` (default: `com.apple.Terminal`).
 - `notifier.notification-center.sound` = Sound to play when the notification is fired. Use `default` to select the default sound. The possible names are listed in Sound Preferences.
-- `notifier.system-tray.wait` = Java SystemTray notification display time in second.
+- `notifier.system-tray.wait` = Java SystemTray notification display time in second. (default: `2s`)
 - `notification.message.short` = true/false (by default). Choose between a full description with each module notification or a short one just reflecting the build status.
+- `notifier.snarl.host` = snarl host (default: `localhost`)
+- `notifier.snarl.port` = snarl listening port (default: `9887`)
 
 Notification can be skipped by using `-DskipNotification` when launching Maven.
 
