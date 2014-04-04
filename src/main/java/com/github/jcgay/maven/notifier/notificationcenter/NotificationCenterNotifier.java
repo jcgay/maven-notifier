@@ -49,7 +49,7 @@ public class NotificationCenterNotifier extends AbstractCustomEventSpy {
     private String[] buildCommand(MavenExecutionResult result) {
         Status status = getBuildStatus(result);
 
-        String[] commands = new String[configuration.getNotificationCenterSound() == null ? 12 : 15];
+        String[] commands = new String[configuration.getNotificationCenterSound() == null ? 13 : 15];
         commands[0] = configuration.getNotificationCenterPath();
         commands[1] = CMD_TITLE;
         commands[2] = result.getProject().getName();

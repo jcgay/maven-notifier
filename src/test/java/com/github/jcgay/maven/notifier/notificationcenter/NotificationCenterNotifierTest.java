@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -42,23 +43,19 @@ public class NotificationCenterNotifierTest {
 
         configuration.setNotificationCenterActivate("com.apple.Terminal");
         configuration.setNotificationCenterSound("default");
-        DefaultMavenExecutionResult event = new DefaultMavenExecutionResult();
-        MavenProject project = new MavenProject();
-        project.setName("project");
-        event.setProject(project);
-        notifier.setStopwatch(new Stopwatch(new KnownElapsedTimeTicker(TimeUnit.SECONDS.toNanos(3L))));
 
+        notifier.setStopwatch(stopWatch(3L));
         notifier.init(new EventSpy.Context() {
             @Override
             public Map<String, Object> getData() {
                 return Collections.emptyMap();
             }
         });
-        notifier.onEvent(event);
+        notifier.onEvent(result(project()));
 
         assertEquals("path", result.getCommand()[0]);
         assertEquals("-title", result.getCommand()[1]);
-        assertEquals(project.getName(), result.getCommand()[2]);
+        assertEquals(project().getName(), result.getCommand()[2]);
         assertEquals("-subtitle", result.getCommand()[3]);
         assertEquals(Status.SUCCESS.message(), result.getCommand()[4]);
         assertEquals("-message", result.getCommand()[5]);
@@ -71,6 +68,26 @@ public class NotificationCenterNotifierTest {
         assertEquals(Status.SUCCESS.asPath(), result.getCommand()[12]);
         assertEquals("-sound", result.getCommand()[13]);
         assertEquals("default", result.getCommand()[14]);
+    }
+
+    @Test
+    public void should_not_fail_when_sound_is_not_set() throws Exception {
+
+        notifier.init(new EventSpy.Context() {
+            @Override
+            public Map<String, Object> getData() {
+                return Collections.emptyMap();
+            }
+        });
+        notifier.onEvent(event(project()));
+
+        assertNotNull(result.getCommand());
+    }
+
+    private static DefaultMavenExecutionResult event(MavenProject project) {
+        DefaultMavenExecutionResult event = new DefaultMavenExecutionResult();
+        event.setProject(project);
+        return event;
     }
 
     @Test
@@ -91,5 +108,21 @@ public class NotificationCenterNotifierTest {
 
         configuration.setImplementation("notifysend");
         assertFalse(notifier.shouldNotify());
+    }
+
+    private static DefaultMavenExecutionResult result(MavenProject project) {
+        DefaultMavenExecutionResult event = new DefaultMavenExecutionResult();
+        event.setProject(project);
+        return event;
+    }
+
+    private static Stopwatch stopWatch(long seconds) {
+        return new Stopwatch(new KnownElapsedTimeTicker(TimeUnit.SECONDS.toNanos(seconds)));
+    }
+
+    private static MavenProject project() {
+        MavenProject project = new MavenProject();
+        project.setName("project");
+        return project;
     }
 }
