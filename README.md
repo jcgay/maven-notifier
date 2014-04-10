@@ -68,7 +68,7 @@ If needed, configuration can be done by creating a `maven-notifier.properties` f
 - `notifier.notification-center.activate` = Indicate which application should be activated when clicking on terminal-notifier message. See `Info.plist` file inside the application bundle to find the bundle identifier (key: `CFBundleIdentifier`). For example to open [iTerm2](http://www.iterm2.com/#/section/home), use `com.googlecode.iterm2` (default: `com.apple.Terminal`).
 - `notifier.notification-center.sound` = Sound to play when the notification is fired. Use `default` to select the default sound. The possible names are listed in Sound Preferences.
 - `notifier.system-tray.wait` = Java SystemTray notification display time in second. (default: `2s`)
-- `notification.message.short` = true/false (by default). Choose between a full description with each module notification or a short one just reflecting the build status.
+- `notifier.message.short` = true/false (by default). Choose between a full description with each module notification or a short one just reflecting the build status.
 - `notifier.snarl.host` = snarl host (default: `localhost`)
 - `notifier.snarl.port` = snarl listening port (default: `9887`)
 
