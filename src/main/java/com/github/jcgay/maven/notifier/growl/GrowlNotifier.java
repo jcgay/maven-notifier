@@ -12,6 +12,7 @@ import org.apache.maven.eventspy.EventSpy;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.codehaus.plexus.component.annotations.Component;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Component(role = Notifier.class, hint = "growl")
@@ -48,6 +49,11 @@ public class GrowlNotifier extends AbstractCustomEventSpy {
                 Thread.currentThread().interrupt();
             }
         }
+    }
+
+    @Override
+    public void onFailWithoutProject(List<Throwable> exceptions) {
+        sendMessageWithIcon(Status.FAILURE, "Build Error", buildErrorDescription(exceptions));
     }
 
     private void initGrowlClient() {

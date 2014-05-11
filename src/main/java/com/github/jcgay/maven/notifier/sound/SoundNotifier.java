@@ -14,18 +14,28 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @Component(role = Notifier.class, hint = "sound")
 public class SoundNotifier extends AbstractCustomEventSpy {
 
     @Override
     public void onEvent(MavenExecutionResult event) {
-        AudioInputStream ais = getAudioStream(getBuildStatus(event));
+        playSound(getBuildStatus(event));
+    }
+
+    private void playSound(Status status) {
+        AudioInputStream ais = getAudioStream(status);
         if (ais == null) {
             logger.warn("Cannot get a sound to play. Skipping notification...");
             return;
         }
         play(ais);
+    }
+
+    @Override
+    public void onFailWithoutProject(List<Throwable> exceptions) {
+        playSound(Status.FAILURE);
     }
 
     private void play(AudioInputStream ais) {

@@ -8,6 +8,7 @@ import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.logging.Logger;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractCustomEventSpy implements Notifier {
@@ -28,6 +29,11 @@ public abstract class AbstractCustomEventSpy implements Notifier {
 
     @Override
     public void close() {
+        // do nothing
+    }
+
+    @Override
+    public void onFailWithoutProject(List<Throwable> exceptions) {
         // do nothing
     }
 
@@ -108,6 +114,15 @@ public abstract class AbstractCustomEventSpy implements Notifier {
                    .append(stopwatch.elapsedTime(TimeUnit.SECONDS))
                    .append("s]");
 
+        }
+        return builder.toString();
+    }
+
+    protected String buildErrorDescription(List<Throwable> exceptions) {
+        StringBuilder builder = new StringBuilder();
+        for (Throwable exception : exceptions) {
+            builder.append(exception.getMessage());
+            builder.append(System.getProperty("line.separator"));
         }
         return builder.toString();
     }

@@ -11,6 +11,8 @@ import com.google.common.base.Joiner;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.codehaus.plexus.component.annotations.Component;
 
+import java.util.List;
+
 @Component(role = Notifier.class, hint = "notification-center")
 public class NotificationCenterNotifier extends AbstractCustomEventSpy {
 
@@ -38,7 +40,12 @@ public class NotificationCenterNotifier extends AbstractCustomEventSpy {
     @Override
     public void onEvent(MavenExecutionResult event) {
         super.onEvent(event);
-        executor.exec(buildCommand(event));
+        executor.exec(buildCommand(getBuildStatus(event), event.getProject().getName(), buildNotificationMessage(event)));
+    }
+
+    @Override
+    public void onFailWithoutProject(List<Throwable> exceptions) {
+        executor.exec(buildCommand(Status.FAILURE, "Build Error", buildErrorDescription(exceptions)));
     }
 
     @Override
@@ -46,17 +53,16 @@ public class NotificationCenterNotifier extends AbstractCustomEventSpy {
         return buildShortDescription(result);
     }
 
-    private String[] buildCommand(MavenExecutionResult result) {
-        Status status = getBuildStatus(result);
+    private String[] buildCommand(Status status, String name, String message) {
 
         String[] commands = new String[configuration.getNotificationCenterSound() == null ? 13 : 15];
         commands[0] = configuration.getNotificationCenterPath();
         commands[1] = CMD_TITLE;
-        commands[2] = result.getProject().getName();
+        commands[2] = name;
         commands[3] = CMD_SUBTITLE;
         commands[4] = status.message();
         commands[5] = CMD_MESSAGE;
-        commands[6] = buildNotificationMessage(result);
+        commands[6] = message;
         commands[7] = CMD_GROUP;
         commands[8] = GROUP;
         commands[9] = CMD_ACTIVATE;

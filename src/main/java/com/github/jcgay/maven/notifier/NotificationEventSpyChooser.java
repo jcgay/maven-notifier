@@ -29,9 +29,17 @@ public class NotificationEventSpyChooser extends AbstractEventSpy {
 
     @Override
     public void onEvent(Object event) throws Exception {
-        if (isExecutionResult(event) && shouldSendNotification()) {
-            activeNotifier.onEvent((MavenExecutionResult) event);
+        if (shouldSendNotification()) {
+            if (isExecutionResult(event) && hasFailedWithoutProject((MavenExecutionResult) event)) {
+                activeNotifier.onFailWithoutProject(((MavenExecutionResult) event).getExceptions());
+            } else if (isExecutionResult(event)) {
+                activeNotifier.onEvent((MavenExecutionResult) event);
+            }
         }
+    }
+
+    private boolean hasFailedWithoutProject(MavenExecutionResult event) {
+        return event.getProject() == null && event.hasExceptions();
     }
 
     private boolean shouldSendNotification() {

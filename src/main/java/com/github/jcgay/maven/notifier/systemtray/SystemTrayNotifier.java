@@ -12,6 +12,7 @@ import org.codehaus.plexus.component.annotations.Component;
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @Component(role = Notifier.class, hint = "system-tray")
 public class SystemTrayNotifier extends AbstractCustomEventSpy {
@@ -61,6 +62,14 @@ public class SystemTrayNotifier extends AbstractCustomEventSpy {
                 Thread.currentThread().interrupt();
             }
             SystemTray.getSystemTray().remove(icon);
+        }
+    }
+
+    @Override
+    public void onFailWithoutProject(List<Throwable> exceptions) {
+        if (!skipNotifications) {
+            icon.setImage(createImage(Status.FAILURE.toByteArray()));
+            icon.displayMessage("Build Error", buildErrorDescription(exceptions), toMessageType(Status.FAILURE));
         }
     }
 
