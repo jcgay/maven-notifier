@@ -58,7 +58,7 @@ public class GrowlNotifier extends AbstractCustomEventSpy {
 
     private void initGrowlClient() {
         Gntp clientBuilder = Gntp.client(application)
-                .listener(new Slf4jGntpListener())
+                .listener(new PlexusLoggerGntpListener(logger))
                 .onPort(configuration.getGrowlPort());
         if (configuration.getGrowlHost() != null) {
             clientBuilder.forHost(configuration.getGrowlHost());
