@@ -7,6 +7,8 @@ A status notification will be send at the end of a Maven build.
 
 Get [maven-notifier](http://dl.bintray.com/jcgay/maven/com/github/jcgay/maven/maven-notifier/0.8.1/maven-notifier-0.8.1.zip) and extract it in your `$M2_HOME/lib/ext` folder.
 
+If you are using Maven > 3.1.x, you don't need to extract `slf4j-nop-x.x.x.jar`, Maven already comes with a SLF4J binding.
+
 ##What's new ?
 
 See [CHANGELOG](https://github.com/jcgay/maven-notifier/blob/master/CHANGELOG.md) to get latest changes.
