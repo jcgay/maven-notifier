@@ -31,12 +31,15 @@
 
     <repositories>
         <repository>
-            <id>jcgay-snapshots</id>
-            <url>https://repository-jcgay.forge.cloudbees.com/snapshot/</url>
-        </repository>
-        <repository>
-            <id>jcgay-releases</id>
-            <url>https://repository-jcgay.forge.cloudbees.com/release/</url>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
 
@@ -78,9 +81,9 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.github.jcgay.snp4j</groupId>
+            <groupId>fr.jcgay.snp4j</groupId>
             <artifactId>snp4j</artifactId>
-            <version>0.1</version>
+            <version>0.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
