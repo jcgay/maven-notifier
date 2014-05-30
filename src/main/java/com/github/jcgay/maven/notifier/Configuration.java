@@ -145,7 +145,6 @@ public class Configuration {
                 .add("systemTrayWaitBeforeEnd", systemTrayWaitBeforeEnd)
                 .add("snarlPort", snarlPort)
                 .add("snarlHost", snarlHost)
-                .add("snarlPassword", snarlHost)
                 .add("shortDescription", shortDescription)
                 .toString();
     }
