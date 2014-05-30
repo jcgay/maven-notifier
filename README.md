@@ -71,8 +71,9 @@ If needed, configuration can be done by creating a `maven-notifier.properties` f
 - `notifier.notification-center.sound` = Sound to play when the notification is fired. Use `default` to select the default sound. The possible names are listed in Sound Preferences.
 - `notifier.system-tray.wait` = Java SystemTray notification display time in second. (default: `2s`)
 - `notifier.message.short` = true/false (by default). Choose between a full description with each module notification or a short one just reflecting the build status.
-- `notifier.snarl.host` = snarl host (default: `localhost`)
-- `notifier.snarl.port` = snarl listening port (default: `9887`)
+- `notifier.snarl.host` = snarl host (default: `localhost`).
+- `notifier.snarl.port` = snarl listening port (default: `9887`).
+- `notifier.snarl.password` = snarl password.
 
 Notification can be skipped by using `-DskipNotification` when launching Maven.
 

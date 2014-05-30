@@ -90,6 +90,7 @@ public class ConfigurationParserTest {
         properties.put(Property.SYSTEM_TRAY_WAIT.key(), "1");
         properties.put(Property.SNARL_PORT.key(), "1");
         properties.put(Property.SNARL_HOST.key(), "192.168.1.11");
+        properties.put(Property.SNARL_PASSWORD.key(), "snarl.password");
         properties.put(Property.SHORT_DESCRIPTION.key(), "true");
 
         Configuration result = parser.get(properties);
@@ -106,6 +107,7 @@ public class ConfigurationParserTest {
         assertEquals(result.getSystemTrayWaitBeforeEnd(), 1);
         assertEquals(result.getSnarlPort(), 1);
         assertEquals(result.getSnarlHost(), "192.168.1.11");
+        assertEquals(result.getSnarlPassword(), "snarl.password");
         assertTrue(result.isShortDescription());
     }
 }

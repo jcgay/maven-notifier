@@ -15,6 +15,7 @@ public class Configuration {
     private String growlPassword;
     private String snarlPort;
     private String snarlHost;
+    private String snarlPassword;
     private String notificationCenterSound;
     private boolean shortDescription;
 
@@ -122,6 +123,14 @@ public class Configuration {
         this.shortDescription = shortDescription;
     }
 
+    public String getSnarlPassword() {
+        return snarlPassword;
+    }
+
+    public void setSnarlPassword(String snarlPassword) {
+        this.snarlPassword = snarlPassword;
+    }
+
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
@@ -136,6 +145,7 @@ public class Configuration {
                 .add("systemTrayWaitBeforeEnd", systemTrayWaitBeforeEnd)
                 .add("snarlPort", snarlPort)
                 .add("snarlHost", snarlHost)
+                .add("snarlPassword", snarlHost)
                 .add("shortDescription", shortDescription)
                 .toString();
     }
