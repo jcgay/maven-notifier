@@ -6,6 +6,7 @@ import fr.jcgay.snp4j.Application;
 import fr.jcgay.snp4j.Icon;
 import fr.jcgay.snp4j.Notifier;
 import fr.jcgay.snp4j.Server;
+import fr.jcgay.snp4j.SnpException;
 import fr.jcgay.snp4j.impl.SnpNotifier;
 import fr.jcgay.snp4j.request.Notification;
 import org.apache.maven.eventspy.EventSpy;
@@ -30,12 +31,20 @@ public class SnarlNotifier extends AbstractCustomEventSpy {
                 .withPort(Integer.valueOf(configuration.getSnarlPort()))
                 .withPassword(configuration.getSnarlPassword())
                 .build();
-        snarl = SnpNotifier.of(application, server);
+        try {
+            snarl = SnpNotifier.of(application, server);
+        } catch (SnpException e) {
+            logger.error(message(), e);
+        }
     }
 
     @Override
     public void onEvent(MavenExecutionResult event) {
         super.onEvent(event);
+        if (snarl == null) {
+            logger.error("Will not try to notify Snarl, initialization has failed.");
+            return;
+        }
         sendNotificationFor(getBuildStatus(event), buildNotificationMessage(event), buildTitle(event));
     }
 
@@ -47,6 +56,8 @@ public class SnarlNotifier extends AbstractCustomEventSpy {
 
         try {
             snarl.send(notification);
+        } catch (SnpException e) {
+            logger.error(message(), e);
         } finally {
             closeQuietly(snarl);
         }
@@ -55,5 +66,11 @@ public class SnarlNotifier extends AbstractCustomEventSpy {
     @Override
     public void onFailWithoutProject(List<Throwable> exceptions) {
         sendNotificationFor(Status.FAILURE, buildErrorDescription(exceptions), "Build Error");
+    }
+
+    private static String message() {
+        return String.format("Error while trying to talk with Snarl.%n%n" +
+                "For more information about the errors and possible solutions, please read the following article:%n" +
+                "https://github.com/jcgay/maven-notifier/wiki/Snarl");
     }
 }
