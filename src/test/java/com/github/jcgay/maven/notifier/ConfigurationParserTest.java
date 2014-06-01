@@ -92,6 +92,8 @@ public class ConfigurationParserTest {
         properties.put(Property.SNARL_HOST.key(), "192.168.1.11");
         properties.put(Property.SNARL_PASSWORD.key(), "snarl.password");
         properties.put(Property.SHORT_DESCRIPTION.key(), "true");
+        properties.put(Property.PUSHBULLET_API_KEY.key(), "api.key");
+        properties.put(Property.PUSHBULLET_DEVICE.key(), "device");
 
         Configuration result = parser.get(properties);
 
@@ -109,5 +111,7 @@ public class ConfigurationParserTest {
         assertEquals(result.getSnarlHost(), "192.168.1.11");
         assertEquals(result.getSnarlPassword(), "snarl.password");
         assertTrue(result.isShortDescription());
+        assertEquals(result.getPushbulletKey(), "api.key");
+        assertEquals(result.getPushbulletDevice(), "device");
     }
 }

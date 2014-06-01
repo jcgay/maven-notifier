@@ -86,6 +86,16 @@
             <version>0.2-SNAPSHOT</version>
         </dependency>
         <dependency>
+            <groupId>com.squareup.okhttp</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>2.0.0-RC1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.mimecraft</groupId>
+            <artifactId>mimecraft</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>6.8.8</version>

@@ -22,6 +22,8 @@ import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationP
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFICATION_CENTER_SOUND;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFY_SEND_PATH;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFY_SEND_TIMEOUT;
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.PUSHBULLET_API_KEY;
+import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.PUSHBULLET_DEVICE;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SHORT_DESCRIPTION;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SNARL_HOST;
 import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SNARL_PASSWORD;
@@ -83,6 +85,8 @@ public class ConfigurationParser {
         configuration.setSnarlHost(properties.get(SNARL_HOST));
         configuration.setSnarlPassword(properties.get(SNARL_PASSWORD));
         configuration.setShortDescription(parseBoolean(properties.get(SHORT_DESCRIPTION)));
+        configuration.setPushbulletKey(properties.get(PUSHBULLET_API_KEY));
+        configuration.setPushbulletDevice(properties.get(PUSHBULLET_DEVICE));
         return configuration;
     }
 
@@ -146,7 +150,9 @@ public class ConfigurationParser {
             SNARL_HOST("notifier.snarl.host", "localhost"),
             SNARL_PASSWORD("notifier.snarl.password"),
             NOTIFICATION_CENTER_SOUND("notifier.notification-center.sound"),
-            SHORT_DESCRIPTION("notifier.message.short", "false");
+            SHORT_DESCRIPTION("notifier.message.short", "false"),
+            PUSHBULLET_API_KEY("notifier.pushbullet.apikey"),
+            PUSHBULLET_DEVICE("notifier.pushbullet.device");
 
             private String key;
             private String defaultValue;

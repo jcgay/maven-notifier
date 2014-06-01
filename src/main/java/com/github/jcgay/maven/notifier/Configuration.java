@@ -18,6 +18,8 @@ public class Configuration {
     private String snarlPassword;
     private String notificationCenterSound;
     private boolean shortDescription;
+    private String pushbulletKey;
+    private String pushbulletDevice;
 
     public void setImplementation(String implementation) {
         this.implementation = implementation;
@@ -131,6 +133,22 @@ public class Configuration {
         this.snarlPassword = snarlPassword;
     }
 
+    public String getPushbulletKey() {
+        return pushbulletKey;
+    }
+
+    public void setPushbulletKey(String pushbulletKey) {
+        this.pushbulletKey = pushbulletKey;
+    }
+
+    public String getPushbulletDevice() {
+        return pushbulletDevice;
+    }
+
+    public void setPushbulletDevice(String pushbulletDevice) {
+        this.pushbulletDevice = pushbulletDevice;
+    }
+
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
@@ -146,6 +164,8 @@ public class Configuration {
                 .add("snarlPort", snarlPort)
                 .add("snarlHost", snarlHost)
                 .add("shortDescription", shortDescription)
+                .add("pushbulletKey", pushbulletKey)
+                .add("pushbulletDevice", pushbulletDevice)
                 .toString();
     }
 }
