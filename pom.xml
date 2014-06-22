@@ -141,6 +141,7 @@
                                     <exclude>org.apache.maven</exclude>
                                     <exclude>org.sonatype.*</exclude>
                                     <exclude>org.codehaus.plexus</exclude>
+                                    <exclude>org.slf4j</exclude>
                                 </excludes>
                             </artifactSet>
                         </configuration>
@@ -167,6 +168,15 @@
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}</outputDirectory>
                                     <destFileName>slf4j-nop-${slf4j-version}.jar</destFileName>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.slf4j</groupId>
+                                    <artifactId>slf4j-api</artifactId>
+                                    <version>${slf4j-version}</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <destFileName>slf4j-api-${slf4j-version}.jar</destFileName>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>

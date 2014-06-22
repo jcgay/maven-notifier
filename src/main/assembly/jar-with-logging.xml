@@ -14,5 +14,8 @@
         <file>
             <source>${project.build.directory}/slf4j-nop-${slf4j-version}.jar</source>
         </file>
+        <file>
+            <source>${project.build.directory}/slf4j-api-${slf4j-version}.jar</source>
+        </file>
     </files>
 </assembly>
