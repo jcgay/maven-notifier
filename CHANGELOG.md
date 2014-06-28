@@ -1,3 +1,16 @@
+#0.9
+***
+
+- Can override notifier implementation with system property [view](http://github.com/jcgay/maven-notifier/commit/9096f4472d6ea939e4fab28e5fc2f8f874cbd3ea)  
+- Exclude SLF4J api from the Uber jar [Fixes #7] [view](http://github.com/jcgay/maven-notifier/commit/7df6bc9006eb6c1bfef62fcbd45bb1e3dab76150)  
+- Add Pushbullet notifier [view](http://github.com/jcgay/maven-notifier/commit/a19ea22af668af6c4feed2fd18ce804a0f942914)  
+- Add wiki link when Snarl notification fails [view](http://github.com/jcgay/maven-notifier/commit/b12b344482513f6a58da90fd3941595ec77e6ed4)  
+- Add wiki links when Growl notification fails [Fixes #6] [view](http://github.com/jcgay/maven-notifier/commit/77ba7213077d2dc7270c2ead7ad9924476e09474)  
+- Remove password from Configuration#toString [view](http://github.com/jcgay/maven-notifier/commit/2df057c68ea2ecbfeb82c3c6cffdcbfe713d905a)  
+- Remove SLF4J Gntp listener [view](http://github.com/jcgay/maven-notifier/commit/916932911a2973c5bd64d62f913738567d06301d)  
+- Add a Plexus Gntp listener to log Growl events [#6] [view](http://github.com/jcgay/maven-notifier/commit/fadc1eb4a793665e3b1d64052deb2d31a3123d1f)  
+- Send notification when build fails with error [Fixes #5] [view](http://github.com/jcgay/maven-notifier/commit/25dc1055d905ffe409a7401cdfe0a9ae6f5e2cc3)    
+
 #0.8.1
 ***
 
