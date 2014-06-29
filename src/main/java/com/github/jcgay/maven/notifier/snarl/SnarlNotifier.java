@@ -28,7 +28,7 @@ public class SnarlNotifier extends AbstractCustomEventSpy {
         super.init(context);
         Server server = Server.builder()
                 .withHost(configuration.getSnarlHost())
-                .withPort(Integer.valueOf(configuration.getSnarlPort()))
+                .withPort(configuration.getSnarlPort())
                 .withPassword(configuration.getSnarlPassword())
                 .build();
         try {
