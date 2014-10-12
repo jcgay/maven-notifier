@@ -85,9 +85,9 @@ public class GrowlNotifier extends AbstractCustomEventSpy {
     }
 
     private void sendMessageWithIcon(Status status, String title, String message) {
-        GntpNotification success = Gntp.notification(notification, title).text(message).icon(status.icon()).build();
+        GntpNotification notification = Gntp.notification(this.notification, title).text(message).icon(status.icon()).build();
         try {
-            client.notify(success, 5, TimeUnit.SECONDS);
+            client.notify(notification, 5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
