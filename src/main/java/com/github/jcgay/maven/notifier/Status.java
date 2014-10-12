@@ -11,6 +11,7 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -77,5 +78,9 @@ public enum Status {
             }
         }
         return icon.getPath();
+    }
+
+    public URL url() {
+        return getClass().getResource(icon);
     }
 }
