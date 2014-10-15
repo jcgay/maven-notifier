@@ -1,7 +1,5 @@
 package com.github.jcgay.maven.notifier;
 
-import com.github.jcgay.maven.notifier.growl.GrowlNotifier;
-import com.github.jcgay.maven.notifier.notifysend.NotifySendNotifier;
 import com.google.common.annotations.VisibleForTesting;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
@@ -139,9 +137,9 @@ public class ConfigurationParser {
         private String defaultImplementation() {
             String os = currentOs().toLowerCase();
             if (isMacos(os) || isWindows(os)) {
-                return GrowlNotifier.class.getName();
+                return "growl";
             }
-            return NotifySendNotifier.class.getName();
+            return "notifysend";
         }
 
         private boolean isMacos(String os) {
