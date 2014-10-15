@@ -14,6 +14,7 @@ import org.apache.maven.execution.MavenExecutionResult;
 import org.codehaus.plexus.component.annotations.Component;
 
 import java.net.URL;
+import java.util.List;
 
 @Component(role = Notifier.class, hint = "send-notification")
 public class SendNotificationNotifier extends AbstractCustomEventSpy {
@@ -68,12 +69,23 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
         );
     }
 
-    private static URL resource(String resource) {
-        return Thread.currentThread().getContextClassLoader().getResource(resource);
-    }
-
     @Override
     public boolean shouldNotify() {
         return !"sound".equals(configuration.getImplementation());
+    }
+
+    @Override
+    public void onFailWithoutProject(List<Throwable> exceptions) {
+        super.onFailWithoutProject(exceptions);
+        Status status = Status.FAILURE;
+        notifier.send(
+                Notification.builder("Build Error", buildErrorDescription(exceptions), Icon.create(status.url(), status.name()))
+                        .withSubtitle(status.message())
+                        .build()
+        );
+    }
+
+    private static URL resource(String resource) {
+        return Thread.currentThread().getContextClassLoader().getResource(resource);
     }
 }
