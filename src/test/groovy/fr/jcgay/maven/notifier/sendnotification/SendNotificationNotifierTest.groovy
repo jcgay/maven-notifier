@@ -1,6 +1,6 @@
 package fr.jcgay.maven.notifier.sendnotification
-import com.github.jcgay.maven.notifier.Configuration
-import com.github.jcgay.maven.notifier.ConfigurationParser
+import fr.jcgay.maven.notifier.Configuration
+import fr.jcgay.maven.notifier.ConfigurationParser
 import fr.jcgay.notification.Application
 import fr.jcgay.notification.Icon
 import fr.jcgay.notification.Notification

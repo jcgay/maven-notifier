@@ -1,4 +1,4 @@
-package com.github.jcgay.maven.notifier;
+package fr.jcgay.maven.notifier;
 
 import com.google.common.annotations.VisibleForTesting;
 import org.codehaus.plexus.component.annotations.Component;
@@ -11,22 +11,22 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.GROWL_HOST;
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.GROWL_PASSWORD;
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.GROWL_PORT;
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.IMPLEMENTATION;
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFICATION_CENTER_ACTIVATE;
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFICATION_CENTER_PATH;
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFICATION_CENTER_SOUND;
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFY_SEND_PATH;
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFY_SEND_TIMEOUT;
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.PUSHBULLET_API_KEY;
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.PUSHBULLET_DEVICE;
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SHORT_DESCRIPTION;
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SNARL_HOST;
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SNARL_PASSWORD;
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SNARL_PORT;
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SYSTEM_TRAY_WAIT;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.GROWL_HOST;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.GROWL_PASSWORD;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.GROWL_PORT;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.IMPLEMENTATION;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFICATION_CENTER_ACTIVATE;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFICATION_CENTER_PATH;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFICATION_CENTER_SOUND;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFY_SEND_PATH;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFY_SEND_TIMEOUT;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.PUSHBULLET_API_KEY;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.PUSHBULLET_DEVICE;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SHORT_DESCRIPTION;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SNARL_HOST;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SNARL_PASSWORD;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SNARL_PORT;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SYSTEM_TRAY_WAIT;
 import static java.lang.Boolean.parseBoolean;
 
 @Component(role = ConfigurationParser.class, hint = "maven-notifier-configuration")

@@ -1,4 +1,4 @@
-package com.github.jcgay.maven.notifier.sound;
+package fr.jcgay.maven.notifier.sound;
 
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;

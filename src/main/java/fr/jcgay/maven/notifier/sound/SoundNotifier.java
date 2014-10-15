@@ -1,8 +1,8 @@
-package com.github.jcgay.maven.notifier.sound;
+package fr.jcgay.maven.notifier.sound;
 
-import com.github.jcgay.maven.notifier.AbstractCustomEventSpy;
-import com.github.jcgay.maven.notifier.Notifier;
-import com.github.jcgay.maven.notifier.Status;
+import fr.jcgay.maven.notifier.AbstractCustomEventSpy;
+import fr.jcgay.maven.notifier.Notifier;
+import fr.jcgay.maven.notifier.Status;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.IOUtil;

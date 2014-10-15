@@ -1,4 +1,4 @@
-package com.github.jcgay.maven.notifier;
+package fr.jcgay.maven.notifier;
 
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Closeables;

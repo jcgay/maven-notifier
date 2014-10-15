@@ -1,4 +1,4 @@
-package com.github.jcgay.maven.notifier;
+package fr.jcgay.maven.notifier;
 
 import org.apache.maven.execution.DefaultMavenExecutionResult;
 import org.apache.maven.execution.MavenExecutionResult;
@@ -8,7 +8,7 @@ import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static com.github.jcgay.maven.notifier.NotificationEventSpyChooser.SKIP_NOTIFICATION;
+import static fr.jcgay.maven.notifier.NotificationEventSpyChooser.SKIP_NOTIFICATION;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;

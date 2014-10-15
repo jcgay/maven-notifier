@@ -1,4 +1,4 @@
-package com.github.jcgay.maven.notifier;
+package fr.jcgay.maven.notifier;
 
 import org.apache.maven.eventspy.AbstractEventSpy;
 import org.apache.maven.eventspy.EventSpy;

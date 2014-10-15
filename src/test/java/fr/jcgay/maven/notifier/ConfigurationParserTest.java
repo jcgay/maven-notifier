@@ -1,4 +1,4 @@
-package com.github.jcgay.maven.notifier;
+package fr.jcgay.maven.notifier;
 
 import org.codehaus.plexus.logging.Logger;
 import org.mockito.InjectMocks;
@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import java.util.Map;
 import java.util.Properties;
 
-import static com.github.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
