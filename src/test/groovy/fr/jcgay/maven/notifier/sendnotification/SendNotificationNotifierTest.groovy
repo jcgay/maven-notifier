@@ -86,6 +86,20 @@ class SendNotificationNotifierTest {
         verify(sendNotification).chooseNotifier()
     }
 
+    @Test
+    void 'should use notifier when implementation is not sound'() {
+        configuration.setImplementation("growl")
+
+        assertThat underTest.shouldNotify() isTrue()
+    }
+
+    @Test
+    void 'should not use notifier when implementation is sound'() {
+        configuration.setImplementation("sound")
+
+        assertThat underTest.shouldNotify() isFalse()
+    }
+
     private static EventSpy.Context aContext() {
         mock EventSpy.Context
     }

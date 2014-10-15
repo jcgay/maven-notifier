@@ -71,4 +71,9 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
     private static URL resource(String resource) {
         return Thread.currentThread().getContextClassLoader().getResource(resource);
     }
+
+    @Override
+    public boolean shouldNotify() {
+        return !"sound".equals(configuration.getImplementation());
+    }
 }
