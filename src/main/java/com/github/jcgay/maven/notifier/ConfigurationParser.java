@@ -45,22 +45,38 @@ public class ConfigurationParser {
         }
 
         try {
-            Properties properties = new Properties();
-            properties.load(url.openStream());
-            return get(properties);
+            return get(readProperties(url));
         } catch (IOException e) {
             logger.debug("Cannot read default configuration file: " + url, e);
             return defaultConfiguration();
         }
     }
 
+    public static Properties readProperties() {
+        try {
+            return readProperties(configurationFile());
+        } catch (IOException e) {
+            return new Properties();
+        }
+    }
+
+    private static Properties readProperties(URL url) throws IOException {
+        Properties properties = new Properties();
+        properties.load(url.openStream());
+        return properties;
+    }
+
     private URL getConfigurationUrl() {
         try {
-            return new URL(this.getClass().getProtectionDomain().getCodeSource().getLocation(), "maven-notifier.properties");
+            return configurationFile();
         } catch (MalformedURLException e) {
             logger.debug("Cannot create URL for default configuration file.", e);
             return null;
         }
+    }
+
+    private static URL configurationFile() throws MalformedURLException {
+        return new URL(ConfigurationParser.class.getProtectionDomain().getCodeSource().getLocation(), "maven-notifier.properties");
     }
 
     @VisibleForTesting Configuration get(Properties properties) {

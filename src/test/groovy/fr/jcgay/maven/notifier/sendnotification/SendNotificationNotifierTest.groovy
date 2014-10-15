@@ -1,8 +1,11 @@
 package fr.jcgay.maven.notifier.sendnotification
 import com.github.jcgay.maven.notifier.Configuration
 import com.github.jcgay.maven.notifier.ConfigurationParser
+import fr.jcgay.notification.Application
+import fr.jcgay.notification.Icon
 import fr.jcgay.notification.Notification
 import fr.jcgay.notification.Notifier
+import fr.jcgay.notification.SendNotification
 import groovy.transform.CompileStatic
 import org.apache.maven.eventspy.EventSpy
 import org.apache.maven.execution.MavenExecutionResult
@@ -65,6 +68,24 @@ class SendNotificationNotifierTest {
         assertThat notification.value.title() isEqualTo 'title [0s]'
     }
 
+    @Test
+    void 'should configure send-notification'() {
+        def sendNotification = mock(SendNotification)
+        when sendNotification.setApplication(isA(Application)) thenReturn sendNotification
+        when sendNotification.addConfigurationProperties(isA(Properties)) thenReturn sendNotification
+
+        SendNotificationNotifier.configureNotifier(sendNotification)
+
+        verify(sendNotification).setApplication(
+                Application.builder(
+                        "application/x-vnd-apache.maven",
+                        "Maven",
+                        Icon.create(resource("maven.png"), "maven"))
+                    .build())
+        verify(sendNotification).addConfigurationProperties(isA(Properties))
+        verify(sendNotification).chooseNotifier()
+    }
+
     private static EventSpy.Context aContext() {
         mock EventSpy.Context
     }
@@ -73,5 +94,9 @@ class SendNotificationNotifierTest {
         def result = mock(MavenExecutionResult, RETURNS_DEEP_STUBS)
         when result.project.name thenReturn title
         result
+    }
+
+    private static URL resource(String resource) {
+        Thread.currentThread().getContextClassLoader().getResource(resource)
     }
 }

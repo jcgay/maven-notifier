@@ -1,6 +1,7 @@
 package fr.jcgay.maven.notifier.sendnotification;
 
 import com.github.jcgay.maven.notifier.AbstractCustomEventSpy;
+import com.github.jcgay.maven.notifier.ConfigurationParser;
 import com.github.jcgay.maven.notifier.Notifier;
 import com.github.jcgay.maven.notifier.Status;
 import com.google.common.annotations.VisibleForTesting;
@@ -23,8 +24,14 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
     private final fr.jcgay.notification.Notifier notifier;
 
     public SendNotificationNotifier() {
-        notifier = new SendNotification()
+        notifier = configureNotifier(new SendNotification());
+    }
+
+    @VisibleForTesting
+    static fr.jcgay.notification.Notifier configureNotifier(SendNotification sendNotification) {
+        return sendNotification
                 .setApplication(MAVEN)
+                .addConfigurationProperties(ConfigurationParser.readProperties())
                 .chooseNotifier();
     }
 
