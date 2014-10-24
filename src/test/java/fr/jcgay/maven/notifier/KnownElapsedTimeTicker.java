@@ -12,8 +12,12 @@ public class KnownElapsedTimeTicker extends Ticker {
         this.expectedElapsedTime = expectedElapsedTime;
     }
 
-    static Stopwatch aStopWatchWithElapsedTime(long elapsedTime) {
-        return new Stopwatch(new KnownElapsedTimeTicker(elapsedTime)).start().stop();
+    public static Stopwatch aStopWatchWithElapsedTime(long elapsedTime) {
+        return aStartedStopwatchWithElapsedTime(elapsedTime).stop();
+    }
+
+    public static Stopwatch aStartedStopwatchWithElapsedTime(long elapsedTimeNano) {
+        return new Stopwatch(new KnownElapsedTimeTicker(elapsedTimeNano)).start();
     }
 
     @Override
