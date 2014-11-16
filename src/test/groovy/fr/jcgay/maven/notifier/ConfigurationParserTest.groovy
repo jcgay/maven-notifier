@@ -9,6 +9,7 @@ import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 
 import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.IMPLEMENTATION
 import static org.assertj.core.api.Assertions.assertThat
 
 class ConfigurationParserTest {
@@ -69,7 +70,7 @@ class ConfigurationParserTest {
     void 'should return configuration'() {
 
         Properties properties = new Properties();
-        properties << [(Property.IMPLEMENTATION.key()):('test')]
+        properties << [(IMPLEMENTATION.key()):('test')]
         properties << [(Property.NOTIFY_SEND_PATH.key()):('notify-send.path')]
         properties << [(Property.NOTIFY_SEND_TIMEOUT.key()):('1')]
         properties << [(Property.NOTIFICATION_CENTER_PATH.key()):('notification-center.path')]
@@ -104,5 +105,22 @@ class ConfigurationParserTest {
         assertThat result.getPushbulletKey() isEqualTo 'api.key'
         assertThat result.getPushbulletDevice() isEqualTo 'device'
         assertThat result.isShortDescription() isTrue()
+    }
+
+    @Test
+    void 'should not override implementation with property when its null'() throws Exception {
+
+        def result = ConfigurationParser.readProperties(this.getClass().getResource('/implementation.properties'))
+
+        assertThat result[IMPLEMENTATION.key()] isEqualTo 'growl'
+    }
+
+    @Test
+    void 'should override implementation with property'() throws Exception {
+
+        System.setProperty(Property.NOTIFY_WITH.key(), 'override-implementation')
+        def result = ConfigurationParser.readProperties(this.getClass().getResource('/implementation.properties'))
+
+        assertThat result[IMPLEMENTATION.key()] isEqualTo 'override-implementation'
     }
 }

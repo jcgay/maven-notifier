@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractCustomEventSpy implements Notifier {
 
-    static final String OVERRIDE_NOTIFIER_IMPLEMENTATION = "notifyWith";
     protected Logger logger;
     protected Configuration configuration;
     protected Stopwatch stopwatch = new Stopwatch();
@@ -38,15 +37,7 @@ public abstract class AbstractCustomEventSpy implements Notifier {
 
     @Override
     public boolean shouldNotify() {
-        String notifierOverride = System.getProperty(OVERRIDE_NOTIFIER_IMPLEMENTATION);
-        if (notifierOverride != null && !notifierOverride.equals("")) {
-            return getClass().getName().contains(notifierOverride);
-        }
-
-        if (getClass().getName().contains(configuration.getImplementation())) {
-            return true;
-        }
-        return false;
+        return getClass().getName().contains(configuration.getImplementation());
     }
 
     @Requirement

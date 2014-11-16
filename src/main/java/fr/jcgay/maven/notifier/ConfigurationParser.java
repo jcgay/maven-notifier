@@ -20,6 +20,7 @@ import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationPropertie
 import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFICATION_CENTER_SOUND;
 import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFY_SEND_PATH;
 import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFY_SEND_TIMEOUT;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFY_WITH;
 import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.PUSHBULLET_API_KEY;
 import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.PUSHBULLET_DEVICE;
 import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SHORT_DESCRIPTION;
@@ -58,9 +59,14 @@ public class ConfigurationParser {
         }
     }
 
-    private static Properties readProperties(URL url) throws IOException {
+    @VisibleForTesting
+    static Properties readProperties(URL url) throws IOException {
         Properties properties = new Properties();
         properties.load(url.openStream());
+        String overrideImplementation = System.getProperty(NOTIFY_WITH.key());
+        if (overrideImplementation != null) {
+            properties.put(IMPLEMENTATION.key(), overrideImplementation);
+        }
         return properties;
     }
 
@@ -166,7 +172,8 @@ public class ConfigurationParser {
             NOTIFICATION_CENTER_SOUND("notifier.notification-center.sound"),
             SHORT_DESCRIPTION("notifier.message.short", "false"),
             PUSHBULLET_API_KEY("notifier.pushbullet.apikey"),
-            PUSHBULLET_DEVICE("notifier.pushbullet.device");
+            PUSHBULLET_DEVICE("notifier.pushbullet.device"),
+            NOTIFY_WITH("notifyWith");
 
             private String key;
             private String defaultValue;

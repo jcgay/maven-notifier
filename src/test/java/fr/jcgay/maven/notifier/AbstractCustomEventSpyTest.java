@@ -3,7 +3,6 @@ package fr.jcgay.maven.notifier;
 import com.google.common.base.Stopwatch;
 import org.apache.maven.eventspy.EventSpy;
 import org.apache.maven.execution.DefaultMavenExecutionResult;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -14,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 public class AbstractCustomEventSpyTest {
@@ -33,11 +31,6 @@ public class AbstractCustomEventSpyTest {
         ConfigurationParser parser = mock(ConfigurationParser.class);
         when(parser.get()).thenReturn(configuration);
         eventSpy.setConfiguration(parser);
-    }
-
-    @AfterMethod
-    public void tearDown() throws Exception {
-        System.setProperty(AbstractCustomEventSpy.OVERRIDE_NOTIFIER_IMPLEMENTATION, "");
     }
 
     @Test
@@ -65,23 +58,5 @@ public class AbstractCustomEventSpyTest {
         eventSpy.onEvent(new DefaultMavenExecutionResult());
 
         assertEquals(stopwatch.elapsedTime(TimeUnit.SECONDS), 2L);
-    }
-
-    @Test
-    public void should_override_notifier_implementation_with_system_property() throws Exception {
-
-        System.setProperty(AbstractCustomEventSpy.OVERRIDE_NOTIFIER_IMPLEMENTATION, "Custom");
-        configuration.setImplementation("growl");
-
-        assertTrue(eventSpy.shouldNotify());
-    }
-
-    @Test
-    public void should_not_notify_when_system_property_is_set_and_does_not_match_implementation() throws Exception {
-
-        System.setProperty(AbstractCustomEventSpy.OVERRIDE_NOTIFIER_IMPLEMENTATION, "growl");
-        configuration.setImplementation("Custom");
-
-        assertFalse(eventSpy.shouldNotify());
     }
 }
