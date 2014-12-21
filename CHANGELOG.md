@@ -1,3 +1,8 @@
+#0.10
+***
+
+- Use [send-notification](https://github.com/jcgay/send-notification)
+
 #0.9
 ***
 
