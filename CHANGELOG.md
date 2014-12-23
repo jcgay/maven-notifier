@@ -1,3 +1,8 @@
+#0.11
+***
+
+- Maven 3.2.5 compatibility [Fixes #9] [view](http://github.com/jcgay/maven-notifier/commit/d2c17389117167b64154859ab7bf2b80895f9b24)
+
 #0.10
 ***
 
