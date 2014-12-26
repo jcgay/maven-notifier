@@ -13,7 +13,7 @@ public abstract class AbstractCustomEventSpy implements Notifier {
 
     protected Logger logger;
     protected Configuration configuration;
-    protected Stopwatch stopwatch = new Stopwatch();
+    private Stopwatch stopwatch = new Stopwatch();
 
     @Override
     public void init(EventSpy.Context context) {

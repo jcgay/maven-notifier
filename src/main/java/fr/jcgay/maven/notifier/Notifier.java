@@ -35,7 +35,7 @@ public interface Notifier {
     /**
      * Notifies the notifier of a build ends with error without information about the build. <br />
      * This is for example, a malformed {@code pom.xml} which breaks everything.
-     * @param exceptions
+     * @param exceptions errors that happened
      */
     void onFailWithoutProject(List<Throwable> exceptions);
 }

@@ -118,7 +118,7 @@ public class ConfigurationParser {
 
         private static final String OS_NAME = "os.name";
 
-        private Properties properties;
+        private final Properties properties;
 
         private ConfigurationProperties(Properties properties) {
             this.properties = properties;
@@ -149,11 +149,11 @@ public class ConfigurationParser {
         }
 
         private boolean isMacos(String os) {
-            return os.indexOf("mac") != -1;
+            return os.contains("mac");
         }
 
         private boolean isWindows(String os) {
-            return os.indexOf("win") != -1;
+            return os.contains("win");
         }
 
         public static enum Property {
@@ -175,7 +175,7 @@ public class ConfigurationParser {
             PUSHBULLET_DEVICE("notifier.pushbullet.device"),
             NOTIFY_WITH("notifyWith");
 
-            private String key;
+            private final String key;
             private String defaultValue;
 
             private Property(String key) {
