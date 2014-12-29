@@ -28,31 +28,22 @@ public class ConfigurationParser {
             return defaultConfiguration();
         }
 
-        try {
-            return get(readProperties(url));
-        } catch (IOException e) {
-            logger.debug("Cannot read default configuration file: " + url, e);
-            return defaultConfiguration();
-        }
+        return get(readProperties(url));
     }
 
     public static Properties readProperties() {
         try {
             return readProperties(configurationFile());
         } catch (IOException e) {
-            return new Properties();
+            return new ConfiguredProperties().properties();
         }
     }
 
     @VisibleForTesting
-    static Properties readProperties(URL url) throws IOException {
-        Properties properties = new Properties();
-        properties.load(url.openStream());
-        String overrideImplementation = System.getProperty(NOTIFY_WITH.key());
-        if (overrideImplementation != null) {
-            properties.put(IMPLEMENTATION.key(), overrideImplementation);
-        }
-        return properties;
+    static Properties readProperties(URL url) {
+        return new ConfiguredProperties()
+            .load(url)
+            .properties();
     }
 
     private URL getConfigurationUrl() {
@@ -82,7 +73,7 @@ public class ConfigurationParser {
     }
 
     private Configuration defaultConfiguration() {
-        return get(new Properties());
+        return get(new ConfiguredProperties().properties());
     }
 
     public static class ConfigurationProperties {
@@ -151,6 +142,30 @@ public class ConfigurationParser {
             public String defaultValue() {
                 return defaultValue;
             }
+        }
+    }
+
+    private static class ConfiguredProperties {
+
+        private final Properties properties = new Properties();
+
+        public Properties properties() {
+            Properties result = new Properties();
+            result.putAll(properties);
+            String overrideImplementation = System.getProperty(NOTIFY_WITH.key());
+            if (overrideImplementation != null) {
+                result.put(IMPLEMENTATION.key(), overrideImplementation);
+            }
+            return result;
+        }
+
+        public ConfiguredProperties load(URL url) {
+            try {
+                properties.load(url.openStream());
+            } catch (IOException e) {
+                // cannot read configuration file (which is not mandatory)
+            }
+            return this;
         }
     }
 }

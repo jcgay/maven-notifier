@@ -80,10 +80,19 @@ class ConfigurationParserTest {
     }
 
     @Test
-    void 'should override implementation with property'() throws Exception {
+    void 'should override implementation with system property'() throws Exception {
 
         System.setProperty(Property.NOTIFY_WITH.key(), 'override-implementation')
         def result = ConfigurationParser.readProperties(this.getClass().getResource('/implementation.properties'))
+
+        assertThat result[IMPLEMENTATION.key()] isEqualTo 'override-implementation'
+    }
+
+    @Test
+    void 'should override implementation with system property when configuration file is not found'() throws Exception {
+
+        System.setProperty(Property.NOTIFY_WITH.key(), 'override-implementation')
+        def result = ConfigurationParser.readProperties(new URL('file:///non-existing.properties'))
 
         assertThat result[IMPLEMENTATION.key()] isEqualTo 'override-implementation'
     }
