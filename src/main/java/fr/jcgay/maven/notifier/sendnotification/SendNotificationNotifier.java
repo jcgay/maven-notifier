@@ -20,6 +20,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static fr.jcgay.notification.Notification.Level.ERROR;
+import static fr.jcgay.notification.Notification.Level.INFO;
+import static fr.jcgay.notification.Notification.Level.WARNING;
+
 @Component(role = Notifier.class, hint = "send-notification")
 public class SendNotificationNotifier extends AbstractCustomEventSpy {
 
@@ -68,9 +72,10 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
         super.onEvent(event);
         Status status = getBuildStatus(event);
         notifier.send(
-                Notification.builder(buildTitle(event), buildNotificationMessage(event), Icon.create(status.url(), status.name()))
-                        .withSubtitle(status.message())
-                        .build()
+            Notification.builder(buildTitle(event), buildNotificationMessage(event), Icon.create(status.url(), status.name()))
+                .withLevel(toLevel(status))
+                .withSubtitle(status.message())
+                .build()
         );
     }
 
@@ -84,10 +89,22 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
         super.onFailWithoutProject(exceptions);
         Status status = Status.FAILURE;
         notifier.send(
-                Notification.builder("Build Error", buildErrorDescription(exceptions), Icon.create(status.url(), status.name()))
-                        .withSubtitle(status.message())
-                        .build()
+            Notification.builder("Build Error", buildErrorDescription(exceptions), Icon.create(status.url(), status.name()))
+                .withSubtitle(status.message())
+                .withLevel(ERROR)
+                .build()
         );
+    }
+
+    private static Notification.Level toLevel(Status status) {
+        switch (status) {
+            case SKIPPED:
+                return WARNING;
+            case FAILURE:
+                return ERROR;
+            default:
+                return INFO;
+        }
     }
 
     private static URL resource(String resource) {

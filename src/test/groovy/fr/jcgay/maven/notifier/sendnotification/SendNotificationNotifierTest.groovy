@@ -16,6 +16,8 @@ import org.testng.annotations.Test
 import java.util.concurrent.TimeUnit
 
 import static fr.jcgay.maven.notifier.KnownElapsedTimeTicker.aStartedStopwatchWithElapsedTime
+import static fr.jcgay.notification.Notification.Level.ERROR
+import static fr.jcgay.notification.Notification.Level.INFO
 import static org.assertj.core.api.Assertions.assertThat
 import static org.mockito.AdditionalAnswers.returnsElementsOf
 import static org.mockito.Matchers.isA
@@ -137,6 +139,38 @@ class SendNotificationNotifierTest {
         configuration.setImplementation("sound")
 
         assertThat underTest.shouldNotify() isFalse()
+    }
+
+    @Test
+    void 'should send a notification with level ERROR when build is failing'() throws Exception {
+        underTest.stopwatch = aStartedStopwatchWithElapsedTime(TimeUnit.SECONDS.toNanos(1L))
+
+        underTest.onEvent(aFailingProject())
+
+        verify(notifier).send(notification.capture())
+        assertThat notification.value.level() isEqualTo ERROR
+    }
+
+    @Test
+    void 'should send a notification with level INFO when build is successful'() throws Exception {
+        underTest.stopwatch = aStartedStopwatchWithElapsedTime(TimeUnit.SECONDS.toNanos(1L))
+
+        underTest.onEvent(aSuccessfulProject())
+
+        verify(notifier).send(notification.capture())
+        assertThat notification.value.level() isEqualTo INFO
+    }
+
+    private static MavenExecutionResult aSuccessfulProject() {
+        def project = aProjectWithOneModule('project')
+        when project.hasExceptions() thenReturn false
+        project
+    }
+
+    private static MavenExecutionResult aFailingProject() {
+        def project = aProjectWithOneModule('project')
+        when project.hasExceptions() thenReturn true
+        project
     }
 
     private static MavenExecutionResult aProjectWithMultipleModule(String projectName) {
