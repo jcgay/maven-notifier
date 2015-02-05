@@ -64,3 +64,7 @@ Use [Pushbullet](https://www.pushbullet.com/) online service.
 ##Configuration
 
 Go to [Wiki](https://github.com/jcgay/maven-notifier/wiki) to read full configuration guide for each notifier.
+
+# Build status
+[![Build Status](https://travis-ci.org/jcgay/maven-notifier.svg?branch=dev)](https://travis-ci.org/jcgay/maven-notifier)
+[![Coverage Status](https://coveralls.io/repos/jcgay/maven-notifier/badge.svg?branch=master)](https://coveralls.io/r/jcgay/maven-notifier?branch=master)
