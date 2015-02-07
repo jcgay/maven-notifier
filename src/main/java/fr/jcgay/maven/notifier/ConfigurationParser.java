@@ -120,7 +120,7 @@ public class ConfigurationParser {
 
         public static enum Property {
             IMPLEMENTATION("notifier.implementation"),
-            SHORT_DESCRIPTION("notifier.message.short", "false"),
+            SHORT_DESCRIPTION("notifier.message.short", "true"),
             NOTIFY_WITH("notifyWith");
 
             private final String key;

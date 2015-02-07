@@ -55,7 +55,7 @@ class ConfigurationParserTest {
 
         Configuration result = parser.get(new Properties());
 
-        assertThat result.isShortDescription() isFalse()
+        assertThat result.isShortDescription() isTrue()
     }
 
     @Test
@@ -63,12 +63,12 @@ class ConfigurationParserTest {
 
         Properties properties = new Properties();
         properties << [(IMPLEMENTATION.key()):('test')]
-        properties << [(Property.SHORT_DESCRIPTION.key()):('true')]
+        properties << [(Property.SHORT_DESCRIPTION.key()):('false')]
 
         Configuration result = parser.get(properties)
 
         assertThat result.getImplementation() isEqualTo 'test'
-        assertThat result.isShortDescription() isTrue()
+        assertThat result.isShortDescription() isFalse()
     }
 
     @Test
