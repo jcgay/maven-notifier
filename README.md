@@ -61,6 +61,20 @@ Use [Pushbullet](https://www.pushbullet.com/) online service.
 ![pushbullet success](http://jeanchristophegay.com/images/notifier.pushbullet.success.png)
 ![pushbullet failure](http://jeanchristophegay.com/images/notifier.pushbullet.failure.png)
 
+## Kdialog
+
+For KDE.
+
+![Kdialog](http://jeanchristophegay.com/images/notifier.kdialog.success.png)
+![Kdialog](http://jeanchristophegay.com/images/notifier.kdialog.fail.png)
+
+## notifu
+
+For Windows [notifu](http://www.paralint.com/projects/notifu/index.html).
+
+![notifu](http://jeanchristophegay.com/images/notifier.notifu.success.png)
+![notifu](http://jeanchristophegay.com/images/notifier.notifu.fail.png)
+
 ##Configuration
 
 Go to [Wiki](https://github.com/jcgay/maven-notifier/wiki) to read full configuration guide for each notifier.
