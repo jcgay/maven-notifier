@@ -1,3 +1,13 @@
+#1.0
+***
+
+- Use short description by default [view](http://github.com/jcgay/maven-notifier/commit/6be9df9bec4bfa043f60b5bd0df4154f22eda70c)  
+- Replace short description default message with '...' [view](http://github.com/jcgay/maven-notifier/commit/eb89d89359bbc867739bd2255c58b9b6db462e83)  
+- New notifiers: kdialog, notifu [view](http://github.com/jcgay/maven-notifier/commit/9eb59c48a29821f4f2e83b77e680dc263297cbad)
+- Use send-notification v0.3 [Fixes #10] [view](http://github.com/jcgay/maven-notifier/commit/9eb59c48a29821f4f2e83b77e680dc263297cbad)  
+- Set notification level based on build status [view](http://github.com/jcgay/maven-notifier/commit/8690f63b7f16bd39fa7aa17689ef245563ccd22f)  
+- Can use -DnotifyWith when no configuration file is present [view](http://github.com/jcgay/maven-notifier/commit/eb9b1f0dbc81cd1ca2951b59db699b3b020c785f)  
+
 #0.11
 ***
 
@@ -36,4 +46,4 @@
 - Can configure growl host. [Fix #3] [view](http://github.com/jcgay/maven-notifier/commit/d168f2c080456574c72a269c8633d1e1cc3883a9)  
 - Can set a sound when using Apple Notification Center. [Fix #1] [view](http://github.com/jcgay/maven-notifier/commit/0a8e12a3c3d41c9d4963053a562ee0188f2210cd)  
 - Display total time spent building the project. [view](http://github.com/jcgay/maven-notifier/commit/639a63203d2bd07f1178348200a4bd69351ebf3f)  
-- Add Snarl notifier. [Fix #2] [view](http://github.com/jcgay/maven-notifier/commit/139cc7b345e11f9085b4c8637d55baf7d58442b6)
+- Add Snarl notifier. [Fix #2] [view](http://github.com/jcgay/maven-notifier/commit/139cc7b345e11f9085b4c8637d55baf7d58442b6)  
