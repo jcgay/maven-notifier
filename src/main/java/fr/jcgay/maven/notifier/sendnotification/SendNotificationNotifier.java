@@ -10,7 +10,6 @@ import fr.jcgay.notification.Application;
 import fr.jcgay.notification.Icon;
 import fr.jcgay.notification.Notification;
 import fr.jcgay.notification.SendNotification;
-import org.apache.maven.eventspy.EventSpy;
 import org.apache.maven.execution.BuildSummary;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.apache.maven.project.MavenProject;
@@ -56,20 +55,18 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
     }
 
     @Override
-    public void init(EventSpy.Context context) {
-        super.init(context);
-        notifier.init();
-    }
-
-    @Override
     public void close() {
         super.close();
         notifier.close();
     }
 
     @Override
-    public void onEvent(MavenExecutionResult event) {
-        super.onEvent(event);
+    public boolean shouldNotify() {
+        return !"sound".equals(configuration.getImplementation());
+    }
+
+    @Override
+    protected void fireNotification(MavenExecutionResult event) {
         Status status = getBuildStatus(event);
         notifier.send(
             Notification.builder(buildTitle(event), buildNotificationMessage(event), Icon.create(status.url(), status.name()))
@@ -80,8 +77,8 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
     }
 
     @Override
-    public boolean shouldNotify() {
-        return !"sound".equals(configuration.getImplementation());
+    protected void configure() {
+        notifier.init();
     }
 
     @Override

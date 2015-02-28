@@ -56,6 +56,7 @@ class ConfigurationParserTest {
         Configuration result = parser.get(new Properties());
 
         assertThat result.isShortDescription() isTrue()
+        assertThat result.threshold isEqualTo(-1)
     }
 
     @Test
@@ -64,11 +65,13 @@ class ConfigurationParserTest {
         Properties properties = new Properties();
         properties << [(IMPLEMENTATION.key()):('test')]
         properties << [(Property.SHORT_DESCRIPTION.key()):('false')]
+        properties << [(Property.THRESHOLD.key()):('10')]
 
         Configuration result = parser.get(properties)
 
         assertThat result.getImplementation() isEqualTo 'test'
         assertThat result.isShortDescription() isFalse()
+        assertThat result.threshold isEqualTo(10)
     }
 
     @Test

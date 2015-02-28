@@ -7,7 +7,8 @@ import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.logging.Logger;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public abstract class AbstractCustomEventSpy implements Notifier {
 
@@ -16,13 +17,19 @@ public abstract class AbstractCustomEventSpy implements Notifier {
     private Stopwatch stopwatch = new Stopwatch();
 
     @Override
-    public void init(EventSpy.Context context) {
+    public final void init(EventSpy.Context context) {
         stopwatch.start();
+        configure();
     }
 
     @Override
-    public void onEvent(MavenExecutionResult event) {
+    public final void onEvent(MavenExecutionResult event) {
         stopwatch.stop();
+        if (stopwatch.elapsedTime(SECONDS) > configuration.getThreshold()) {
+            fireNotification(event);
+        } else {
+            logger.debug("No notification sent because build ends before threshold: " + configuration.getThreshold() + "s.");
+        }
     }
 
     @Override
@@ -54,11 +61,15 @@ public abstract class AbstractCustomEventSpy implements Notifier {
         this.stopwatch = stopwatch;
     }
 
+    protected abstract void fireNotification(MavenExecutionResult event);
+
+    protected abstract void configure();
+
     protected Status getBuildStatus(MavenExecutionResult result) {
         return result.hasExceptions() ? Status.FAILURE : Status.SUCCESS;
     }
 
     protected long elapsedTime() {
-        return stopwatch.elapsedTime(TimeUnit.SECONDS);
+        return stopwatch.elapsedTime(SECONDS);
     }
 }

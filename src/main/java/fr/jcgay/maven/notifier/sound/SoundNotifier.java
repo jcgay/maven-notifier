@@ -20,8 +20,18 @@ import java.util.List;
 public class SoundNotifier extends AbstractCustomEventSpy {
 
     @Override
-    public void onEvent(MavenExecutionResult event) {
+    public void onFailWithoutProject(List<Throwable> exceptions) {
+        playSound(Status.FAILURE);
+    }
+
+    @Override
+    protected void fireNotification(MavenExecutionResult event) {
         playSound(getBuildStatus(event));
+    }
+
+    @Override
+    protected void configure() {
+        // do nothing
     }
 
     private void playSound(Status status) {
@@ -31,11 +41,6 @@ public class SoundNotifier extends AbstractCustomEventSpy {
             return;
         }
         play(ais);
-    }
-
-    @Override
-    public void onFailWithoutProject(List<Throwable> exceptions) {
-        playSound(Status.FAILURE);
     }
 
     private void play(AudioInputStream ais) {

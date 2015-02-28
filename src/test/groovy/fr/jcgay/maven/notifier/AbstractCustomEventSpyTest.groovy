@@ -2,6 +2,7 @@ package fr.jcgay.maven.notifier
 import com.google.common.base.Stopwatch
 import groovy.transform.CompileStatic
 import org.apache.maven.execution.DefaultMavenExecutionResult
+import org.apache.maven.execution.MavenExecutionResult
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
@@ -19,7 +20,17 @@ class AbstractCustomEventSpyTest {
 
     @BeforeMethod
     void setUp() throws Exception {
-        eventSpy = new AbstractCustomEventSpy() {}
+        eventSpy = new AbstractCustomEventSpy() {
+            @Override
+            protected void fireNotification(MavenExecutionResult event) {
+
+            }
+
+            @Override
+            protected void configure() {
+
+            }
+        }
         stopwatch = new Stopwatch(new KnownElapsedTimeTicker(SECONDS.toNanos(2L)))
         eventSpy.stopwatch = stopwatch
 
