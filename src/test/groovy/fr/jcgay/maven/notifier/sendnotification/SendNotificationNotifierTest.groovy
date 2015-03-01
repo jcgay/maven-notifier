@@ -161,6 +161,18 @@ class SendNotificationNotifierTest {
         assertThat notification.value.level() isEqualTo INFO
     }
 
+    @Test
+    void 'should send a notification with level ERROR when build is misconfigured'() throws Exception {
+        underTest.onFailWithoutProject([new Throwable("error")])
+
+        verify(notifier).send(notification.capture())
+
+        def result = notification.value
+        assertThat result.level() isEqualTo ERROR
+        assertThat result.message() contains 'error'
+        assertThat result.title() isEqualTo 'Build Error'
+    }
+
     private static MavenExecutionResult aSuccessfulProject() {
         def project = aProjectWithOneModule('project')
         when project.hasExceptions() thenReturn false

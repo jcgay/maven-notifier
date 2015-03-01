@@ -1,5 +1,6 @@
 package fr.jcgay.maven.notifier;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.apache.maven.eventspy.AbstractEventSpy;
 import org.apache.maven.eventspy.EventSpy;
 import org.apache.maven.execution.MavenExecutionResult;
@@ -13,6 +14,7 @@ import java.util.List;
 public class NotificationEventSpyChooser extends AbstractEventSpy {
 
     public static final String SKIP_NOTIFICATION = "skipNotification";
+
     @Requirement
     private Logger logger;
 
@@ -63,5 +65,14 @@ public class NotificationEventSpyChooser extends AbstractEventSpy {
                 return;
             }
         }
+
+        if (activeNotifier == null) {
+            activeNotifier = UselessNotifier.EMPTY;
+        }
+    }
+
+    @VisibleForTesting
+    void setAvailableNotifiers(List<Notifier> availableNotifiers) {
+        this.availableNotifiers = availableNotifiers;
     }
 }
