@@ -1,3 +1,8 @@
+#1.1
+***
+
+- No notification if build ends before configured threshold [Fixes #11] [view](http://github.com/jcgay/maven-notifier/commit/9b513b5)
+
 #1.0
 ***
 

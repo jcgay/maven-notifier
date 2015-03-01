@@ -7,11 +7,11 @@ A status notification will be send at the end of a Maven build.
 
 ### Maven >= 3.1
 
-Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.0/maven-notifier-1.0.jar) and copy it in your `$M2_HOME/lib/ext` folder.
+Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.1/maven-notifier-1.1.jar) and copy it in your `$M2_HOME/lib/ext` folder.
 
 ### Maven < 3.1
 
-Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.0/maven-notifier-1.0.zip) and extract it in your `$M2_HOME/lib/ext` folder.
+Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.1/maven-notifier-1.1.zip) and extract it in your `$M2_HOME/lib/ext` folder.
 
 ##What's new ?
 
