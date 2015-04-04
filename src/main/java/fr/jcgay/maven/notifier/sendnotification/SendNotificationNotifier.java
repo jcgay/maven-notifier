@@ -105,7 +105,7 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
     }
 
     private static URL resource(String resource) {
-        return Thread.currentThread().getContextClassLoader().getResource(resource);
+        return SendNotificationNotifier.class.getClassLoader().getResource(resource);
     }
 
     protected String buildNotificationMessage(MavenExecutionResult result) {
