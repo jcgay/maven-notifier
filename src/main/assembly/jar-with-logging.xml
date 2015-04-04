@@ -9,7 +9,7 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <files>
         <file>
-            <source>${project.build.directory}/${project.build.finalName}.jar</source>
+            <source>${project.build.directory}/${project.build.finalName}-shaded.jar</source>
         </file>
         <file>
             <source>${project.build.directory}/slf4j-nop-${slf4j-version}.jar</source>
