@@ -18,18 +18,6 @@
         <tag>HEAD</tag>
     </scm>
 
-    <distributionManagement>
-        <repository>
-            <id>bintray</id>
-            <name>jcgay-maven-maven-notifier</name>
-            <url>https://api.bintray.com/maven/jcgay/maven/maven-notifier</url>
-        </repository>
-        <snapshotRepository>
-            <id>jcgay-cloudbees-snapshot</id>
-            <url>dav:https://repository-jcgay.forge.cloudbees.com/snapshot/</url>
-        </snapshotRepository>
-    </distributionManagement>
-
     <properties>
         <slf4j-version>1.7.7</slf4j-version>
     </properties>
