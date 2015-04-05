@@ -1,3 +1,9 @@
+#1.2
+***
+
+- Configuration location is now ~/.m2/maven-notifier.properties [view](http://github.com/jcgay/maven-notifier/commit/86ba7057adf1f148107b25f7fc2e6a6567a97e57)
+- Compatibility with Maven 3.3.1 extension mechanism [view](http://github.com/jcgay/maven-notifier/commit/258d769c42e3531c0f45281c3ae6f8457595d922)
+
 #1.1
 ***
 
