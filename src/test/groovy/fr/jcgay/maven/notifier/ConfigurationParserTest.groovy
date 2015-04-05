@@ -23,6 +23,7 @@ class ConfigurationParserTest {
     @BeforeMethod
     void setUp() throws Exception {
         MockitoAnnotations.initMocks(this)
+        System.clearProperty(Property.NOTIFY_WITH.key())
     }
 
     @Test(dataProvider = 'os and notifier implementation')
@@ -75,7 +76,7 @@ class ConfigurationParserTest {
     }
 
     @Test
-    void 'should not override implementation with property when its null'() throws Exception {
+    void 'should not override implementation with property when no property is set'() throws Exception {
 
         def result = ConfigurationParser.readProperties(this.getClass().getResource('/implementation.properties'))
 
@@ -86,7 +87,7 @@ class ConfigurationParserTest {
     void 'should override implementation with system property'() throws Exception {
 
         System.setProperty(Property.NOTIFY_WITH.key(), 'override-implementation')
-        def result = ConfigurationParser.readProperties(this.getClass().getResource('/implementation.properties'))
+        def result = ConfigurationParser.readProperties(getClass().getResource('/implementation.properties'))
 
         assertThat result[IMPLEMENTATION.key()] isEqualTo 'override-implementation'
     }
@@ -98,5 +99,16 @@ class ConfigurationParserTest {
         def result = ConfigurationParser.readProperties(new URL('file:///non-existing.properties'))
 
         assertThat result[IMPLEMENTATION.key()] isEqualTo 'override-implementation'
+    }
+
+    @Test
+    void 'should overwrite global configuration with user one'() {
+
+        def result = ConfigurationParser.readProperties(
+            getClass().getResource('/implementation.properties'),
+            getClass().getResource('/implementation-user.properties')
+        )
+
+        assertThat(result[IMPLEMENTATION.key()]).isEqualTo('snarl')
     }
 }

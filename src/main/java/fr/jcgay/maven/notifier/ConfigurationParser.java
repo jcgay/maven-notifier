@@ -6,6 +6,7 @@ import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.logging.Logger;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
@@ -23,41 +24,33 @@ public class ConfigurationParser {
     private Logger logger;
 
     public Configuration get() {
-        URL url = getConfigurationUrl();
-
-        if (url == null) {
-            return defaultConfiguration();
-        }
-
-        return get(readProperties(url));
+        return get(readProperties());
     }
 
     public static Properties readProperties() {
-        try {
-            return readProperties(configurationFile());
-        } catch (IOException e) {
-            return new ConfiguredProperties().properties();
-        }
+        return readProperties(globalConfiguration(), userConfiguration());
     }
 
-    @VisibleForTesting
-    static Properties readProperties(URL url) {
+    @VisibleForTesting static Properties readProperties(URL... urls) {
         return new ConfiguredProperties()
-            .load(url)
+            .load(urls)
             .properties();
     }
 
-    private URL getConfigurationUrl() {
+    private static URL globalConfiguration() {
         try {
-            return configurationFile();
+            return new URL(ConfigurationParser.class.getProtectionDomain().getCodeSource().getLocation(), "maven-notifier.properties");
         } catch (MalformedURLException e) {
-            logger.debug("Cannot create URL for default configuration file.", e);
             return null;
         }
     }
 
-    private static URL configurationFile() throws MalformedURLException {
-        return new URL(ConfigurationParser.class.getProtectionDomain().getCodeSource().getLocation(), "maven-notifier.properties");
+    private static URL userConfiguration() {
+        try {
+            return new URL("file://" + System.getProperty("user.home") + "/.m2/maven-notifier.properties");
+        } catch (MalformedURLException e) {
+            return null;
+        }
     }
 
     @VisibleForTesting Configuration get(Properties properties) {
@@ -72,10 +65,6 @@ public class ConfigurationParser {
         configuration.setShortDescription(parseBoolean(properties.get(SHORT_DESCRIPTION)));
         configuration.setThreshold(Integer.valueOf(properties.get(THRESHOLD)));
         return configuration;
-    }
-
-    private Configuration defaultConfiguration() {
-        return get(new ConfiguredProperties().properties());
     }
 
     public static class ConfigurationProperties {
@@ -120,7 +109,7 @@ public class ConfigurationParser {
             return os.contains("win");
         }
 
-        public static enum Property {
+        public enum Property {
             IMPLEMENTATION("notifier.implementation"),
             SHORT_DESCRIPTION("notifier.message.short", "true"),
             NOTIFY_WITH("notifyWith"),
@@ -129,11 +118,11 @@ public class ConfigurationParser {
             private final String key;
             private String defaultValue;
 
-            private Property(String key) {
+            Property(String key) {
                 this.key = key;
             }
 
-            private Property(String key, String defaultValue) {
+            Property(String key, String defaultValue) {
                 this.key = key;
                 this.defaultValue = defaultValue;
             }
@@ -162,11 +151,24 @@ public class ConfigurationParser {
             return result;
         }
 
-        public ConfiguredProperties load(URL url) {
-            try {
-                properties.load(url.openStream());
-            } catch (IOException e) {
-                // cannot read configuration file (which is not mandatory)
+        public ConfiguredProperties load(URL... urls) {
+            for (URL url : urls) {
+                if (url != null) {
+                    InputStream in = null;
+                    try {
+                        in = url.openStream();
+                        properties.load(in);
+                    } catch (IOException ignored) {
+                        // cannot read configuration file (which is not mandatory)
+                    } finally {
+                        if (in != null) {
+                            try {
+                                in.close();
+                            } catch (IOException ignored) {
+                            }
+                        }
+                    }
+                }
             }
             return this;
         }
