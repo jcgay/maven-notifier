@@ -111,4 +111,16 @@ class ConfigurationParserTest {
 
         assertThat(result[IMPLEMENTATION.key()]).isEqualTo('snarl')
     }
+
+    @Test
+    void 'should use configuration passed by system property'() {
+
+        System.setProperty('notifier.anybar.port', '1111')
+        System.setProperty('notifier.anybar.host', 'localhost')
+
+        def result = ConfigurationParser.readProperties(getClass().getResource('/anybar.properties'))
+
+        assertThat result['notifier.anybar.port'] isEqualTo '1111'
+        assertThat result['notifier.anybar.host'] isEqualTo 'localhost'
+    }
 }

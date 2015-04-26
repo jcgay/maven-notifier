@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 import java.util.Properties;
 
 import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.IMPLEMENTATION;
@@ -144,6 +145,13 @@ public class ConfigurationParser {
         public Properties properties() {
             Properties result = new Properties();
             result.putAll(properties);
+
+            for (Map.Entry<Object, Object> property : System.getProperties().entrySet()) {
+                if (property.getKey().toString().startsWith("notifier.")) {
+                    result.put(property.getKey(), property.getValue());
+                }
+            }
+
             String overrideImplementation = System.getProperty(NOTIFY_WITH.key());
             if (overrideImplementation != null) {
                 result.put(IMPLEMENTATION.key(), overrideImplementation);
