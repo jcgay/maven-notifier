@@ -92,6 +92,16 @@ For Windows [notifu](http://www.paralint.com/projects/notifu/index.html).
 ![notifu](http://jeanchristophegay.com/images/notifier.notifu.success.png)
 ![notifu](http://jeanchristophegay.com/images/notifier.notifu.fail.png)
 
+## AnyBar / SomeBar
+
+For OS X, [AnyBar](https://github.com/tonsky/AnyBar).
+
+![anybar](http://jeanchristophegay.com/images/notifier.anybar_maven.png)
+
+For Linux, [SomeBar](https://github.com/limpbrains/somebar)
+
+![somebar](https://raw.githubusercontent.com/limpbrains/somebar/9019ecd04c5dea6eac27bfd10f0ae75477761236/screenshot.png)
+
 ##Configuration
 
 Go to [Wiki](https://github.com/jcgay/maven-notifier/wiki) to read full configuration guide for each notifier.
