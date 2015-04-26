@@ -1,3 +1,9 @@
+#1.3
+***
+
+- Can pass configuration using system properties [view](http://github.com/jcgay/maven-notifier/commit/351c771187947ad995757e3211ffabfe25330156)
+- Add AnyBar (SomeBar) notifier [view](http://github.com/jcgay/maven-notifier/commit/f1bbee89aa878739d0374341ece3600470bec521)
+
 #1.2
 ***
 
