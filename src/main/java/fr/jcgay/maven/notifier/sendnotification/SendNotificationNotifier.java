@@ -69,9 +69,12 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
     protected void fireNotification(MavenExecutionResult event) {
         Status status = getBuildStatus(event);
         notifier.send(
-            Notification.builder(buildTitle(event), buildNotificationMessage(event), Icon.create(status.url(), status.name()))
-                .withLevel(toLevel(status))
-                .withSubtitle(status.message())
+            Notification.builder()
+                .title(buildTitle(event))
+                .message(buildNotificationMessage(event))
+                .icon(Icon.create(status.url(), status.name()))
+                .level(toLevel(status))
+                .subtitle(status.message())
                 .build()
         );
     }
@@ -86,9 +89,12 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
         super.onFailWithoutProject(exceptions);
         Status status = Status.FAILURE;
         notifier.send(
-            Notification.builder("Build Error", buildErrorDescription(exceptions), Icon.create(status.url(), status.name()))
-                .withSubtitle(status.message())
-                .withLevel(ERROR)
+            Notification.builder()
+                .title("Build Error")
+                .message(buildErrorDescription(exceptions))
+                .icon(Icon.create(status.url(), status.name()))
+                .subtitle(status.message())
+                .level(ERROR)
                 .build()
         );
     }
