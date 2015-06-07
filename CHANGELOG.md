@@ -1,3 +1,10 @@
+#1.4
+***
+
+- Add Toaster notifier ([97b395b](http://github.com/jcgay/maven-notifier/commit/97b395b1dd94c894e26c79ce5f8e0f3593436aac))
+- Add notification center (with AppleScript) notifier ([97b395b](http://github.com/jcgay/maven-notifier/commit/97b395b1dd94c894e26c79ce5f8e0f3593436aac))
+- Notification center (with terminal-notifier) now uses application icon ([97b395b](http://github.com/jcgay/maven-notifier/commit/97b395b1dd94c894e26c79ce5f8e0f3593436aac))
+
 #1.3
 ***
 

@@ -7,7 +7,7 @@ A status notification will be send at the end of a Maven build.
 
 ### Maven >= 3.3.x
 
-Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.3/maven-notifier-1.3-shaded.jar) and copy it in `%M2_HOME%/lib/ext` folder.
+Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.4/maven-notifier-1.4-shaded.jar) and copy it in `%M2_HOME%/lib/ext` folder.
 
 *or*
 
@@ -19,18 +19,18 @@ Use the new [core extensions configuration mechanism](http://takari.io/2015/03/1
 	    <extension>
 	      <groupId>fr.jcgay.maven</groupId>
 	      <artifactId>maven-notifier</artifactId>
-	      <version>1.3</version>
+	      <version>1.4</version>
 	    </extension>
 	</extensions>
 ```
 
 ### Maven >= 3.1
 
-Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.3/maven-notifier-1.3-shaded.jar) and copy it in your `$M2_HOME/lib/ext` folder.
+Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.4/maven-notifier-1.4-shaded.jar) and copy it in your `$M2_HOME/lib/ext` folder.
 
 ### Maven < 3.1
 
-Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.3/maven-notifier-1.3.zip) and extract it in your `$M2_HOME/lib/ext` folder.
+Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.4/maven-notifier-1.4.zip) and extract it in your `$M2_HOME/lib/ext` folder.
 
 ##What's new ?
 
@@ -56,6 +56,10 @@ Used by default on linux.
 Available only for OS X (at least Mountain lion).
 
 ![terminal-notifier](http://jeanchristophegay.com/images/notifier.notification-center.success.png)  ![terminal-notifier fail](http://jeanchristophegay.com/images/notifier.notification-center.failure.png)
+
+Limited version (using AppleScript) for OS X >= Mavericks.
+
+![simple-nc](http://jeanchristophegay.com/images/notifier.simplenc.success.png) ![simple-nc-fail](http://jeanchristophegay.com/images/notifier.simplenc.failure.png)
 
 ###Sound
 
@@ -103,6 +107,13 @@ For OS X, [AnyBar](https://github.com/tonsky/AnyBar).
 For Linux, [SomeBar](https://github.com/limpbrains/somebar)
 
 ![somebar](https://raw.githubusercontent.com/limpbrains/somebar/9019ecd04c5dea6eac27bfd10f0ae75477761236/screenshot.png)
+
+## Toaster
+
+For Windows 8 and higher, [Toaster](https://github.com/nels-o/toaster)
+
+![Toaster](http://jeanchristophegay.com/images/notifier.toaster.success.png)
+![Toaster-fail](http://jeanchristophegay.com/images/notifier.toaster.failure.png)
 
 ##Configuration
 
