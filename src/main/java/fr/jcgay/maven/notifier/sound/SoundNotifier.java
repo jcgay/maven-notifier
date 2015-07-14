@@ -29,11 +29,6 @@ public class SoundNotifier extends AbstractCustomEventSpy {
         playSound(getBuildStatus(event));
     }
 
-    @Override
-    protected void configure() {
-        // do nothing
-    }
-
     private void playSound(Status status) {
         AudioInputStream ais = getAudioStream(status);
         if (ais == null) {

@@ -82,10 +82,5 @@ class AbstractCustomEventSpyThresholdTest {
         protected void fireNotification(MavenExecutionResult event) {
             notifier.send()
         }
-
-        @Override
-        protected void configure() {
-
-        }
     }
 }

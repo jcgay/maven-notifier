@@ -41,7 +41,7 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
         return sendNotification
                 .setApplication(MAVEN)
                 .addConfigurationProperties(ConfigurationParser.readProperties())
-                .chooseNotifier();
+                .initNotifier();
     }
 
     @VisibleForTesting
@@ -77,11 +77,6 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
                 .subtitle(status.message())
                 .build()
         );
-    }
-
-    @Override
-    protected void configure() {
-        notifier.init();
     }
 
     @Override

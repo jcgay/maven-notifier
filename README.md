@@ -40,13 +40,13 @@ See [CHANGELOG](https://github.com/jcgay/maven-notifier/blob/master/CHANGELOG.md
 
 ###Growl
 
-Used by default on OS X [(paid app)](http://growl.info/) and Windows [(free)](http://www.growlforwindows.com/gfw/).
+Available for OS X [(paid app)](http://growl.info/) and Windows [(free)](http://www.growlforwindows.com/gfw/).
 
 ![Growl success](http://jeanchristophegay.com/images/notifier.growl_.success.png)  ![Growl fail](http://jeanchristophegay.com/images/notifier.growl_.fail_.png)
 
 ###notify-send
 
-Used by default on linux. 
+For linux. 
 
 ![notify-send success](http://jeanchristophegay.com/images/notifier.notify-send.success.png)  
 ![notify-send fail](http://jeanchristophegay.com/images/notifier.notify-send.error_.fail_.png)

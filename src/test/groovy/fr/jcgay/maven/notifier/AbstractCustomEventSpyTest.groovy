@@ -25,11 +25,6 @@ class AbstractCustomEventSpyTest {
             protected void fireNotification(MavenExecutionResult event) {
 
             }
-
-            @Override
-            protected void configure() {
-
-            }
         }
         stopwatch = new Stopwatch(new KnownElapsedTimeTicker(SECONDS.toNanos(2L)))
         eventSpy.stopwatch = stopwatch

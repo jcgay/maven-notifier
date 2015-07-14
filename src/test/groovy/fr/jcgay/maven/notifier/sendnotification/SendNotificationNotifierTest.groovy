@@ -3,7 +3,6 @@ import fr.jcgay.maven.notifier.Configuration
 import fr.jcgay.maven.notifier.ConfigurationParser
 import fr.jcgay.notification.*
 import groovy.transform.CompileStatic
-import org.apache.maven.eventspy.EventSpy
 import org.apache.maven.execution.BuildSuccess
 import org.apache.maven.execution.MavenExecutionResult
 import org.apache.maven.project.MavenProject
@@ -48,13 +47,6 @@ class SendNotificationNotifierTest {
 
         underTest = new SendNotificationNotifier(notifier)
         underTest.configuration = parser
-    }
-
-    @Test
-    void 'should call init when initializing notifier'() {
-        underTest.init(aContext())
-
-        verify(notifier).init()
     }
 
     @Test
@@ -124,7 +116,7 @@ class SendNotificationNotifierTest {
                         Icon.create(resource("maven.png"), "maven"))
                         .build())
         verify(sendNotification).addConfigurationProperties(isA(Properties))
-        verify(sendNotification).chooseNotifier()
+        verify(sendNotification).initNotifier()
     }
 
     @Test
@@ -202,10 +194,6 @@ class SendNotificationNotifierTest {
         def result = anEvent(projectName)
         when result.getTopologicallySortedProjects().size() thenReturn 1
         result
-    }
-
-    private static EventSpy.Context aContext() {
-        mock EventSpy.Context
     }
 
     private static MavenExecutionResult anEvent(String projectName) {
