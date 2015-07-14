@@ -7,7 +7,7 @@ A status notification will be send at the end of a Maven build.
 
 ### Maven >= 3.3.x
 
-Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.4/maven-notifier-1.4-shaded.jar) and copy it in `%M2_HOME%/lib/ext` folder.
+Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.5/maven-notifier-1.5-shaded.jar) and copy it in `%M2_HOME%/lib/ext` folder.
 
 *or*
 
@@ -19,18 +19,18 @@ Use the new [core extensions configuration mechanism](http://takari.io/2015/03/1
 	    <extension>
 	      <groupId>fr.jcgay.maven</groupId>
 	      <artifactId>maven-notifier</artifactId>
-	      <version>1.4</version>
+	      <version>1.5</version>
 	    </extension>
 	</extensions>
 ```
 
 ### Maven >= 3.1
 
-Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.4/maven-notifier-1.4-shaded.jar) and copy it in your `$M2_HOME/lib/ext` folder.
+Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.5/maven-notifier-1.5-shaded.jar) and copy it in your `$M2_HOME/lib/ext` folder.
 
 ### Maven < 3.1
 
-Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.4/maven-notifier-1.4.zip) and extract it in your `$M2_HOME/lib/ext` folder.
+Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.5/maven-notifier-1.5.zip) and extract it in your `$M2_HOME/lib/ext` folder.
 
 ##What's new ?
 

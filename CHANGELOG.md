@@ -1,3 +1,8 @@
+#1.5
+***
+
+- Smarter default notifier ([cab405b](http://github.com/jcgay/maven-notifier/commit/cab405b6071dee5df41168d4e0f2388f32ec9970))
+
 #1.4
 ***
 
