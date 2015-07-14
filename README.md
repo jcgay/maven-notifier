@@ -122,3 +122,13 @@ Go to [Wiki](https://github.com/jcgay/maven-notifier/wiki) to read full configur
 # Build status
 [![Build Status](https://travis-ci.org/jcgay/maven-notifier.svg?branch=master)](https://travis-ci.org/jcgay/maven-notifier)
 [![Coverage Status](https://coveralls.io/repos/jcgay/maven-notifier/badge.svg?branch=master)](https://coveralls.io/r/jcgay/maven-notifier?branch=master)
+
+# Release
+
+Deploy to Maven Central:
+
+    mvn release:prepare release:perform
+    
+Deploy to Bintray:
+
+    etc/deploy-bintray.sh 
