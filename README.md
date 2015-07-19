@@ -5,6 +5,25 @@ A status notification will be send at the end of a Maven build.
 
 ##Installation
 
+`$M2_HOME` refers to maven installation folder.
+
+```
+.
+├── bin
+├── boot
+├── conf
+└── lib
+``` 
+
+### OS X ?
+
+You can install a pre-packaged maven named [maven-deluxe](https://github.com/jcgay/homebrew-jcgay#maven-deluxe) using `brew`.  
+It comes with [maven-color](https://github.com/jcgay/maven-color), [maven-notifier](https://github.com/jcgay/maven-notifier) and [maven-profiler](https://github.com/jcgay/maven-profiler).  
+It is based on latest maven release.
+
+    brew tap jcgay/jcgay
+    brew install maven-deluxe
+
 ### Maven >= 3.3.x
 
 Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.5/maven-notifier-1.5-shaded.jar) and copy it in `%M2_HOME%/lib/ext` folder.
