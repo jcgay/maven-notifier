@@ -135,10 +135,14 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
     }
 
     private String buildShortDescription(MavenExecutionResult result) {
-        if (getBuildStatus(result) == Status.SUCCESS) {
-            return "Built in: " + elapsedTime() + " second(s).";
+        switch (getBuildStatus(result)) {
+            case SUCCESS:
+                return "Built in: " + elapsedTime() + " second(s).";
+            case FAILURE:
+                return "Build Failed.";
+            default:
+                return "...";
         }
-        return "...";
     }
 
     private boolean shouldBuildShortDescription(MavenExecutionResult result) {

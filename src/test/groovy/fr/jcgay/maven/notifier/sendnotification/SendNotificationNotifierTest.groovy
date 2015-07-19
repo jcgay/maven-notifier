@@ -12,11 +12,10 @@ import org.mockito.Mock
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
-import java.util.concurrent.TimeUnit
-
 import static fr.jcgay.maven.notifier.KnownElapsedTimeTicker.aStartedStopwatchWithElapsedTime
 import static fr.jcgay.notification.Notification.Level.ERROR
 import static fr.jcgay.notification.Notification.Level.INFO
+import static java.util.concurrent.TimeUnit.SECONDS
 import static org.assertj.core.api.Assertions.assertThat
 import static org.mockito.AdditionalAnswers.returnsElementsOf
 import static org.mockito.Matchers.isA
@@ -58,7 +57,7 @@ class SendNotificationNotifierTest {
 
     @Test
     void 'should send notification when an event is triggered'() {
-        underTest.stopwatch = aStartedStopwatchWithElapsedTime(TimeUnit.SECONDS.toNanos(2L))
+        underTest.stopwatch = aStartedStopwatchWithElapsedTime(SECONDS.toNanos(2L))
 
         underTest.onEvent(anEvent('title'))
 
@@ -68,10 +67,10 @@ class SendNotificationNotifierTest {
 
     @Test
     void 'should send notification for a multi module project'() {
-        underTest.stopwatch = aStartedStopwatchWithElapsedTime(TimeUnit.SECONDS.toNanos(3L))
+        underTest.stopwatch = aStartedStopwatchWithElapsedTime(SECONDS.toNanos(3L))
 
         underTest.onEvent(aProjectWithMultipleModule('project-multimodule',
-                aModule('module-1', TimeUnit.SECONDS.toMillis(1L)), aModule('module-2', TimeUnit.SECONDS.toMillis(2L))))
+                aModule('module-1', SECONDS.toMillis(1L)), aModule('module-2', SECONDS.toMillis(2L))))
 
         verify(notifier).send(notification.capture())
         assertThat notification.value.title() isEqualTo 'project-multimodule [3s]'
@@ -80,7 +79,7 @@ class SendNotificationNotifierTest {
 
     @Test
     void 'should send notification with short message when project has only one module'() {
-        underTest.stopwatch = aStartedStopwatchWithElapsedTime(TimeUnit.SECONDS.toNanos(1L))
+        underTest.stopwatch = aStartedStopwatchWithElapsedTime(SECONDS.toNanos(1L))
 
         underTest.onEvent(aProjectWithOneModule('title'))
 
@@ -90,8 +89,19 @@ class SendNotificationNotifierTest {
     }
 
     @Test
+    void 'should send notification with short message when project has only one module and fails'() {
+        underTest.stopwatch = aStartedStopwatchWithElapsedTime(SECONDS.toNanos(1L))
+
+        underTest.onEvent(aFailingProject())
+
+        verify(notifier).send(notification.capture())
+        assertThat notification.value.title() isEqualTo 'project'
+        assertThat notification.value.message() isEqualTo 'Build Failed.'
+    }
+
+    @Test
     void 'should send notification with short message when configuration is set to be short'() {
-        underTest.stopwatch = aStartedStopwatchWithElapsedTime(TimeUnit.SECONDS.toNanos(1L))
+        underTest.stopwatch = aStartedStopwatchWithElapsedTime(SECONDS.toNanos(1L))
         underTest.configuration.shortDescription = true
 
         underTest.onEvent(aProjectWithMultipleModule('title'))
@@ -135,7 +145,7 @@ class SendNotificationNotifierTest {
 
     @Test
     void 'should send a notification with level ERROR when build is failing'() throws Exception {
-        underTest.stopwatch = aStartedStopwatchWithElapsedTime(TimeUnit.SECONDS.toNanos(1L))
+        underTest.stopwatch = aStartedStopwatchWithElapsedTime(SECONDS.toNanos(1L))
 
         underTest.onEvent(aFailingProject())
 
@@ -145,7 +155,7 @@ class SendNotificationNotifierTest {
 
     @Test
     void 'should send a notification with level INFO when build is successful'() throws Exception {
-        underTest.stopwatch = aStartedStopwatchWithElapsedTime(TimeUnit.SECONDS.toNanos(1L))
+        underTest.stopwatch = aStartedStopwatchWithElapsedTime(SECONDS.toNanos(1L))
 
         underTest.onEvent(aSuccessfulProject())
 
