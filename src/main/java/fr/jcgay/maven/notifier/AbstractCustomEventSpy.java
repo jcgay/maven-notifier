@@ -24,7 +24,7 @@ public abstract class AbstractCustomEventSpy implements Notifier {
     @Override
     public final void onEvent(MavenExecutionResult event) {
         stopwatch.stop();
-        if (stopwatch.elapsedTime(SECONDS) > configuration.getThreshold()) {
+        if (stopwatch.elapsedTime(SECONDS) > configuration.getThreshold() || isPersistent()) {
             fireNotification(event);
         } else {
             logger.debug("No notification sent because build ends before threshold: " + configuration.getThreshold() + "s.");
@@ -68,5 +68,9 @@ public abstract class AbstractCustomEventSpy implements Notifier {
 
     protected long elapsedTime() {
         return stopwatch.elapsedTime(SECONDS);
+    }
+
+    protected boolean isPersistent() {
+        return false;
     }
 }

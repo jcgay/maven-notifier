@@ -6,6 +6,7 @@ import groovy.transform.CompileStatic
 import org.apache.maven.execution.BuildSuccess
 import org.apache.maven.execution.MavenExecutionResult
 import org.apache.maven.project.MavenProject
+import org.codehaus.plexus.logging.Logger
 import org.mockito.ArgumentCaptor
 import org.mockito.Captor
 import org.mockito.Mock
@@ -46,6 +47,7 @@ class SendNotificationNotifierTest {
 
         underTest = new SendNotificationNotifier(notifier)
         underTest.configuration = parser
+        underTest.logger = mock(Logger)
     }
 
     @Test
@@ -173,6 +175,28 @@ class SendNotificationNotifierTest {
         assertThat result.level() isEqualTo ERROR
         assertThat result.message() contains 'error'
         assertThat result.title() isEqualTo 'Build Error'
+    }
+
+    @Test
+    public void 'should always send notification when notifier is persistent even if threshold is passed'() {
+        underTest.stopwatch = aStartedStopwatchWithElapsedTime(SECONDS.toNanos(1L))
+        configuration.setThreshold(10)
+        when(notifier.isPersistent()).thenReturn(true)
+
+        underTest.onEvent(aSuccessfulProject())
+
+        verify(notifier).send(any(Notification.class))
+    }
+
+    @Test
+    public void 'should not send notification when notifier is not persistent and threshold is passed'() {
+        underTest.stopwatch = aStartedStopwatchWithElapsedTime(SECONDS.toNanos(1L))
+        configuration.setThreshold(10)
+        when(notifier.isPersistent()).thenReturn(false)
+
+        underTest.onEvent(aSuccessfulProject())
+
+        verify(notifier, never()).send(any(Notification.class))
     }
 
     private static MavenExecutionResult aSuccessfulProject() {

@@ -80,6 +80,11 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
     }
 
     @Override
+    protected boolean isPersistent() {
+        return notifier.isPersistent();
+    }
+
+    @Override
     public void onFailWithoutProject(List<Throwable> exceptions) {
         super.onFailWithoutProject(exceptions);
         Status status = Status.FAILURE;
