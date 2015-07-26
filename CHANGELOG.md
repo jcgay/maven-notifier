@@ -1,3 +1,10 @@
+#1.6
+***
+
+- Always send notification when notifier is persistent ([d3a3d08](http://github.com/jcgay/maven-notifier/commit/d3a3d081401c862491c23aeb6108e1637bbb45de))
+- Replace '...' by 'Build Failed' for short notification messages ([30310ae](http://github.com/jcgay/maven-notifier/commit/30310ae092f0d5313129ac57f8e6e41a18237e73))
+- Can use multiple notifiers at once ([f8e0f90](http://github.com/jcgay/maven-notifier/commit/f8e0f90ae2d3a694a5cdeb4d6ef2fb541f3cb8e8))
+
 #1.5
 ***
 

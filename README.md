@@ -26,7 +26,7 @@ It is based on latest maven release.
 
 ### Maven >= 3.3.x
 
-Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.5/maven-notifier-1.5-shaded.jar) and copy it in `%M2_HOME%/lib/ext` folder.
+Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.6/maven-notifier-1.6-shaded.jar) and copy it in `%M2_HOME%/lib/ext` folder.
 
 *or*
 
@@ -38,18 +38,18 @@ Use the new [core extensions configuration mechanism](http://takari.io/2015/03/1
 	    <extension>
 	      <groupId>fr.jcgay.maven</groupId>
 	      <artifactId>maven-notifier</artifactId>
-	      <version>1.5</version>
+	      <version>1.6</version>
 	    </extension>
 	</extensions>
 ```
 
 ### Maven >= 3.1
 
-Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.5/maven-notifier-1.5-shaded.jar) and copy it in your `$M2_HOME/lib/ext` folder.
+Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.6/maven-notifier-1.6-shaded.jar) and copy it in your `$M2_HOME/lib/ext` folder.
 
 ### Maven < 3.1
 
-Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.5/maven-notifier-1.5.zip) and extract it in your `$M2_HOME/lib/ext` folder.
+Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.6/maven-notifier-1.6.zip) and extract it in your `$M2_HOME/lib/ext` folder.
 
 ##What's new ?
 
@@ -57,82 +57,23 @@ See [CHANGELOG](https://github.com/jcgay/maven-notifier/blob/master/CHANGELOG.md
 
 ##Notifiers
 
-###Growl
-
-Available for OS X [(paid app)](http://growl.info/) and Windows [(free)](http://www.growlforwindows.com/gfw/).
-
-![Growl success](http://jeanchristophegay.com/images/notifier.growl_.success.png)  ![Growl fail](http://jeanchristophegay.com/images/notifier.growl_.fail_.png)
-
-###notify-send
-
-For linux. 
-
-![notify-send success](http://jeanchristophegay.com/images/notifier.notify-send.success.png)  
-![notify-send fail](http://jeanchristophegay.com/images/notifier.notify-send.error_.fail_.png)
-
-###Notification center
-
-Available only for OS X (at least Mountain lion).
-
-![terminal-notifier](http://jeanchristophegay.com/images/notifier.notification-center.success.png)  ![terminal-notifier fail](http://jeanchristophegay.com/images/notifier.notification-center.failure.png)
-
-Limited version (using AppleScript) for OS X >= Mavericks.
-
-![simple-nc](http://jeanchristophegay.com/images/notifier.simplenc.success.png) ![simple-nc-fail](http://jeanchristophegay.com/images/notifier.simplenc.failure.png)
+| Notifier | Screenshot |
+|:--------:|-----------------|
+| **Growl**, for [Windows](http://www.growlforwindows.com/gfw/) and [OS X](http://growl.info/).    | ![Growl](http://jeanchristophegay.com/images/notifier.growl_.success.png) |
+| **[Snarl](http://snarl.fullphat.net/)**, for Windows | ![Snarl](http://jeanchristophegay.com/images/notifier.snarl.success.png) |
+| **[terminal-notifier](https://github.com/alloy/terminal-notifier)**, OS X | ![terminal-notifier](http://jeanchristophegay.com/images/notifier.notification-center.success.png) |
+| **notification center** OS X (since Mavericks) | ![notification-center](http://jeanchristophegay.com/images/notifier.simplenc.thumbnail.png) |
+| **notify-send** for Linux | ![notify-send](http://jeanchristophegay.com/images/notifier.notify-send.success.png) |
+| **SystemTray** since Java 6 | ![System Tray](http://jeanchristophegay.com/images/notifier.system.tray_.success.png) |
+| **[Pushbullet](https://www.pushbullet.com/)** | ![pushbullet](http://jeanchristophegay.com/images/notifier.pushbullet.success.png) |
+| **Kdialog** for KDE | ![Kdialog](http://jeanchristophegay.com/images/notifier.kdialog.fail.png) |
+| **[notifu](http://www.paralint.com/projects/notifu/index.html)** for Windows | ![notifu](http://jeanchristophegay.com/images/notifier.notifu.success.png) |
+| **AnyBar** for [OS X](https://github.com/tonsky/AnyBar) and [Linux](https://github.com/limpbrains/somebar) | ![anybar](http://jeanchristophegay.com/images/notifier.anybar_maven.png) |
+| **[Toaster](https://github.com/nels-o/toaster)** for Windows 8 | ![Toaster](http://jeanchristophegay.com/images/notifier.toaster.success.png) |
 
 ###Sound
 
 Play a success or failure sound when build ends.
-
-###System tray
-
-Use Java `SystemTray` to display notification.
-
-![System Tray success](http://jeanchristophegay.com/images/notifier.system.tray_.success.png)  ![System Tray fail](http://jeanchristophegay.com/images/notifier.system.tray_.fail_.png)
-
-###Snarl
-
-Send notificiation to [Snarl](http://snarl.fullphat.net/) for Windows.
-
-![Snarl](http://jeanchristophegay.com/images/notifier.snarl.success.png)  ![Snarl fail](http://jeanchristophegay.com/images/notifier.snarl.failure.png)
-
-###Pushbullet
-
-Use [Pushbullet](https://www.pushbullet.com/) online service.
-
-![pushbullet success](http://jeanchristophegay.com/images/notifier.pushbullet.success.png)
-![pushbullet failure](http://jeanchristophegay.com/images/notifier.pushbullet.failure.png)
-
-## Kdialog
-
-For KDE.
-
-![Kdialog](http://jeanchristophegay.com/images/notifier.kdialog.success.png)
-![Kdialog](http://jeanchristophegay.com/images/notifier.kdialog.fail.png)
-
-## notifu
-
-For Windows [notifu](http://www.paralint.com/projects/notifu/index.html).
-
-![notifu](http://jeanchristophegay.com/images/notifier.notifu.success.png)
-![notifu](http://jeanchristophegay.com/images/notifier.notifu.fail.png)
-
-## AnyBar / SomeBar
-
-For OS X, [AnyBar](https://github.com/tonsky/AnyBar).
-
-![anybar](http://jeanchristophegay.com/images/notifier.anybar_maven.png)
-
-For Linux, [SomeBar](https://github.com/limpbrains/somebar)
-
-![somebar](https://raw.githubusercontent.com/limpbrains/somebar/9019ecd04c5dea6eac27bfd10f0ae75477761236/screenshot.png)
-
-## Toaster
-
-For Windows 8 and higher, [Toaster](https://github.com/nels-o/toaster)
-
-![Toaster](http://jeanchristophegay.com/images/notifier.toaster.success.png)
-![Toaster-fail](http://jeanchristophegay.com/images/notifier.toaster.failure.png)
 
 ##Configuration
 
