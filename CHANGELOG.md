@@ -1,3 +1,9 @@
+#1.7
+***
+
+- Use notifier 'none' to not send notifications ([23eb400](http://github.com/jcgay/maven-notifier/commit/23eb40006ad8637f65693e89c31e9ed35ba91366))
+- Log Growl errors in debug when used in auto discovery mode ([23eb400](http://github.com/jcgay/maven-notifier/commit/23eb40006ad8637f65693e89c31e9ed35ba91366))
+
 #1.6
 ***
 
