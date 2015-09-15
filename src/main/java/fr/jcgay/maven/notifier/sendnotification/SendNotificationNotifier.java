@@ -3,7 +3,6 @@ package fr.jcgay.maven.notifier.sendnotification;
 import com.google.common.annotations.VisibleForTesting;
 import fr.jcgay.maven.notifier.AbstractCustomEventSpy;
 import fr.jcgay.maven.notifier.Configuration;
-import fr.jcgay.maven.notifier.ConfigurationParser;
 import fr.jcgay.maven.notifier.Notifier;
 import fr.jcgay.maven.notifier.Status;
 import fr.jcgay.notification.Application;
@@ -30,18 +29,16 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
     private static final Application MAVEN = Application.builder("application/x-vnd-apache.maven", "Maven", ICON).build();
     private static final String LINE_BREAK = System.getProperty("line.separator");
 
-    private final fr.jcgay.notification.Notifier notifier;
+    private SendNotification sendNotification;
+    private fr.jcgay.notification.Notifier notifier;
 
     public SendNotificationNotifier() {
-        notifier = configureNotifier(new SendNotification());
+        this.sendNotification = new SendNotification();
     }
 
     @VisibleForTesting
-    static fr.jcgay.notification.Notifier configureNotifier(SendNotification sendNotification) {
-        return sendNotification
-                .setApplication(MAVEN)
-                .addConfigurationProperties(ConfigurationParser.readProperties())
-                .initNotifier();
+    SendNotificationNotifier(SendNotification sendNotification) {
+        this.sendNotification = sendNotification;
     }
 
     @VisibleForTesting
@@ -49,9 +46,14 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
         this.notifier = notifier;
     }
 
-    @VisibleForTesting
-    fr.jcgay.notification.Notifier getNotifier() {
-        return notifier;
+    @Override
+    protected void initNotifier() {
+        if (this.notifier == null) {
+            this.notifier = sendNotification
+                .setApplication(MAVEN)
+                .addConfigurationProperties(configuration.getNotifierProperties())
+                .initNotifier();
+        }
     }
 
     @Override

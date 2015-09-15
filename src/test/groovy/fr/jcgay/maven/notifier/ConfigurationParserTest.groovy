@@ -64,7 +64,7 @@ class ConfigurationParserTest {
     @Test
     void 'should not override implementation with property when no property is set'() throws Exception {
 
-        def result = ConfigurationParser.readProperties(this.getClass().getResource('/implementation.properties'))
+        def result = parser.get(this.getClass().getResource('/implementation.properties')).notifierProperties
 
         assertThat result[IMPLEMENTATION.key()] isEqualTo 'growl'
     }
@@ -73,7 +73,8 @@ class ConfigurationParserTest {
     void 'should override implementation with system property'() throws Exception {
 
         System.setProperty(Property.NOTIFY_WITH.key(), 'override-implementation')
-        def result = ConfigurationParser.readProperties(getClass().getResource('/implementation.properties'))
+
+        def result = parser.get(getClass().getResource('/implementation.properties')).notifierProperties
 
         assertThat result[IMPLEMENTATION.key()] isEqualTo 'override-implementation'
     }
@@ -82,7 +83,8 @@ class ConfigurationParserTest {
     void 'should override implementation with system property when configuration file is not found'() throws Exception {
 
         System.setProperty(Property.NOTIFY_WITH.key(), 'override-implementation')
-        def result = ConfigurationParser.readProperties(new URL('file:///non-existing.properties'))
+
+        def result = parser.get(new URL('file:///non-existing.properties')).notifierProperties
 
         assertThat result[IMPLEMENTATION.key()] isEqualTo 'override-implementation'
     }
@@ -90,10 +92,10 @@ class ConfigurationParserTest {
     @Test
     void 'should overwrite global configuration with user one'() {
 
-        def result = ConfigurationParser.readProperties(
+        def result = parser.get(
             getClass().getResource('/implementation.properties'),
             getClass().getResource('/implementation-user.properties')
-        )
+        ).notifierProperties
 
         assertThat(result[IMPLEMENTATION.key()]).isEqualTo('snarl')
     }
@@ -104,7 +106,7 @@ class ConfigurationParserTest {
         System.setProperty('notifier.anybar.port', '1111')
         System.setProperty('notifier.anybar.host', 'localhost')
 
-        def result = ConfigurationParser.readProperties(getClass().getResource('/anybar.properties'))
+        def result = parser.get(getClass().getResource('/anybar.properties')).notifierProperties
 
         assertThat result['notifier.anybar.port'] isEqualTo '1111'
         assertThat result['notifier.anybar.host'] isEqualTo 'localhost'

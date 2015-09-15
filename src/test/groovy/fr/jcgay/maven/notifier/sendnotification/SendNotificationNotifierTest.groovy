@@ -119,7 +119,9 @@ class SendNotificationNotifierTest {
         when sendNotification.setApplication(isA(Application)) thenReturn sendNotification
         when sendNotification.addConfigurationProperties(isA(Properties)) thenReturn sendNotification
 
-        SendNotificationNotifier.configureNotifier(sendNotification)
+        def notificationNotifier = new SendNotificationNotifier(sendNotification)
+        notificationNotifier.setConfiguration(new ConfigurationParser(mock(Logger)));
+        notificationNotifier.initNotifier()
 
         verify(sendNotification).setApplication(
                 Application.builder(

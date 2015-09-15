@@ -16,9 +16,12 @@ public abstract class AbstractCustomEventSpy implements Notifier {
     protected Configuration configuration;
     private Stopwatch stopwatch = new Stopwatch();
 
+    protected abstract void fireNotification(MavenExecutionResult event);
+
     @Override
     public final void init(EventSpy.Context context) {
         stopwatch.start();
+        initNotifier();
     }
 
     @Override
@@ -60,7 +63,9 @@ public abstract class AbstractCustomEventSpy implements Notifier {
         this.stopwatch = stopwatch;
     }
 
-    protected abstract void fireNotification(MavenExecutionResult event);
+    protected void initNotifier() {
+        // do nothing
+    }
 
     protected Status getBuildStatus(MavenExecutionResult result) {
         return result.hasExceptions() ? Status.FAILURE : Status.SUCCESS;

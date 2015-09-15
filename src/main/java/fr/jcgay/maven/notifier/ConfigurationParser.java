@@ -24,40 +24,51 @@ public class ConfigurationParser {
     @Requirement
     private Logger logger;
 
+    public ConfigurationParser() {
+    }
+
+    public ConfigurationParser(Logger logger) {
+        this.logger = logger;
+    }
+
     public Configuration get() {
-        return get(readProperties());
+        return get(globalConfiguration(), userConfiguration());
     }
 
-    public static Properties readProperties() {
-        return readProperties(globalConfiguration(), userConfiguration());
-    }
-
-    @VisibleForTesting static Properties readProperties(URL... urls) {
-        return new ConfiguredProperties()
-            .load(urls)
-            .properties();
-    }
-
-    private static URL globalConfiguration() {
-        try {
-            return new URL(ConfigurationParser.class.getProtectionDomain().getCodeSource().getLocation(), "maven-notifier.properties");
-        } catch (MalformedURLException e) {
-            return null;
-        }
-    }
-
-    private static URL userConfiguration() {
-        try {
-            return new URL("file://" + System.getProperty("user.home") + "/.m2/maven-notifier.properties");
-        } catch (MalformedURLException e) {
-            return null;
-        }
+    public Configuration get(URL... urls) {
+        return get(readProperties(urls));
     }
 
     @VisibleForTesting Configuration get(Properties properties) {
         Configuration configuration = parse(new ConfigurationProperties(properties));
-        logger.debug("Notifier will use configuration: " + configuration);
+        logger.debug("maven-notifier user configuration: " + configuration);
         return configuration;
+    }
+
+    private Properties readProperties(URL... urls) {
+        return new ConfiguredProperties(logger)
+            .load(urls)
+            .properties();
+    }
+
+    private URL globalConfiguration() {
+        try {
+            URL url = new URL(ConfigurationParser.class.getProtectionDomain().getCodeSource().getLocation(), "maven-notifier.properties");
+            logger.debug("Global configuration is located at: " + url);
+            return url;
+        } catch (MalformedURLException e) {
+            return null;
+        }
+    }
+
+    private URL userConfiguration() {
+        try {
+            URL url = new URL("file://" + System.getProperty("user.home") + "/.m2/maven-notifier.properties");
+            logger.debug("User specific configuration is located at: " + url);
+            return url;
+        } catch (MalformedURLException e) {
+            return null;
+        }
     }
 
     private Configuration parse(ConfigurationProperties properties) {
@@ -65,6 +76,7 @@ public class ConfigurationParser {
         configuration.setImplementation(properties.get(IMPLEMENTATION));
         configuration.setShortDescription(parseBoolean(properties.get(SHORT_DESCRIPTION)));
         configuration.setThreshold(Integer.valueOf(properties.get(THRESHOLD)));
+        configuration.setNotifierProperties(properties.all());
         return configuration;
     }
 
@@ -83,6 +95,10 @@ public class ConfigurationParser {
                 default:
                     return properties.getProperty(property.key(), property.defaultValue());
             }
+        }
+
+        public Properties all() {
+            return properties;
         }
 
         public enum Property {
@@ -115,7 +131,12 @@ public class ConfigurationParser {
 
     private static class ConfiguredProperties {
 
+        private final Logger logger;
         private final Properties properties = new Properties();
+
+        public ConfiguredProperties(Logger logger) {
+            this.logger = logger;
+        }
 
         public Properties properties() {
             Properties result = new Properties();
@@ -129,6 +150,7 @@ public class ConfigurationParser {
 
             String overrideImplementation = System.getProperty(NOTIFY_WITH.key());
             if (overrideImplementation != null) {
+                logger.debug("Overriding configured notifier with: " + overrideImplementation);
                 result.put(IMPLEMENTATION.key(), overrideImplementation);
             }
             return result;
@@ -141,8 +163,10 @@ public class ConfigurationParser {
                     try {
                         in = url.openStream();
                         properties.load(in);
-                    } catch (IOException ignored) {
+                        logger.debug("Properties after loading [" + url + "]: " + properties);
+                    } catch (IOException e) {
                         // cannot read configuration file (which is not mandatory)
+                        logger.debug("Can't read file at [" + url + "]. Skipping it...", e);
                     } finally {
                         if (in != null) {
                             try {
