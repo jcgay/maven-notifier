@@ -1,3 +1,11 @@
+#1.8
+***
+
+- Fix Windows user configuration loading ([9e4f933](http://github.com/jcgay/maven-notifier/commit/9e4f933e05c9478ca5efac2e60ddb89a5552aaa5))
+- Better debug log messages ([9b10622](http://github.com/jcgay/maven-notifier/commit/9b106223427d7cd1237fe644b461a4abd5ce7e37))
+- Default notifier implementation is chosen by send-notification ([a113649](http://github.com/jcgay/maven-notifier/commit/a113649dcf96e693b9fb14bc2143165572ef1097))
+- Can launch multiple build with Snarl ([da0b38e](http://github.com/jcgay/maven-notifier/commit/da0b38eb7db12654003de7d0efc011a7f965ba78))
+
 #1.7
 ***
 

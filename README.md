@@ -26,7 +26,7 @@ It is based on latest maven release.
 
 ### Maven >= 3.3.x
 
-Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.7/maven-notifier-1.7-shaded.jar) and copy it in `%M2_HOME%/lib/ext` folder.
+Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.8/maven-notifier-1.8-shaded.jar) and copy it in `%M2_HOME%/lib/ext` folder.
 
 *or*
 
@@ -38,18 +38,18 @@ Use the new [core extensions configuration mechanism](http://takari.io/2015/03/1
 	    <extension>
 	      <groupId>fr.jcgay.maven</groupId>
 	      <artifactId>maven-notifier</artifactId>
-	      <version>1.7</version>
+	      <version>1.8</version>
 	    </extension>
 	</extensions>
 ```
 
 ### Maven >= 3.1
 
-Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.7/maven-notifier-1.7-shaded.jar) and copy it in your `$M2_HOME/lib/ext` folder.
+Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.8/maven-notifier-1.8-shaded.jar) and copy it in your `$M2_HOME/lib/ext` folder.
 
 ### Maven < 3.1
 
-Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.7/maven-notifier-1.7.zip) and extract it in your `$M2_HOME/lib/ext` folder.
+Get [maven-notifier](http://dl.bintray.com/jcgay/maven/fr/jcgay/maven/maven-notifier/1.8/maven-notifier-1.8.zip) and extract it in your `$M2_HOME/lib/ext` folder.
 
 ##What's new ?
 
