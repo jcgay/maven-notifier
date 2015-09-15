@@ -9,13 +9,13 @@
     </parent>
 
     <artifactId>maven-notifier</artifactId>
-    <version>1.8</version>
+    <version>1.9-SNAPSHOT</version>
 
     <scm>
         <url>https://github.com/jcgay/maven-notifier.git</url>
         <connection>scm:git:git://github.com/jcgay/maven-notifier.git</connection>
         <developerConnection>scm:git:git@github.com:jcgay/maven-notifier.git</developerConnection>
-        <tag>v1.8</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
