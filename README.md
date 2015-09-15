@@ -85,10 +85,4 @@ Go to [Wiki](https://github.com/jcgay/maven-notifier/wiki) to read full configur
 
 # Release
 
-Deploy to Maven Central:
-
-    mvn release:prepare release:perform
-    
-Deploy to Bintray:
-
-    etc/deploy-bintray.sh 
+    mvn -B release:prepare release:perform
