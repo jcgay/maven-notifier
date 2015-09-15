@@ -63,7 +63,7 @@ public class ConfigurationParser {
 
     private URL userConfiguration() {
         try {
-            URL url = new URL("file://" + System.getProperty("user.home") + "/.m2/maven-notifier.properties");
+            URL url = new URL("file:///" + System.getProperty("user.home") + "/.m2/maven-notifier.properties");
             logger.debug("User specific configuration is located at: " + url);
             return url;
         } catch (MalformedURLException e) {
