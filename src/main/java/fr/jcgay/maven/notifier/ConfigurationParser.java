@@ -70,44 +70,19 @@ public class ConfigurationParser {
 
     public static class ConfigurationProperties {
 
-        private static final String OS_NAME = "os.name";
-
         private final Properties properties;
 
         private ConfigurationProperties(Properties properties) {
             this.properties = properties;
-            if (currentOs() == null) {
-                properties.put(OS_NAME, System.getProperty(OS_NAME));
-            }
         }
 
         public String get(Property property) {
             switch (property) {
                 case IMPLEMENTATION:
-                    return properties.getProperty(property.key(), defaultImplementation());
+                    return properties.getProperty(property.key(), "send-notification");
                 default:
                     return properties.getProperty(property.key(), property.defaultValue());
             }
-        }
-
-        public String currentOs() {
-            return properties.getProperty(OS_NAME);
-        }
-
-        private String defaultImplementation() {
-            String os = currentOs().toLowerCase();
-            if (isMacos(os) || isWindows(os)) {
-                return "growl";
-            }
-            return "notifysend";
-        }
-
-        private boolean isMacos(String os) {
-            return os.contains("mac");
-        }
-
-        private boolean isWindows(String os) {
-            return os.contains("win");
         }
 
         public enum Property {

@@ -1,11 +1,9 @@
 package fr.jcgay.maven.notifier
-
 import org.codehaus.plexus.logging.Logger
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.testng.annotations.BeforeMethod
-import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 
 import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property
@@ -26,29 +24,17 @@ class ConfigurationParserTest {
         System.clearProperty(Property.NOTIFY_WITH.key())
     }
 
-    @Test(dataProvider = 'os and notifier implementation')
-    void 'should return default implementation configuration'(String os, String expectedImplementation) throws Exception {
+    @Test
+    void 'should return default implementation configuration'() throws Exception {
 
         // Given
         Properties properties = new Properties()
-        System.getProperties().entrySet().each { properties << [(it.key):(it.value)] }
-        properties << ['os.name':os]
 
         // When
         Configuration result = parser.get(properties)
 
         // Then
-        assertThat result.getImplementation() isEqualTo expectedImplementation
-    }
-
-    @DataProvider
-    private Object[][] 'os and notifier implementation'() {
-        // outdated os list: http://lopica.sourceforge.net/os.html
-        return [
-            ['Mac OS X', 'growl'],
-            ['Windows XP', 'growl'],
-            ['Linux', 'notifysend']
-        ]
+        assertThat result.getImplementation() isEqualTo 'send-notification'
     }
 
     @Test
