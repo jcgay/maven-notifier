@@ -1,3 +1,9 @@
+#1.9
+***
+
+- Use send-notification 0.10-SNAPSHOT ([f387c10](http://github.com/jcgay/maven-notifier/commit/f387c10e23cec61849ea060230ee09b8e066be6b))
+    * Prevent dock icon creation on OS X ([f7ba636](http://github.com/jcgay/send-notification/commit/f7ba63631fe6e1c9f2bbad126164eeca1cf2d7b5)) 
+
 #1.8
 ***
 

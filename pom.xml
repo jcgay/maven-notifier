@@ -46,7 +46,7 @@
         <dependency>
             <groupId>fr.jcgay.send-notification</groupId>
             <artifactId>send-notification</artifactId>
-            <version>0.10-SNAPSHOT</version>
+            <version>0.10</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
