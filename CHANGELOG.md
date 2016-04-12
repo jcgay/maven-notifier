@@ -1,3 +1,9 @@
+#1.9.1
+***
+
+- Use send-notification 0.10.1 ([3e432dd](http://github.com/jcgay/maven-notifier/commit/3e432dd612db9c0dac2cdbf30afb8c2f1db8b0a4))
+    * Escape argument when executing notifu ([41358dd](http://github.com/jcgay/send-notification/commit/41358ddc20125d35996ebba5545c00e2b66ff31f))
+
 #1.9
 ***
 
