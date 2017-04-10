@@ -1,9 +1,9 @@
-#Maven Notifier
+# Maven Notifier
 
 Notifiers that can be used with Maven 3.x.
 A status notification will be send at the end of a Maven build.
 
-##Installation
+## Installation
 
 `$M2_HOME` refers to maven installation folder.
 
