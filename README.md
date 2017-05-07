@@ -85,6 +85,8 @@ Go to [Wiki](https://github.com/jcgay/maven-notifier/wiki) to read full configur
 # Build status
 [![Build Status](https://travis-ci.org/jcgay/maven-notifier.svg?branch=master)](https://travis-ci.org/jcgay/maven-notifier)
 [![Coverage Status](https://coveralls.io/repos/jcgay/maven-notifier/badge.svg?branch=master)](https://coveralls.io/r/jcgay/maven-notifier?branch=master)
+[![Quality Gate](https://sonarqube.com/api/badges/gate?key=fr.jcgay.maven:maven-notifier)](https://sonarqube.com/dashboard/index/fr.jcgay.maven:maven-notifier)
+[![Technical debt ratio](https://sonarqube.com/api/badges/measure?key=fr.jcgay.maven:maven-notifier&metric=sqale_debt_ratio)](https://sonarqube.com/dashboard/index/fr.jcgay.maven:maven-notifier)
 
 # Release
 

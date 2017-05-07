@@ -1,5 +1,10 @@
 sudo: false
 language: java
+addons:
+  sonarqube:
+    organization: "jcgay-github"
+    token:
+      secure: "MLW7muRsJiF3Cwrqa/UFeKwNJzSd8g0WVZ30d6Yyy2egkbTiZ2M9U7/WfXQwV1Fd4lMjEOXFyrRcH3cBla4dMRG9JQLGEsBr1FGRJZZ3JiA01hTEWu9bD9vZM0pIj0X8psLZ+NoepzPWrhgMR+AUwrOSaKK95qx2ncEgWq3lAO4="
 before_install:
   - jdk_switcher use openjdk6
   - sed -i "s|\[JDK6\]|$JAVA_HOME|g" etc/toolchains.xml
@@ -7,10 +12,14 @@ before_install:
 install:
   - mvn install -DskipTests=true -B -V -t etc/toolchains.xml
 script:
-  - mvn test -B -t etc/toolchains.xml
+  - mvn package sonar:sonar -Prun-coverage -B -t etc/toolchains.xml
 after_success:
   - "[[ ${TRAVIS_PULL_REQUEST} == 'false' ]] && [[ ${TRAVIS_TAG} == '' ]] && mvn deploy -DskipTests --settings etc/deploy-settings.xml -t etc/toolchains.xml"
   - mvn verify coveralls:report -Prun-coverage -t etc/toolchains.xml
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
 env:
   global:
     - secure: cttGV5bt0VuZZXHK0yo9rfszAjX67+pcRKMBjGuFEdr3v8uD55ho2qrXAtKEbG5x/g1atBXKD3HhBzK5Mb00XDkF93TQdX9veO6619xcVqQ7LdzPDIbbpX7lrS7vIaUaM77+hCtHFEKZs6+DVyeL93z0Vy7GiIAnRAnGomlmAwc=
