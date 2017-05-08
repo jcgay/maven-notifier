@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>maven-notifier</artifactId>
-    <version>1.9.2-SNAPSHOT</version>
+    <version>1.10.0-SNAPSHOT</version>
 
     <scm>
         <url>https://github.com/jcgay/maven-notifier.git</url>

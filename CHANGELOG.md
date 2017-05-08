@@ -1,16 +1,24 @@
-#1.9.1
+# 1.10.0
+***
+
+- Use send-notification 0.11.0 ([b3217c4](http://github.com/jcgay/maven-notifier/commit/b3217c4542190be2303baafb0edfc067f5f36958))
+  * Add Slack notifier ([613e0af](http://github.com/jcgay/send-notification/commit/613e0af8ad444b89f231a26e36e800efef8f26e2))
+  * Add BurntToast notifier ([00af537](http://github.com/jcgay/send-notification/commit/00af5378207297374f8b9c42feb7ebd149a6498d))
+  * Add Notify notifier ([f6c190d](http://github.com/jcgay/send-notification/commit/f6c190dddb8160996ae84372b11bd20cb1fc8e5a))
+
+# 1.9.1
 ***
 
 - Use send-notification 0.10.1 ([3e432dd](http://github.com/jcgay/maven-notifier/commit/3e432dd612db9c0dac2cdbf30afb8c2f1db8b0a4))
     * Escape argument when executing notifu ([41358dd](http://github.com/jcgay/send-notification/commit/41358ddc20125d35996ebba5545c00e2b66ff31f))
 
-#1.9
+# 1.9
 ***
 
 - Use send-notification 0.10-SNAPSHOT ([f387c10](http://github.com/jcgay/maven-notifier/commit/f387c10e23cec61849ea060230ee09b8e066be6b))
     * Prevent dock icon creation on OS X ([f7ba636](http://github.com/jcgay/send-notification/commit/f7ba63631fe6e1c9f2bbad126164eeca1cf2d7b5)) 
 
-#1.8
+# 1.8
 ***
 
 - Fix Windows user configuration loading ([9e4f933](http://github.com/jcgay/maven-notifier/commit/9e4f933e05c9478ca5efac2e60ddb89a5552aaa5))
@@ -18,49 +26,49 @@
 - Default notifier implementation is chosen by send-notification ([a113649](http://github.com/jcgay/maven-notifier/commit/a113649dcf96e693b9fb14bc2143165572ef1097))
 - Can launch multiple build with Snarl ([da0b38e](http://github.com/jcgay/maven-notifier/commit/da0b38eb7db12654003de7d0efc011a7f965ba78))
 
-#1.7
+# 1.7
 ***
 
 - Use notifier 'none' to not send notifications ([23eb400](http://github.com/jcgay/maven-notifier/commit/23eb40006ad8637f65693e89c31e9ed35ba91366))
 - Log Growl errors in debug when used in auto discovery mode ([23eb400](http://github.com/jcgay/maven-notifier/commit/23eb40006ad8637f65693e89c31e9ed35ba91366))
 
-#1.6
+# 1.6
 ***
 
 - Always send notification when notifier is persistent ([d3a3d08](http://github.com/jcgay/maven-notifier/commit/d3a3d081401c862491c23aeb6108e1637bbb45de))
 - Replace '...' by 'Build Failed' for short notification messages ([30310ae](http://github.com/jcgay/maven-notifier/commit/30310ae092f0d5313129ac57f8e6e41a18237e73))
 - Can use multiple notifiers at once ([f8e0f90](http://github.com/jcgay/maven-notifier/commit/f8e0f90ae2d3a694a5cdeb4d6ef2fb541f3cb8e8))
 
-#1.5
+# 1.5
 ***
 
 - Smarter default notifier ([cab405b](http://github.com/jcgay/maven-notifier/commit/cab405b6071dee5df41168d4e0f2388f32ec9970))
 
-#1.4
+# 1.4
 ***
 
 - Add Toaster notifier ([97b395b](http://github.com/jcgay/maven-notifier/commit/97b395b1dd94c894e26c79ce5f8e0f3593436aac))
 - Add notification center (with AppleScript) notifier ([97b395b](http://github.com/jcgay/maven-notifier/commit/97b395b1dd94c894e26c79ce5f8e0f3593436aac))
 - Notification center (with terminal-notifier) now uses application icon ([97b395b](http://github.com/jcgay/maven-notifier/commit/97b395b1dd94c894e26c79ce5f8e0f3593436aac))
 
-#1.3
+# 1.3
 ***
 
 - Can pass configuration using system properties [view](http://github.com/jcgay/maven-notifier/commit/351c771187947ad995757e3211ffabfe25330156)
 - Add AnyBar (SomeBar) notifier [view](http://github.com/jcgay/maven-notifier/commit/f1bbee89aa878739d0374341ece3600470bec521)
 
-#1.2
+# 1.2
 ***
 
 - Configuration location is now ~/.m2/maven-notifier.properties [view](http://github.com/jcgay/maven-notifier/commit/86ba7057adf1f148107b25f7fc2e6a6567a97e57)
 - Compatibility with Maven 3.3.1 extension mechanism [view](http://github.com/jcgay/maven-notifier/commit/258d769c42e3531c0f45281c3ae6f8457595d922)
 
-#1.1
+# 1.1
 ***
 
 - No notification if build ends before configured threshold [Fixes #11] [view](http://github.com/jcgay/maven-notifier/commit/9b513b5)
 
-#1.0
+# 1.0
 ***
 
 - Use short description by default [view](http://github.com/jcgay/maven-notifier/commit/6be9df9bec4bfa043f60b5bd0df4154f22eda70c)  
@@ -70,17 +78,17 @@
 - Set notification level based on build status [view](http://github.com/jcgay/maven-notifier/commit/8690f63b7f16bd39fa7aa17689ef245563ccd22f)  
 - Can use -DnotifyWith when no configuration file is present [view](http://github.com/jcgay/maven-notifier/commit/eb9b1f0dbc81cd1ca2951b59db699b3b020c785f)  
 
-#0.11
+# 0.11
 ***
 
 - Maven 3.2.5 compatibility [Fixes #9] [view](http://github.com/jcgay/maven-notifier/commit/d2c17389117167b64154859ab7bf2b80895f9b24)
 
-#0.10
+# 0.10
 ***
 
 - Use [send-notification](https://github.com/jcgay/send-notification)
 
-#0.9
+# 0.9
 ***
 
 - Can override notifier implementation with system property [view](http://github.com/jcgay/maven-notifier/commit/9096f4472d6ea939e4fab28e5fc2f8f874cbd3ea)  
@@ -93,12 +101,12 @@
 - Add a Plexus Gntp listener to log Growl events [#6] [view](http://github.com/jcgay/maven-notifier/commit/fadc1eb4a793665e3b1d64052deb2d31a3123d1f)  
 - Send notification when build fails with error [Fixes #5] [view](http://github.com/jcgay/maven-notifier/commit/25dc1055d905ffe409a7401cdfe0a9ae6f5e2cc3)    
 
-#0.8.1
+# 0.8.1
 ***
 
 - Do not fail when notification-center does not use sound [Fix #4] [view](http://github.com/jcgay/maven-notifier/commit/2e7c08adfe1edaabb1d5ef6c8f79d3779dc816d9)  
 
-#0.8
+# 0.8
 ***
 
 - Add icon for notification center. [view](http://github.com/jcgay/maven-notifier/commit/91dcab8678b3cab6d19635a3b564a8b432b2282c)  
