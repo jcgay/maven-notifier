@@ -1,3 +1,8 @@
+# 1.10.1
+***
+
+- Get compatible with Guava 18 ([ac3de41](http://github.com/jcgay/maven-notifier/commit/ac3de41c0934c2398f519752caae842213a7df20))
+
 # 1.10.0
 ***
 
