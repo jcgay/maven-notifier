@@ -26,7 +26,7 @@ class AbstractCustomEventSpyTest {
 
             }
         }
-        stopwatch = new Stopwatch(new KnownElapsedTimeTicker(SECONDS.toNanos(2L)))
+        stopwatch = Stopwatch.createUnstarted(new KnownElapsedTimeTicker(SECONDS.toNanos(2L)))
         eventSpy.stopwatch = stopwatch
 
         configuration = new Configuration()
@@ -49,6 +49,6 @@ class AbstractCustomEventSpyTest {
         eventSpy.init({ Collections.emptyMap() })
         eventSpy.onEvent(new DefaultMavenExecutionResult())
 
-        assertThat stopwatch.elapsedTime(SECONDS) isEqualTo 2L
+        assertThat stopwatch.elapsed(SECONDS) isEqualTo 2L
     }
 }

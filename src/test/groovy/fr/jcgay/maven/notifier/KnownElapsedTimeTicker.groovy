@@ -19,7 +19,7 @@ class KnownElapsedTimeTicker extends Ticker {
     }
 
     static Stopwatch aStartedStopwatchWithElapsedTime(long elapsedTimeNano) {
-        new Stopwatch(new KnownElapsedTimeTicker(elapsedTimeNano)).start()
+        Stopwatch.createStarted(new KnownElapsedTimeTicker(elapsedTimeNano))
     }
 
     @Override

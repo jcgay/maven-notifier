@@ -1,6 +1,6 @@
 package fr.jcgay.maven.notifier;
 
-import com.google.common.base.Objects;
+import com.google.common.base.MoreObjects;
 
 import java.util.Properties;
 
@@ -45,7 +45,7 @@ public class Configuration {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this)
+        return MoreObjects.toStringHelper(this)
             .add("implementation", implementation)
             .add("shortDescription", shortDescription)
             .add("threshold", threshold)

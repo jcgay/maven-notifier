@@ -64,7 +64,7 @@ class AbstractCustomEventSpyThresholdTest {
     }
 
     private void build_will_last(Long time) {
-        def stopwatch = new Stopwatch(new KnownElapsedTimeTicker(time))
+        def stopwatch = Stopwatch.createUnstarted(new KnownElapsedTimeTicker(time))
         spy.stopwatch = stopwatch
     }
 
