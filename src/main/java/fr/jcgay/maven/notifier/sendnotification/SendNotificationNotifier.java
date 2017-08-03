@@ -125,6 +125,7 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
 
     private String buildFullDescription(MavenExecutionResult result) {
         StringBuilder builder = new StringBuilder();
+        builder.append("'");
         for (MavenProject project : result.getTopologicallySortedProjects()) {
             BuildSummary buildSummary = result.getBuildSummary(project);
             Status status = Status.of(buildSummary);
@@ -138,6 +139,7 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
             }
             builder.append(LINE_BREAK);
         }
+        builder.append("'");
         return builder.toString();
     }
 

@@ -76,7 +76,7 @@ class SendNotificationNotifierTest {
 
         verify(notifier).send(notification.capture())
         assertThat notification.value.title() isEqualTo 'project-multimodule [3s]'
-        assertThat notification.value.message() isEqualTo String.format('module-1: Success [1s] %nmodule-2: Success [2s] %n')
+        assertThat notification.value.message() isEqualTo String.format("'module-1: Success [1s] %nmodule-2: Success [2s] %n'")
     }
 
     @Test

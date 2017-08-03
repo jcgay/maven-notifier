@@ -174,33 +174,4 @@
         </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>build-with-jdk-6</id>
-            <activation>
-                <jdk>[1.7,)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-toolchains-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>toolchain</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <toolchains>
-                                <jdk>
-                                    <version>1.6</version>
-                                </jdk>
-                            </toolchains>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
