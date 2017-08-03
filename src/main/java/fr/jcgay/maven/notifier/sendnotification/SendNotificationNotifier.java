@@ -117,15 +117,19 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
     }
 
     protected String buildNotificationMessage(MavenExecutionResult result) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("'");
         if (shouldBuildShortDescription(result)) {
-            return buildShortDescription(result);
+            builder.append(buildShortDescription(result));
+        } else {
+            builder.append(buildFullDescription(result));
         }
-        return buildFullDescription(result);
+        builder.append("'");
+        return builder.toString();
     }
 
     private String buildFullDescription(MavenExecutionResult result) {
         StringBuilder builder = new StringBuilder();
-        builder.append("'");
         for (MavenProject project : result.getTopologicallySortedProjects()) {
             BuildSummary buildSummary = result.getBuildSummary(project);
             Status status = Status.of(buildSummary);
@@ -133,20 +137,19 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
             builder.append(": ");
             builder.append(status.message());
             if (status != Status.SKIPPED) {
-                builder.append(" [");
+                builder.append(" ");
                 builder.append(TimeUnit.MILLISECONDS.toSeconds(buildSummary.getTime()));
-                builder.append("s] ");
+                builder.append("s ");
             }
             builder.append(LINE_BREAK);
         }
-        builder.append("'");
         return builder.toString();
     }
 
     private String buildShortDescription(MavenExecutionResult result) {
         switch (getBuildStatus(result)) {
             case SUCCESS:
-                return "Built in: " + elapsedTime() + " second(s).";
+                return "Built in: " + elapsedTime() + " seconds.";
             case FAILURE:
                 return "Build Failed.";
             default:
@@ -170,7 +173,7 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
     }
 
     private String buildFullTitle(MavenExecutionResult result) {
-        return result.getProject().getName() + " [" + elapsedTime() + "s]";
+        return result.getProject().getName() + " ... " + elapsedTime() + "s";
     }
 
     private String buildShortTitle(MavenExecutionResult result) {

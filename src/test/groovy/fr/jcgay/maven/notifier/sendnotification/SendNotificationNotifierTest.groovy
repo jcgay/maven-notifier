@@ -64,7 +64,7 @@ class SendNotificationNotifierTest {
         underTest.onEvent(anEvent('title'))
 
         verify(notifier).send(notification.capture())
-        assertThat notification.value.title() isEqualTo 'title [2s]'
+        assertThat notification.value.title() isEqualTo 'title ... 2s'
     }
 
     @Test
@@ -75,8 +75,8 @@ class SendNotificationNotifierTest {
                 aModule('module-1', SECONDS.toMillis(1L)), aModule('module-2', SECONDS.toMillis(2L))))
 
         verify(notifier).send(notification.capture())
-        assertThat notification.value.title() isEqualTo 'project-multimodule [3s]'
-        assertThat notification.value.message() isEqualTo String.format("'module-1: Success [1s] %nmodule-2: Success [2s] %n'")
+        assertThat notification.value.title() isEqualTo 'project-multimodule ... 3s'
+        assertThat notification.value.message() isEqualTo String.format("'module-1: Success 1s %nmodule-2: Success 2s %n'")
     }
 
     @Test
@@ -87,7 +87,7 @@ class SendNotificationNotifierTest {
 
         verify(notifier).send(notification.capture())
         assertThat notification.value.title() isEqualTo 'title'
-        assertThat notification.value.message() isEqualTo 'Built in: 1 second(s).'
+        assertThat notification.value.message() isEqualTo "'Built in: 1 seconds.'"
     }
 
     @Test
@@ -98,7 +98,7 @@ class SendNotificationNotifierTest {
 
         verify(notifier).send(notification.capture())
         assertThat notification.value.title() isEqualTo 'project'
-        assertThat notification.value.message() isEqualTo 'Build Failed.'
+        assertThat notification.value.message() isEqualTo "'Build Failed.'"
     }
 
     @Test
@@ -110,7 +110,7 @@ class SendNotificationNotifierTest {
 
         verify(notifier).send(notification.capture())
         assertThat notification.value.title() isEqualTo 'title'
-        assertThat notification.value.message() isEqualTo 'Built in: 1 second(s).'
+        assertThat notification.value.message() isEqualTo "'Built in: 1 seconds.'"
     }
 
     @Test
