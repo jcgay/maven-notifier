@@ -25,6 +25,9 @@ public class NotificationEventSpyChooser extends AbstractEventSpy {
 
     @Override
     public void init(Context context) throws Exception {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Using maven-notifier " + Version.current().get());
+        }
         chooseNotifier();
         activeNotifier.init(context);
     }
