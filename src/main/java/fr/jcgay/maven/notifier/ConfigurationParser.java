@@ -159,21 +159,12 @@ public class ConfigurationParser {
         public ConfiguredProperties load(URL... urls) {
             for (URL url : urls) {
                 if (url != null) {
-                    InputStream in = null;
-                    try {
-                        in = url.openStream();
+                    try (InputStream in = url.openStream()) {
                         properties.load(in);
                         logger.debug("Properties after loading [" + url + "]: " + properties);
                     } catch (IOException e) {
                         // cannot read configuration file (which is not mandatory)
                         logger.debug("Can't read file at [" + url + "]. Skipping it...", e);
-                    } finally {
-                        if (in != null) {
-                            try {
-                                in.close();
-                            } catch (IOException ignored) {
-                            }
-                        }
                     }
                 }
             }

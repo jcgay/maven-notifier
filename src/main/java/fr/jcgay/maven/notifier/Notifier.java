@@ -33,7 +33,7 @@ public interface Notifier {
     void close();
 
     /**
-     * Notifies the notifier of a build ends with error without information about the build. <br />
+     * Notifies the notifier of a build ends with error without information about the build. <br>
      * This is for example, a malformed {@code pom.xml} which breaks everything.
      * @param exceptions errors that happened
      */

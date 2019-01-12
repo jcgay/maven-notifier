@@ -45,9 +45,7 @@ public class SoundNotifier extends AbstractCustomEventSpy {
             clip.addLineListener(listener);
             clip.open(ais);
             playAndWait(clip, listener);
-        } catch (LineUnavailableException e) {
-            fail(e);
-        } catch (IOException e) {
+        } catch (LineUnavailableException | IOException e) {
             fail(e);
         } finally {
             IOUtil.close(ais);
@@ -72,9 +70,7 @@ public class SoundNotifier extends AbstractCustomEventSpy {
     private AudioInputStream getAudioStream(Status success) {
         try {
             return AudioSystem.getAudioInputStream(getUrl(success));
-        } catch (UnsupportedAudioFileException e) {
-            return noAudioStream(e);
-        } catch (IOException e) {
+        } catch (UnsupportedAudioFileException | IOException e) {
             return noAudioStream(e);
         }
     }
