@@ -7,13 +7,12 @@ addons:
       secure: "MLW7muRsJiF3Cwrqa/UFeKwNJzSd8g0WVZ30d6Yyy2egkbTiZ2M9U7/WfXQwV1Fd4lMjEOXFyrRcH3cBla4dMRG9JQLGEsBr1FGRJZZ3JiA01hTEWu9bD9vZM0pIj0X8psLZ+NoepzPWrhgMR+AUwrOSaKK95qx2ncEgWq3lAO4="
 before_install:
   - jdk_switcher use oraclejdk8
-install:
-  - mvn install -DskipTests=true -B -V
+install: true
 script:
-  - mvn package sonar:sonar -Prun-coverage -B
+  - mvn verify sonar:sonar -Prun-coverage -B
 after_success:
+  - mvn coveralls:report
   - "[[ ${TRAVIS_PULL_REQUEST} == 'false' ]] && [[ ${TRAVIS_TAG} == '' ]] && mvn deploy -DskipTests --settings etc/deploy-settings.xml"
-  - mvn verify coveralls:report -Prun-coverage
 cache:
   directories:
     - '$HOME/.m2/repository'
