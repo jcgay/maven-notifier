@@ -1,3 +1,16 @@
+# 2.0.0
+***
+
+- Use send-notification 0.15.1 ([f1c6968](http://github.com/jcgay/maven-notifier/commit/f1c69685e95b927c5eaa16295d73445717a5b427))
+  * Log a warning when a configured notifier is not valid ([4e227b4](http://github.com/jcgay/send-notification/commit/4e227b440cd1c87518b35a41400892580e3afcb2))
+  * Do not set a default app activation for terminal-notifier ([61f142f](http://github.com/jcgay/send-notification/commit/61f142f0940542117a3494e034bb723797337faf))
+  * Use jPowerShell 3.0.4 [Fixes [#10](https://github.com/jcgay/send-notification/issues/10)] ([b67f9bd](http://github.com/jcgay/send-notification/commit/b67f9bda4e8290468328ab10b97fc3c5a1b1c37b))
+  * Removed no longer existing parameter for BurntNotificationToast '-AppId' [Fixes [#11](https://github.com/jcgay/send-notification/issues/11)] ([89c84e3](http://github.com/jcgay/send-notification/commit/89c84e3f0350c68163d8293c63134901df203d10))
+- Set timeout when building send-notifier Application ([19f8521](http://github.com/jcgay/maven-notifier/commit/19f852161154627a82f42293e0d0df329cc641e1))
+- Migrate to Java 8 ([6ca062f](http://github.com/jcgay/maven-notifier/commit/6ca062fc6018e0d67368a2fcd44900ae63f3289f))
+- Log current maven-notifier version in DEBUG ([961ca93](http://github.com/jcgay/maven-notifier/commit/961ca9354c0b2c775d682370da327952c62ce907))
+- Add a docker image with notify-send ([cebffa0](http://github.com/jcgay/maven-notifier/commit/cebffa03b90786e583edc6dc4a954ed83408355e))
+
 # 1.10.1
 ***
 
