@@ -114,26 +114,6 @@ class SendNotificationNotifierTest {
     }
 
     @Test
-    void 'should configure send-notification'() {
-        def sendNotification = mock(SendNotification)
-        when sendNotification.setApplication(isA(Application)) thenReturn sendNotification
-        when sendNotification.addConfigurationProperties(isA(Properties)) thenReturn sendNotification
-
-        def notificationNotifier = new SendNotificationNotifier(sendNotification)
-        notificationNotifier.setConfiguration(new ConfigurationParser(mock(Logger)));
-        notificationNotifier.initNotifier()
-
-        verify(sendNotification).setApplication(
-                Application.builder(
-                        "application/x-vnd-apache.maven",
-                        "Maven",
-                        Icon.create(resource("maven.png"), "maven"))
-                        .build())
-        verify(sendNotification).addConfigurationProperties(isA(Properties))
-        verify(sendNotification).initNotifier()
-    }
-
-    @Test
     void 'should use notifier when implementation is not sound'() {
         configuration.setImplementation("growl")
 
@@ -180,7 +160,7 @@ class SendNotificationNotifierTest {
     }
 
     @Test
-    public void 'should always send notification when notifier is persistent even if threshold is passed'() {
+    void 'should always send notification when notifier is persistent even if threshold is passed'() {
         underTest.stopwatch = aStartedStopwatchWithElapsedTime(SECONDS.toNanos(1L))
         configuration.setThreshold(10)
         when(notifier.isPersistent()).thenReturn(true)
@@ -191,7 +171,7 @@ class SendNotificationNotifierTest {
     }
 
     @Test
-    public void 'should not send notification when notifier is not persistent and threshold is passed'() {
+    void 'should not send notification when notifier is not persistent and threshold is passed'() {
         underTest.stopwatch = aStartedStopwatchWithElapsedTime(SECONDS.toNanos(1L))
         configuration.setThreshold(10)
         when(notifier.isPersistent()).thenReturn(false)

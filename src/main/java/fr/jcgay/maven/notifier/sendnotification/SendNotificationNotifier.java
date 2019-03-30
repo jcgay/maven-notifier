@@ -26,7 +26,6 @@ import static fr.jcgay.notification.Notification.Level.WARNING;
 public class SendNotificationNotifier extends AbstractCustomEventSpy {
 
     private static final Icon ICON = Icon.create(resource("maven.png"), "maven");
-    private static final Application MAVEN = Application.builder("application/x-vnd-apache.maven", "Maven", ICON).build();
     private static final String LINE_BREAK = System.getProperty("line.separator");
 
     private SendNotification sendNotification;
@@ -50,7 +49,7 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
     protected void initNotifier() {
         if (this.notifier == null) {
             this.notifier = sendNotification
-                .setApplication(MAVEN)
+                .setApplication(Application.builder("application/x-vnd-apache.maven", "Maven", ICON).timeout(configuration.getTimeout()).build())
                 .addConfigurationProperties(configuration.getNotifierProperties())
                 .initNotifier();
         }

@@ -10,6 +10,7 @@ public class Configuration {
     private boolean shortDescription;
     private int threshold;
     private Properties notifierProperties;
+    private int timeout;
 
     public void setImplementation(String implementation) {
         this.implementation = implementation;
@@ -33,6 +34,14 @@ public class Configuration {
 
     public void setThreshold(int threshold) {
         this.threshold = threshold;
+    }
+
+    public int getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
     }
 
     public void setNotifierProperties(Properties notifierProperties) {

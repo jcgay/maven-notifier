@@ -16,6 +16,7 @@ import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationPropertie
 import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.NOTIFY_WITH;
 import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.SHORT_DESCRIPTION;
 import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.THRESHOLD;
+import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.TIMEOUT;
 import static java.lang.Boolean.parseBoolean;
 
 @Component(role = ConfigurationParser.class, hint = "maven-notifier-configuration")
@@ -76,6 +77,7 @@ public class ConfigurationParser {
         configuration.setImplementation(properties.get(IMPLEMENTATION));
         configuration.setShortDescription(parseBoolean(properties.get(SHORT_DESCRIPTION)));
         configuration.setThreshold(Integer.valueOf(properties.get(THRESHOLD)));
+        configuration.setTimeout(Integer.valueOf(properties.get(TIMEOUT)));
         configuration.setNotifierProperties(properties.all());
         return configuration;
     }
@@ -105,7 +107,8 @@ public class ConfigurationParser {
             IMPLEMENTATION("notifier.implementation"),
             SHORT_DESCRIPTION("notifier.message.short", "true"),
             NOTIFY_WITH("notifyWith"),
-            THRESHOLD("notifier.threshold", "-1");
+            THRESHOLD("notifier.threshold", "-1"),
+            TIMEOUT("notifier.timeout", "-1");
 
             private final String key;
             private String defaultValue;
