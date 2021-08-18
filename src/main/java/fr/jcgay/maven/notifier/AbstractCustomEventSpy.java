@@ -36,7 +36,7 @@ public abstract class AbstractCustomEventSpy implements Notifier {
 
     @Override
     public void close() {
-        // do nothing
+        stopwatch.reset();
     }
 
     @Override

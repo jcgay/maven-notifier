@@ -44,11 +44,22 @@ class AbstractCustomEventSpyTest {
     }
 
     @Test
-    void 'should stop timer when closing event spy'() throws Exception {
+    void 'should stop timer when listening to an event'() throws Exception {
 
         eventSpy.init({ Collections.emptyMap() })
         eventSpy.onEvent(new DefaultMavenExecutionResult())
 
+        assertThat stopwatch.isRunning() isFalse()
         assertThat stopwatch.elapsed(SECONDS) isEqualTo 2L
+    }
+
+    @Test
+    void 'should reset time when closing event spy'() {
+
+        eventSpy.init({ Collections.emptyMap() })
+        eventSpy.close()
+
+        assertThat stopwatch.isRunning() isFalse()
+        assertThat stopwatch.elapsed(SECONDS) isEqualTo 0L
     }
 }
