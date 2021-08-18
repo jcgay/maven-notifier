@@ -13,12 +13,12 @@ A status notification will be send at the end of a Maven build.
 ├── boot
 ├── conf
 └── lib
-``` 
+```
 
 ### OS X ?
 
-You can install a pre-packaged maven named [maven-deluxe](https://github.com/jcgay/homebrew-jcgay#maven-deluxe) using `brew`.  
-It comes with [maven-color](https://github.com/jcgay/maven-color), [maven-notifier](https://github.com/jcgay/maven-notifier) and [maven-profiler](https://github.com/jcgay/maven-profiler).  
+You can install a pre-packaged maven named [maven-deluxe](https://github.com/jcgay/homebrew-jcgay#maven-deluxe) using `brew`.
+It comes with [maven-color](https://github.com/jcgay/maven-color), [maven-notifier](https://github.com/jcgay/maven-notifier) and [maven-profiler](https://github.com/jcgay/maven-profiler).
 It is based on latest maven release.
 
     brew tap jcgay/jcgay
@@ -83,7 +83,7 @@ Play a success or failure sound when build ends.
 Go to [Wiki](https://github.com/jcgay/maven-notifier/wiki) to read full configuration guide for each notifier.
 
 # Build status
-[![Build Status](https://travis-ci.org/jcgay/maven-notifier.svg?branch=master)](https://travis-ci.org/jcgay/maven-notifier)
+[![Build Status](https://github.com/jcgay/maven-notifier/actions/workflows/maven.yml/badge.svg)](https://github.com/jcgay/maven-notifier/actions/workflows/maven.yml)
 [![Coverage Status](https://coveralls.io/repos/jcgay/maven-notifier/badge.svg?branch=master)](https://coveralls.io/r/jcgay/maven-notifier?branch=master)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=fr.jcgay.maven%3Amaven-notifier&metric=alert_status)](https://sonarcloud.io/dashboard?id=fr.jcgay.maven%3Amaven-notifier)
 [![Technical debt ratio](https://sonarcloud.io/api/project_badges/measure?project=fr.jcgay.maven%3Amaven-notifier&metric=sqale_index)](https://sonarcloud.io/dashboard?id=fr.jcgay.maven%3Amaven-notifier)
