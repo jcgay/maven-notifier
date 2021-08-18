@@ -3,6 +3,7 @@ package fr.jcgay.maven.notifier.sendnotification;
 import com.google.common.annotations.VisibleForTesting;
 import fr.jcgay.maven.notifier.AbstractCustomEventSpy;
 import fr.jcgay.maven.notifier.Configuration;
+import fr.jcgay.maven.notifier.Mvnd;
 import fr.jcgay.maven.notifier.Notifier;
 import fr.jcgay.maven.notifier.Status;
 import fr.jcgay.notification.Application;
@@ -28,21 +29,20 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
     private static final Icon ICON = Icon.create(resource("maven.png"), "maven");
     private static final String LINE_BREAK = System.getProperty("line.separator");
 
+    private final boolean isDaemon;
+
     private SendNotification sendNotification;
     private fr.jcgay.notification.Notifier notifier;
 
     public SendNotificationNotifier() {
         this.sendNotification = new SendNotification();
+        this.isDaemon = Mvnd.isRunningWithMvnd();
     }
 
     @VisibleForTesting
-    SendNotificationNotifier(SendNotification sendNotification) {
-        this.sendNotification = sendNotification;
-    }
-
-    @VisibleForTesting
-    SendNotificationNotifier(fr.jcgay.notification.Notifier notifier) {
+    SendNotificationNotifier(fr.jcgay.notification.Notifier notifier, boolean isDaemon) {
         this.notifier = notifier;
+        this.isDaemon = isDaemon;
     }
 
     @Override
@@ -58,7 +58,9 @@ public class SendNotificationNotifier extends AbstractCustomEventSpy {
     @Override
     public void close() {
         super.close();
-        notifier.close();
+        if (!isDaemon) {
+            notifier.close();
+        }
     }
 
     @Override

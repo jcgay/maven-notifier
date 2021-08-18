@@ -1,11 +1,10 @@
 package fr.jcgay.maven.notifier.sendnotification
+
 import fr.jcgay.maven.notifier.Configuration
 import fr.jcgay.maven.notifier.ConfigurationParser
-import fr.jcgay.notification.*
+import fr.jcgay.notification.Notification
+import fr.jcgay.notification.Notifier
 import groovy.transform.CompileStatic
-import org.apache.maven.execution.BuildSuccess
-import org.apache.maven.execution.MavenExecutionResult
-import org.apache.maven.project.MavenProject
 import org.codehaus.plexus.logging.Logger
 import org.mockito.ArgumentCaptor
 import org.mockito.Captor
@@ -13,13 +12,13 @@ import org.mockito.Mock
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
+import static fr.jcgay.maven.notifier.Fixtures.*
 import static fr.jcgay.maven.notifier.KnownElapsedTimeTicker.aStartedStopwatchWithElapsedTime
 import static fr.jcgay.notification.Notification.Level.ERROR
 import static fr.jcgay.notification.Notification.Level.INFO
 import static java.util.concurrent.TimeUnit.SECONDS
 import static org.assertj.core.api.Assertions.assertThat
-import static org.mockito.AdditionalAnswers.returnsElementsOf
-import static org.mockito.Matchers.isA
+import static org.mockito.ArgumentMatchers.any
 import static org.mockito.Mockito.*
 import static org.mockito.MockitoAnnotations.initMocks
 
@@ -45,7 +44,7 @@ class SendNotificationNotifierTest {
         def parser = mock ConfigurationParser
         when parser.get() thenReturn configuration
 
-        underTest = new SendNotificationNotifier(notifier)
+        underTest = new SendNotificationNotifier(notifier, false)
         underTest.configuration = parser
         underTest.logger = mock(Logger)
     }
@@ -179,64 +178,5 @@ class SendNotificationNotifierTest {
         underTest.onEvent(aSuccessfulProject())
 
         verify(notifier, never()).send(any(Notification.class))
-    }
-
-    private static MavenExecutionResult aSuccessfulProject() {
-        def project = aProjectWithOneModule('project')
-        when project.hasExceptions() thenReturn false
-        project
-    }
-
-    private static MavenExecutionResult aFailingProject() {
-        def project = aProjectWithOneModule('project')
-        when project.hasExceptions() thenReturn true
-        project
-    }
-
-    private static MavenExecutionResult aProjectWithMultipleModule(String projectName) {
-        def result = anEvent(projectName)
-        when result.getTopologicallySortedProjects().size() thenReturn 4
-        result
-    }
-
-    private static MavenExecutionResult aProjectWithMultipleModule(String projectName, Project... projects) {
-        def result = anEvent(projectName)
-        when result.getTopologicallySortedProjects() thenReturn projects.collect { Project project -> mavenProject(project.name) }
-        when result.getBuildSummary(isA(MavenProject)) thenAnswer returnsElementsOf(projects.collect { Project project -> new BuildSuccess(mavenProject(project.name), project.time) })
-        result
-    }
-
-    private static MavenExecutionResult aProjectWithOneModule(String projectName) {
-        def result = anEvent(projectName)
-        when result.getTopologicallySortedProjects().size() thenReturn 1
-        result
-    }
-
-    private static MavenExecutionResult anEvent(String projectName) {
-        def result = mock(MavenExecutionResult, RETURNS_DEEP_STUBS)
-        when result.project.name thenReturn projectName
-        result
-    }
-
-    private static URL resource(String resource) {
-        Thread.currentThread().getContextClassLoader().getResource(resource)
-    }
-
-    private static Project aModule(String name, long time) {
-        def project = new Project()
-        project.name = name
-        project.time = time
-        project
-    }
-
-    private static MavenProject mavenProject(String name) {
-        def project = new MavenProject()
-        project.name = name
-        project
-    }
-
-    private static class Project {
-        String name
-        long time
     }
 }
