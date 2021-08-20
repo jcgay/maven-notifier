@@ -9,7 +9,7 @@ public enum UselessNotifier implements Notifier {
     EMPTY;
 
     @Override
-    public boolean shouldNotify() {
+    public boolean isCandidateFor(String desiredImplementation) {
         return false;
     }
 

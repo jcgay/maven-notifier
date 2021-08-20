@@ -11,8 +11,9 @@ public interface Notifier {
      * Indicate if the notifier is an implementation for the provided parameter.
      *
      * @return {@code true} if the notifier should be used to notify the build status.
+     * @param desiredImplementation
      */
-    boolean shouldNotify();
+    boolean isCandidateFor(String desiredImplementation);
 
     /**
      * Initializes the spy.

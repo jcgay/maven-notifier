@@ -1,7 +1,6 @@
 package fr.jcgay.maven.notifier.sendnotification
 
 import fr.jcgay.maven.notifier.Configuration
-import fr.jcgay.maven.notifier.ConfigurationParser
 import fr.jcgay.notification.Notification
 import fr.jcgay.notification.Notifier
 import groovy.transform.CompileStatic
@@ -41,12 +40,9 @@ class SendNotificationNotifierTest {
 
         configuration = new Configuration()
 
-        def parser = mock ConfigurationParser
-        when parser.get() thenReturn configuration
-
-        underTest = new SendNotificationNotifier(notifier, false)
-        underTest.configuration = parser
+        underTest = new SendNotificationNotifier(notifier)
         underTest.logger = mock(Logger)
+        underTest.init(skipSendNotificationInit(configuration))
     }
 
     @Test
@@ -114,16 +110,12 @@ class SendNotificationNotifierTest {
 
     @Test
     void 'should use notifier when implementation is not sound'() {
-        configuration.setImplementation("growl")
-
-        assertThat underTest.shouldNotify() isTrue()
+        assertThat underTest.isCandidateFor('growl') isTrue()
     }
 
     @Test
     void 'should not use notifier when implementation is sound'() {
-        configuration.setImplementation("sound")
-
-        assertThat underTest.shouldNotify() isFalse()
+        assertThat underTest.isCandidateFor('sound') isFalse()
     }
 
     @Test
