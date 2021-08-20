@@ -1,5 +1,6 @@
 package fr.jcgay.maven.notifier
 
+import org.apache.maven.eventspy.EventSpy
 import org.apache.maven.execution.BuildSuccess
 import org.apache.maven.execution.MavenExecutionResult
 import org.apache.maven.project.MavenProject
@@ -62,6 +63,19 @@ class Fixtures {
         def project = new MavenProject()
         project.name = name
         project
+    }
+
+    static EventSpy.Context skipSendNotificationInit() {
+        skipSendNotificationInit(new Configuration())
+    }
+
+    static EventSpy.Context skipSendNotificationInit(Configuration configuration) {
+        new EventSpy.Context() {
+            @Override
+            Map<String, Object> getData() {
+                return ["notifier.skip.init": true as Object, "notifier.configuration": configuration]
+            }
+        }
     }
 
     static class Project {

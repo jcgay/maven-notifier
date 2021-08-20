@@ -10,10 +10,11 @@ import java.util.List;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-public abstract class AbstractCustomEventSpy implements Notifier {
+public abstract class AbstractNotifier implements Notifier {
 
     protected Logger logger;
     protected Configuration configuration;
+
     private Stopwatch stopwatch = Stopwatch.createUnstarted();
 
     protected abstract void fireNotification(MavenExecutionResult event);
@@ -21,7 +22,10 @@ public abstract class AbstractCustomEventSpy implements Notifier {
     @Override
     public final void init(EventSpy.Context context) {
         stopwatch.start();
-        initNotifier();
+        configuration = (Configuration) context.getData().get("notifier.configuration");
+        if (!context.getData().containsKey("notifier.skip.init")) {
+            initNotifier();
+        }
     }
 
     @Override
@@ -35,8 +39,9 @@ public abstract class AbstractCustomEventSpy implements Notifier {
     }
 
     @Override
-    public void close() {
+    public final void close() {
         stopwatch.reset();
+        closeNotifier();
     }
 
     @Override
@@ -45,13 +50,8 @@ public abstract class AbstractCustomEventSpy implements Notifier {
     }
 
     @Override
-    public boolean shouldNotify() {
-        return getClass().getName().contains(configuration.getImplementation());
-    }
-
-    @Requirement
-    public void setConfiguration(ConfigurationParser configuration) {
-        this.configuration = configuration.get();
+    public boolean isCandidateFor(String desiredImplementation) {
+        return getClass().getName().contains(desiredImplementation);
     }
 
     @Requirement
@@ -64,6 +64,10 @@ public abstract class AbstractCustomEventSpy implements Notifier {
     }
 
     protected void initNotifier() {
+        // do nothing
+    }
+
+    protected void closeNotifier() {
         // do nothing
     }
 

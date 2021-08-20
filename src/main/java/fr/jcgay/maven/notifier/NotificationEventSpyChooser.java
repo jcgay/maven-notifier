@@ -21,6 +21,9 @@ public class NotificationEventSpyChooser extends AbstractEventSpy {
     @Requirement
     private List<Notifier> availableNotifiers;
 
+    @Requirement
+    private ConfigurationParser configurationParser;
+
     private Notifier activeNotifier;
 
     @Override
@@ -28,7 +31,10 @@ public class NotificationEventSpyChooser extends AbstractEventSpy {
         if (logger.isDebugEnabled()) {
             logger.debug("Using maven-notifier " + Version.current().get());
         }
-        chooseNotifier();
+        Configuration configuration = configurationParser.get();
+        context.getData().put("notifier.configuration", configuration);
+
+        chooseNotifier(configuration);
         activeNotifier.init(context);
     }
 
@@ -60,9 +66,9 @@ public class NotificationEventSpyChooser extends AbstractEventSpy {
         return event instanceof MavenExecutionResult;
     }
 
-    private void chooseNotifier() {
+    private void chooseNotifier(Configuration configuration) {
         for (Notifier notifier : availableNotifiers) {
-            if (notifier.shouldNotify()) {
+            if (notifier.isCandidateFor(configuration.getImplementation())) {
                 activeNotifier = notifier;
                 logger.debug("Will notify build success/failure with: " + activeNotifier);
                 return;
@@ -77,5 +83,10 @@ public class NotificationEventSpyChooser extends AbstractEventSpy {
     @VisibleForTesting
     void setAvailableNotifiers(List<Notifier> availableNotifiers) {
         this.availableNotifiers = availableNotifiers;
+    }
+
+    @VisibleForTesting
+    void setConfigurationParser(ConfigurationParser configurationParser) {
+        this.configurationParser = configurationParser;
     }
 }

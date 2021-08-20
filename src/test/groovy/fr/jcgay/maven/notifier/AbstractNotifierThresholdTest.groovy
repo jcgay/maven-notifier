@@ -9,14 +9,12 @@ import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
 import static fr.jcgay.maven.notifier.ConfigurationParser.ConfigurationProperties.Property.THRESHOLD
+import static fr.jcgay.maven.notifier.Fixtures.skipSendNotificationInit
 import static java.util.concurrent.TimeUnit.SECONDS
-import static org.mockito.Mockito.mock
-import static org.mockito.Mockito.verify
-import static org.mockito.Mockito.verifyZeroInteractions
-import static org.mockito.Mockito.when
+import static org.mockito.Mockito.*
 
 @CompileStatic
-class AbstractCustomEventSpyThresholdTest {
+class AbstractNotifierThresholdTest {
 
     private TestNotifier spy
     private DummyNotifier notifier
@@ -26,7 +24,7 @@ class AbstractCustomEventSpyThresholdTest {
     void init() throws Exception {
         notifier = mock(DummyNotifier)
         spy = new TestNotifier(notifier: notifier)
-        initConfiguration(spy)
+        configuration = new Configuration()
         spy.logger = mock(Logger)
     }
 
@@ -35,7 +33,7 @@ class AbstractCustomEventSpyThresholdTest {
         configuration.threshold = 10
         build_will_last(SECONDS.toNanos(2L))
 
-        spy.init({ Collections.emptyMap() })
+        spy.init(skipSendNotificationInit(configuration))
         spy.onEvent(new DefaultMavenExecutionResult())
 
         verifyZeroInteractions(notifier)
@@ -46,7 +44,7 @@ class AbstractCustomEventSpyThresholdTest {
         configuration.threshold = 1
         build_will_last(SECONDS.toNanos(2L))
 
-        spy.init({ Collections.emptyMap() })
+        spy.init(skipSendNotificationInit(configuration))
         spy.onEvent(new DefaultMavenExecutionResult())
 
         verify(notifier).send()
@@ -57,7 +55,7 @@ class AbstractCustomEventSpyThresholdTest {
         configuration.threshold = THRESHOLD.defaultValue() as int
         build_will_last(SECONDS.toNanos(2L))
 
-        spy.init({ Collections.emptyMap() })
+        spy.init(skipSendNotificationInit(configuration))
         spy.onEvent(new DefaultMavenExecutionResult())
 
         verify(notifier).send()
@@ -68,14 +66,7 @@ class AbstractCustomEventSpyThresholdTest {
         spy.stopwatch = stopwatch
     }
 
-    private void initConfiguration(TestNotifier notifier) {
-        configuration = new Configuration()
-        def parser = mock(ConfigurationParser)
-        when parser.get() thenReturn configuration
-        notifier.configuration = parser
-    }
-
-    static class TestNotifier extends AbstractCustomEventSpy {
+    static class TestNotifier extends AbstractNotifier {
         private DummyNotifier notifier
 
         @Override

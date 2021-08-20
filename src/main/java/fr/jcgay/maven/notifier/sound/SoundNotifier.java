@@ -1,6 +1,6 @@
 package fr.jcgay.maven.notifier.sound;
 
-import fr.jcgay.maven.notifier.AbstractCustomEventSpy;
+import fr.jcgay.maven.notifier.AbstractNotifier;
 import fr.jcgay.maven.notifier.Notifier;
 import fr.jcgay.maven.notifier.Status;
 import org.apache.maven.execution.MavenExecutionResult;
@@ -17,7 +17,7 @@ import java.io.InputStream;
 import java.util.List;
 
 @Component(role = Notifier.class, hint = "sound")
-public class SoundNotifier extends AbstractCustomEventSpy {
+public class SoundNotifier extends AbstractNotifier {
 
     @Override
     public void onFailWithoutProject(List<Throwable> exceptions) {

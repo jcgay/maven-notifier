@@ -1,9 +1,8 @@
 package fr.jcgay.maven.notifier.sendnotification;
 
 import com.google.common.annotations.VisibleForTesting;
-import fr.jcgay.maven.notifier.AbstractCustomEventSpy;
+import fr.jcgay.maven.notifier.AbstractNotifier;
 import fr.jcgay.maven.notifier.Configuration;
-import fr.jcgay.maven.notifier.Mvnd;
 import fr.jcgay.maven.notifier.Notifier;
 import fr.jcgay.maven.notifier.Status;
 import fr.jcgay.notification.Application;
@@ -24,48 +23,37 @@ import static fr.jcgay.notification.Notification.Level.INFO;
 import static fr.jcgay.notification.Notification.Level.WARNING;
 
 @Component(role = Notifier.class, hint = "send-notification")
-public class SendNotificationNotifier extends AbstractCustomEventSpy {
+public class SendNotificationNotifier extends AbstractNotifier {
 
     private static final Icon ICON = Icon.create(resource("maven.png"), "maven");
     private static final String LINE_BREAK = System.getProperty("line.separator");
 
-    private final boolean isDaemon;
-
-    private SendNotification sendNotification;
     private fr.jcgay.notification.Notifier notifier;
 
     public SendNotificationNotifier() {
-        this.sendNotification = new SendNotification();
-        this.isDaemon = Mvnd.isRunningWithMvnd();
     }
 
     @VisibleForTesting
-    SendNotificationNotifier(fr.jcgay.notification.Notifier notifier, boolean isDaemon) {
+    SendNotificationNotifier(fr.jcgay.notification.Notifier notifier) {
         this.notifier = notifier;
-        this.isDaemon = isDaemon;
     }
 
     @Override
     protected void initNotifier() {
-        if (this.notifier == null) {
-            this.notifier = sendNotification
-                .setApplication(Application.builder("application/x-vnd-apache.maven", "Maven", ICON).timeout(configuration.getTimeout()).build())
-                .addConfigurationProperties(configuration.getNotifierProperties())
-                .initNotifier();
-        }
+        this.notifier = new SendNotification()
+            .setApplication(Application.builder("application/x-vnd-apache.maven", "Maven", ICON).timeout(configuration.getTimeout()).build())
+            .addConfigurationProperties(configuration.getNotifierProperties())
+            .initNotifier();
     }
 
     @Override
-    public void close() {
-        super.close();
-        if (!isDaemon) {
-            notifier.close();
-        }
+    public void closeNotifier() {
+        notifier.close();
     }
 
     @Override
-    public boolean shouldNotify() {
-        return !"sound".equals(configuration.getImplementation());
+    public boolean isCandidateFor(String desiredImplementation) {
+        return !"sound".equals(desiredImplementation);
     }
 
     @Override
