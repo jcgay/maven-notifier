@@ -11,6 +11,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -77,6 +78,6 @@ public class SoundNotifier extends AbstractNotifier {
 
     private InputStream getUrl(Status status) {
         String sound = status == Status.SUCCESS ? "/109662__grunz__success.wav" : "/Sad_Trombone-Joe_Lamb-665429450.wav";
-        return getClass().getResourceAsStream(sound);
+        return new BufferedInputStream(getClass().getResourceAsStream(sound));
     }
 }
