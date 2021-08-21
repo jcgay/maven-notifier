@@ -5,7 +5,6 @@ import fr.jcgay.maven.notifier.Notifier;
 import fr.jcgay.maven.notifier.Status;
 import org.apache.maven.execution.MavenExecutionResult;
 import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.util.IOUtil;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -30,36 +29,32 @@ public class SoundNotifier extends AbstractNotifier {
     }
 
     private void playSound(Status status) {
-        AudioInputStream ais = getAudioStream(status);
-        if (ais == null) {
-            logger.warn("Cannot get a sound to play. Skipping notification...");
-            return;
+        try (AudioInputStream ais = getAudioStream(status)) {
+            if (ais == null) {
+                logger.warn("Cannot get a sound to play. Skipping notification...");
+                return;
+            }
+            play(ais);
+        } catch (IOException | LineUnavailableException e) {
+            fail(e);
         }
-        play(ais);
     }
 
-    private void play(AudioInputStream ais) {
-        try {
-            Clip clip = AudioSystem.getClip();
+    private void play(AudioInputStream ais) throws LineUnavailableException, IOException {
+        try (Clip clip = AudioSystem.getClip()) {
             EndListener listener = new EndListener();
             clip.addLineListener(listener);
             clip.open(ais);
-            playAndWait(clip, listener);
-        } catch (LineUnavailableException | IOException e) {
-            fail(e);
-        } finally {
-            IOUtil.close(ais);
+            clip.start();
+            wait(listener);
         }
     }
 
-    private void playAndWait(Clip clip, EndListener listener) {
+    private void wait(EndListener listener) {
         try {
-            clip.start();
             listener.waitEnd();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-        } finally {
-            clip.close();
         }
     }
 
