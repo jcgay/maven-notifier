@@ -24,7 +24,8 @@ release:
                   title: 'Bump'
                 - label: 'release'
                   title: '[maven-release-plugin]'
-                - label: 'issues'
+                - label: 'issue'
+                  title: '^Fix'
                   body: 'Fixes #'
             categories:
                 - title: 'Noise'

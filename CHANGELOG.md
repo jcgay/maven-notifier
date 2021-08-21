@@ -1,3 +1,9 @@
+# 2.1.2
+***
+
+- Fix sound not playing with SoundNotifier ([6b6b861](http://github.com/jcgay/maven-notifier/commit/6b6b8615376c94464a55360b8a9609e504b21c1d))
+- Reset all state in EventSpy#init to works with mvnd ([db9c057](http://github.com/jcgay/maven-notifier/commit/db9c057417db976efb1aed30d55a526db83dbf5c))
+
 # 2.1.1
 ***
 

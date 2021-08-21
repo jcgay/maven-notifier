@@ -26,7 +26,7 @@ It is based on latest maven release.
 
 ### Maven >= 3.3.x
 
-Get [maven-notifier](https://repo1.maven.org/maven2/fr/jcgay/maven/maven-notifier/2.1.1/maven-notifier-2.1.1.jar) and copy it in `%M2_HOME%/lib/ext` folder.
+Get [maven-notifier](https://repo1.maven.org/maven2/fr/jcgay/maven/maven-notifier/2.1.2/maven-notifier-2.1.2.jar) and copy it in `%M2_HOME%/lib/ext` folder.
 
 *or*
 
@@ -38,18 +38,18 @@ Use the [core extensions configuration mechanism](http://takari.io/2015/03/19/co
 	    <extension>
 	      <groupId>fr.jcgay.maven</groupId>
 	      <artifactId>maven-notifier</artifactId>
-	      <version>2.1.1</version>
+	      <version>2.1.2</version>
 	    </extension>
 	</extensions>
 ```
 
 ### Maven >= 3.1
 
-Get [maven-notifier](https://repo1.maven.org/maven2/fr/jcgay/maven/maven-notifier/2.1.1/maven-notifier-2.1.1.jar) and copy it in your `$M2_HOME/lib/ext` folder.
+Get [maven-notifier](https://repo1.maven.org/maven2/fr/jcgay/maven/maven-notifier/2.1.2/maven-notifier-2.1.2.jar) and copy it in your `$M2_HOME/lib/ext` folder.
 
 ### Maven < 3.1
 
-Get [maven-notifier](https://repo1.maven.org/maven2/fr/jcgay/maven/maven-notifier/2.1.1/maven-notifier-2.1.1.zip) and extract it in your `$M2_HOME/lib/ext` folder.
+Get [maven-notifier](https://repo1.maven.org/maven2/fr/jcgay/maven/maven-notifier/2.1.2/maven-notifier-2.1.2.zip) and extract it in your `$M2_HOME/lib/ext` folder.
 
 ## What's new ?
 
